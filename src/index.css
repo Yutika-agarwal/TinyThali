@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --color-turmeric: #f4b73f;
+  --color-turmeric-soft: #fde9b8;
+  --color-beet: #c2417a;
+  --color-beet-soft: #fbe3ee;
+  --color-spinach: #3f8f5b;
+  --color-spinach-soft: #dff1e5;
+  --color-cream: #fff8ea;
+  --color-ink: #2b2118;
+  --color-ink-soft: #6b5d4f;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-beet);
+  outline-offset: 2px;
+}
