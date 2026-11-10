@@ -4,6 +4,7 @@ import { BOOST_BY_ID } from "../data/boosts.ts";
 import { RECIPE_BY_ID } from "../data/recipes.ts";
 import { btn, Card, Chip, Notice, PageTitle } from "../components/ui.tsx";
 import { useApp } from "../state/AppState.tsx";
+import { useAuth } from "../state/AuthState.tsx";
 import type { Reaction } from "../types.ts";
 
 const REACTION_EMOJI: Record<Reaction, string> = { loved: "😍", ate_some: "🙂", not_this_time: "😅" };
@@ -28,6 +29,7 @@ function cookAgainLink(recipeId: string, boostIds: string[], postIds: string[]):
 
 export default function Saved() {
   const { saved, removeSaved, history } = useApp();
+  const { enabled, user } = useAuth();
   const [tab, setTab] = useState<"saved" | "history">("saved");
 
   return (
@@ -108,10 +110,14 @@ export default function Saved() {
         </div>
       )}
 
-      <Notice>
-        Saved recipes and history are stored on this device only for now. Email sign-in, so they follow you to any
-        phone, is on the roadmap.
-      </Notice>
+      {!enabled && <Notice>Saved recipes and history are stored on this device only.</Notice>}
+      {enabled && user && <Notice tone="good">Synced to your account, so they follow you to any device.</Notice>}
+      {enabled && !user && (
+        <Notice>
+          Stored on this device only.{" "}
+          <Link to="/login" className="font-extrabold text-beet underline">Sign in</Link> to keep them on every device.
+        </Notice>
+      )}
     </div>
   );
 }

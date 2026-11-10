@@ -125,7 +125,8 @@ export interface CommunityPost {
   allergensConfirmed: boolean;
   tasteNote?: string;
   authorName: string;
-  status: "pending" | "approved";
+  status: "pending" | "approved" | "rejected";
+  rejectReason?: string;
   sample?: boolean;
   createdAt?: string;
   helpful: number;

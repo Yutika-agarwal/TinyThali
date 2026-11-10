@@ -1,5 +1,6 @@
 import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
 import { useApp } from "../state/AppState.tsx";
+import { useAuth } from "../state/AuthState.tsx";
 import { cx } from "./ui.tsx";
 
 export const SAFETY_NOTE =
@@ -25,12 +26,18 @@ export function Wordmark() {
 
 export default function Layout() {
   const { onboarded } = useApp();
+  const { enabled, user, loading } = useAuth();
   if (!onboarded) return <Navigate to="/welcome" replace />;
 
   return (
     <div className="mx-auto min-h-dvh max-w-md px-4 pb-32 pt-4">
       <div className="mb-4 flex items-center justify-between">
         <Wordmark />
+        {enabled && !loading && !user && (
+          <Link to="/login" className="min-h-11 rounded-full px-4 py-2.5 text-sm font-extrabold text-beet ring-1 ring-beet">
+            Sign in
+          </Link>
+        )}
       </div>
       <main>
         <Outlet />

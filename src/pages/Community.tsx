@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RECIPES, RECIPE_BY_ID } from "../data/recipes.ts";
 import { AllergenChips, btn, Card, Chip, cx, Notice, PageTitle } from "../components/ui.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { checkPost } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
 import type { ReactionType } from "../state/AppState.tsx";
+import { useAuth } from "../state/AuthState.tsx";
 import type { CommunityPost, Reaction } from "../types.ts";
 
 const REACTION_TEXT: Record<Reaction, string> = {
@@ -33,7 +34,7 @@ function PostCard({
   onReport?: () => void;
 }) {
   const recipe = RECIPE_BY_ID[post.recipeId];
-  const pending = post.status === "pending";
+  const pending = post.status !== "approved";
 
   return (
     <Card className="space-y-2">
@@ -45,9 +46,14 @@ function PostCard({
           </p>
         </div>
         {pending && (
-          <span className="shrink-0 rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">Pending review</span>
+          <span className="shrink-0 rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">
+            {post.status === "rejected" ? "Not approved" : "Pending review"}
+          </span>
         )}
       </div>
+      {post.status === "rejected" && post.rejectReason && (
+        <p className="text-sm text-ink-soft">Reviewer note: {post.rejectReason}</p>
+      )}
 
       <p className="text-sm">
         <strong>{post.whatAdded}</strong>: {post.amount}
@@ -98,12 +104,22 @@ function PostCard({
 }
 
 export default function Community() {
-  const { posts, myPosts, activeKids, reactions, toggleReaction, reported, reportPost } = useApp();
+  const { posts, myPosts, activeKids, reactions, countFor, toggleReaction, reported, reportPost } = useApp();
+  const { enabled, user } = useAuth();
+  const navigate = useNavigate();
   const [recipeId, setRecipeId] = useState("");
   const [kidApprovedOnly, setKidApprovedOnly] = useState(false);
 
-  const count = (p: CommunityPost, type: ReactionType) =>
-    (type === "helpful" ? p.helpful : p.kidApproved) + (reactions[p.id]?.[type] ? 1 : 0);
+  const count = countFor;
+
+  /** With accounts on, reacting needs a sign-in (except on the sample tips). */
+  function react(post: CommunityPost, type: ReactionType) {
+    if (enabled && !user && !post.sample) {
+      navigate("/login");
+      return;
+    }
+    toggleReaction(post.id, type);
+  }
 
   const candidates = posts.filter((p) => !reported.includes(p.id));
   const safe = candidates.filter((p) => checkPost(p, activeKids).ok);
@@ -177,7 +193,7 @@ export default function Community() {
             helpful={count(p, "helpful")}
             kidApproved={count(p, "kidApproved")}
             reacted={reactions[p.id] ?? {}}
-            onReact={(type) => toggleReaction(p.id, type)}
+            onReact={(type) => react(p, type)}
             onReport={() => {
               if (window.confirm("Report this tip? It will be hidden for you.")) reportPost(p.id);
             }}

@@ -6,6 +6,7 @@ import { AGE_BANDS, ALLERGENS } from "../types.ts";
 import type { AgeBand, Allergen, Reaction } from "../types.ts";
 import { btn, Card, Chip, Notice, PageTitle } from "../components/ui.tsx";
 import { useApp } from "../state/AppState.tsx";
+import { useAuth } from "../state/AuthState.tsx";
 
 const DAILY_LIMIT = 5;
 const MEDICAL_CLAIM = /\b(cure[sd]?|cures|treat(s|ed|ment)?|prevent(s|ed|ion)?|heal(s|ed)?|detox(es)?|reverse[sd]?)\b/i;
@@ -20,6 +21,8 @@ const inputClass = "min-h-12 w-full rounded-2xl bg-white px-4 ring-1 ring-black/
 
 export default function ShareBoost() {
   const { addPost, myPosts, displayName } = useApp();
+  const { enabled, user, loading } = useAuth();
+  const [busy, setBusy] = useState(false);
   const [recipeId, setRecipeId] = useState(RECIPES[0].id);
   const [title, setTitle] = useState("");
   const [whatAdded, setWhatAdded] = useState("");
@@ -43,7 +46,7 @@ export default function ShareBoost() {
     setTags([]);
   }
 
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
     const today = new Date().toDateString();
     const postedToday = myPosts.filter((p) => p.createdAt && new Date(p.createdAt).toDateString() === today).length;
@@ -67,7 +70,8 @@ export default function ShareBoost() {
       return;
     }
 
-    addPost({
+    setBusy(true);
+    const failure = await addPost({
       recipeId,
       title: title.trim(),
       whatAdded: whatAdded.trim(),
@@ -80,8 +84,41 @@ export default function ShareBoost() {
       tasteNote: tasteNote.trim() || undefined,
       authorName: displayName.trim() || "A Tiny Thali parent",
     });
+    setBusy(false);
+    if (failure) {
+      setError(failure);
+      return;
+    }
     setError("");
     setSubmitted(true);
+  }
+
+  if (enabled && loading) return <p className="text-ink-soft">Checking your sign-in…</p>;
+
+  if (enabled && !user) {
+    return (
+      <Card className="space-y-3 text-center">
+        <p className="text-4xl" aria-hidden>✍️</p>
+        <h1 className="text-xl font-extrabold">Sign in to share a boost</h1>
+        <p className="text-sm text-ink-soft">
+          Signing in lets other parents know tips come from real accounts, and keeps spam out.
+        </p>
+        <Link to="/login" className={btn("primary")}>Sign in or create account</Link>
+      </Card>
+    );
+  }
+
+  if (enabled && user && !user.confirmed) {
+    return (
+      <Card className="space-y-3 text-center">
+        <p className="text-4xl" aria-hidden>📬</p>
+        <h1 className="text-xl font-extrabold">Please confirm your email first</h1>
+        <p className="text-sm text-ink-soft">
+          We sent a confirmation link to {user.email}. Tap it, then come back here to share your boost.
+        </p>
+        <Link to="/community" className={btn("secondary")}>Back to community</Link>
+      </Card>
+    );
   }
 
   if (submitted) {
@@ -165,7 +202,9 @@ export default function ShareBoost() {
 
       {error && <Notice tone="warn"><span role="alert">{error}</span></Notice>}
 
-      <button type="submit" className={btn("primary", "w-full")}>Submit for review</button>
+      <button type="submit" disabled={busy} className={btn("primary", "w-full")}>
+        {busy ? "Submitting…" : "Submit for review"}
+      </button>
       <p className="text-xs text-ink-soft">
         Tips are reviewed before they appear. Please don't include photos of children or health claims.
       </p>

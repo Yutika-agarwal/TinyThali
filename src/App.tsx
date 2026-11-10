@@ -1,9 +1,11 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout.tsx";
 import { btn, Card } from "./components/ui.tsx";
+import Admin from "./pages/Admin.tsx";
 import Community from "./pages/Community.tsx";
 import Cook from "./pages/Cook.tsx";
 import Fridge from "./pages/Fridge.tsx";
+import Login from "./pages/Login.tsx";
 import Profile from "./pages/Profile.tsx";
 import RecipePage from "./pages/RecipePage.tsx";
 import Results from "./pages/Results.tsx";
@@ -34,6 +36,8 @@ export default function App() {
         <Route path="community/share" element={<ShareBoost />} />
         <Route path="saved" element={<Saved />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="login" element={<Login />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
