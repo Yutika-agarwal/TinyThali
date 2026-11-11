@@ -622,6 +622,31 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    id: "whole-moong-chilla",
+    name: "Whole moong chilla",
+    emoji: "🥞",
+    blurb: "Savory pancakes from soaked whole green moong, with extra fiber and protein.",
+    minutes: 25,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "moong_whole", qty: "1 cup, soaked 6 to 8 hours" },
+      { id: "spinach", qty: "1/2 cup, finely chopped", optional: true },
+      { id: "carrot", qty: "1/2, grated", optional: true },
+      { id: "salt", qty: "to taste" },
+      { id: "turmeric", qty: "1/4 tsp" },
+      { id: "cumin", qty: "1/2 tsp" },
+      { id: "oil", qty: "for cooking" },
+    ],
+    steps: [
+      "Drain the soaked whole moong and blend with a little water, salt, turmeric and cumin into a smooth, pourable batter.",
+      "Stir in the spinach and carrot if using.",
+      "Pour a ladle of batter onto a hot, lightly oiled tawa and spread thin. Cook until golden, flip and cook the other side.",
+      "Serve warm with curd or chutney.",
+    ],
+    slots: { batter: 1, topping: 3 },
+    badges: ["Protein", "Fiber"],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));

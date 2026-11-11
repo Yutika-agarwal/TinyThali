@@ -42,6 +42,7 @@ export const INGREDIENTS: Ingredient[] = [
 
   // Lentils
   { id: "moong", name: "Moong dal", emoji: "🟡", category: "lentils", allergens: [] },
+  { id: "moong_whole", name: "Whole moong (green gram)", emoji: "🟢", category: "lentils", allergens: [] },
   { id: "masoor", name: "Masoor dal", emoji: "🟠", category: "lentils", allergens: [] },
   { id: "chickpeas", name: "Chickpeas (chana)", emoji: "🫘", category: "lentils", allergens: [] },
   { id: "rajma", name: "Rajma (kidney beans)", emoji: "🫘", category: "lentils", allergens: [] },
