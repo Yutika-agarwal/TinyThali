@@ -647,6 +647,27 @@ export const RECIPES: Recipe[] = [
     slots: { batter: 1, topping: 3 },
     badges: ["Protein", "Fiber"],
   },
+  {
+    id: "avocado-toast",
+    name: "Seedy avocado sourdough toast",
+    emoji: "🥑",
+    blurb: "Mashed avocado on toasted sourdough, topped with seeds.",
+    minutes: 10,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "sourdough", qty: "2 slices" },
+      { id: "avocado", qty: "1 ripe" },
+      { id: "salt", qty: "a pinch" },
+      { id: "oil", qty: "a drizzle", optional: true },
+    ],
+    steps: [
+      "Toast the sourdough slices until crisp outside and soft inside.",
+      "Mash the avocado with salt until creamy.",
+      "Spread on the toast and finish with a sprinkle of seeds. Cut into fingers for little ones.",
+    ],
+    slots: { topping: 2 },
+    badges: ["Fiber"],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));

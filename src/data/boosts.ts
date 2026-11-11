@@ -203,6 +203,21 @@ export const BOOSTS: Boost[] = [
     note: "Smooth only, never whole nuts or a spoonful of thick butter for little ones. Hidden automatically for peanut allergies.",
     blendsIn: true,
   },
+  {
+    id: "seed-mix",
+    name: "Seed sprinkle",
+    emoji: "🌻",
+    slots: ["topping"],
+    add: "Ground flax, pumpkin seeds and hemp hearts, mixed",
+    amount: "1 tsp per serving",
+    stepText: "Sprinkle 1 tsp of the seed mix (ground flax, finely ground pumpkin seeds, hemp hearts) on top.",
+    why: "A mix of seeds adds omega-3, iron, protein and fiber in one sprinkle.",
+    badges: ["Omega-3", "Iron", "Protein", "Fiber"],
+    minAge: 2,
+    allergens: [],
+    note: "Grind the flax and pumpkin seeds fine. Make a jar ahead and keep it in the fridge.",
+    exclusiveGroup: "flax",
+  },
 ];
 
 export const BOOST_BY_ID: Record<string, Boost> = Object.fromEntries(BOOSTS.map((b) => [b.id, b]));

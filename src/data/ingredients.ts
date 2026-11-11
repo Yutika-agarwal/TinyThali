@@ -18,6 +18,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "basil", name: "Basil", emoji: "🌿", category: "veg", allergens: [] },
   { id: "kale", name: "Kale", emoji: "🥬", category: "veg", allergens: [] },
   { id: "methi", name: "Methi (fresh fenugreek leaves)", emoji: "🌱", category: "veg", allergens: [] },
+  { id: "avocado", name: "Avocado", emoji: "🥑", category: "veg", allergens: [] },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
 
   // Dairy and protein
@@ -37,6 +38,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "besan", name: "Besan (chickpea flour)", emoji: "🌼", category: "grains", allergens: [] },
   { id: "sooji", name: "Sooji (semolina)", emoji: "🥣", category: "grains", allergens: ["gluten"] },
   { id: "sabudana", name: "Sabudana (tapioca pearls)", emoji: "⚪", category: "grains", allergens: [] },
+  { id: "sourdough", name: "Sourdough bread", emoji: "🍞", category: "grains", allergens: ["gluten"] },
   { id: "pasta", name: "Pasta", emoji: "🍝", category: "grains", allergens: ["gluten"] },
   { id: "quinoa", name: "Quinoa", emoji: "🌾", category: "grains", allergens: [] },
 
