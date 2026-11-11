@@ -779,6 +779,44 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    id: "veggie-kathi-roll",
+    name: "Veggie paneer kathi rolls",
+    emoji: "🌯",
+    blurb: "Soft rotis rolled around spiced paneer and loads of veggies. Tofu works too.",
+    minutes: 30,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "atta", qty: "1 1/2 cups" },
+      { id: "paneer", qty: "150 g, cubed" },
+      { id: "onion", qty: "1, sliced", optional: true },
+      { id: "carrot", qty: "1, grated" },
+      { id: "tomato", qty: "1, chopped" },
+      { id: "spinach", qty: "1 cup, chopped", optional: true },
+      { id: "cucumber", qty: "1/2, sliced, to roll in raw", optional: true },
+      { id: "cilantro", qty: "a handful", optional: true },
+      { id: "salt", qty: "to taste" },
+      { id: "turmeric", qty: "1/4 tsp" },
+      { id: "cumin", qty: "1/2 tsp" },
+      { id: "oil", qty: "for cooking" },
+    ],
+    steps: [
+      "Knead a soft dough from the atta, a pinch of salt and warm water. Rest for 15 minutes, then roll out thin rotis and cook them on a tawa with a little oil.",
+      "Heat oil, add the onion, carrot, tomato and spinach and cook until soft. Add the paneer, turmeric, cumin and salt and toss for 3 minutes.",
+      "Spread a spoonful of chutney or yogurt dip on each roti, add the filling and some raw cucumber and cilantro.",
+      "Roll up tightly, wrap the bottom in foil or paper for little hands, and serve warm.",
+    ],
+    slots: { dough: 0, filling: 1, topping: 2 },
+    badges: ["Protein", "Calcium", "Fiber"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "paneer",
+        with: "tofu",
+        note: "Use extra-firm tofu cubes in place of paneer, pressed dry first.",
+      },
+    ],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));
