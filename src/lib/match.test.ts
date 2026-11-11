@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import type { KidProfile } from "../types.ts";
 import { RECIPE_BY_ID } from "../data/recipes.ts";
 import { matchRecipes } from "./match.ts";
+import { checkRecipe } from "./safety.ts";
 import {
   badgeSummary,
   boostStepIndex,
@@ -109,4 +110,22 @@ test("display ingredients show the swap", () => {
   const lines = displayIngredients(recipe, recipe.swaps ?? []);
   assert.ok(lines.some((l) => l.id === "tofu" && l.swapNote));
   assert.ok(!lines.some((l) => l.id === "paneer"));
+});
+
+test("pesto swaps for dairy and tree nut allergies", () => {
+  const r = RECIPE_BY_ID["spinach-pesto-pasta"];
+  const res = checkRecipe(r, [kid({ allergies: ["dairy", "tree_nuts"] })]);
+  assert.equal(res.status, "swap");
+  assert.equal(res.swaps.length, 2);
+});
+
+test("whey boost hidden for dairy allergy, shown otherwise", () => {
+  const r = RECIPE_BY_ID["aloo-paratha"];
+  assert.ok(!visibleBoosts(r, [kid({ allergies: ["dairy"] })]).allowed.some((b) => b.id === "whey-dough"));
+  assert.ok(visibleBoosts(r, [kid()]).allowed.some((b) => b.id === "whey-dough"));
+});
+
+test("new date sugar and ajwain boosts respect age", () => {
+  const r = RECIPE_BY_ID["sooji-halwa"];
+  assert.ok(!visibleBoosts(r, [kid({ ageBand: "1-3" })]).allowed.some((b) => b.id === "date-sugar"));
 });

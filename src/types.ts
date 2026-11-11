@@ -61,7 +61,7 @@ export interface AllergenSwap {
 }
 
 /** Where in a recipe a boost can be added. */
-export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping";
+export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet";
 
 export interface Recipe {
   id: string;
@@ -99,7 +99,7 @@ export interface Boost {
   /** Disappears into the dish, so it is a good first try for picky eaters. */
   blendsIn?: boolean;
   /** Boosts in the same group replace each other (e.g. only one flour swap). */
-  exclusiveGroup?: "flour";
+  exclusiveGroup?: "flour" | "flax";
 }
 
 export interface KidProfile {

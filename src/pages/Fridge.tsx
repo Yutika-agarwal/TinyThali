@@ -88,7 +88,7 @@ export default function Fridge() {
           </div>
         )}
         <p className="mt-3 text-xs text-ink-soft">
-          Salt, oil, turmeric, cumin, chili and ghee are assumed. Dairy-free? Swap ghee for oil.
+          Salt, oil, spices, sugar and ghee are assumed. Dairy-free? Swap ghee for oil.
         </p>
       </Card>
 

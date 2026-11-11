@@ -56,7 +56,7 @@ function BoostToggle({
           </p>
           <p className="mt-1 text-sm text-ink-soft">{boost.why}</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <NutrientBadges badges={boost.badges} />
+            {boost.badges.length > 0 && <NutrientBadges badges={boost.badges} />}
             {picky && boost.blendsIn && (
               <span className="rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">
                 Blends in easily
