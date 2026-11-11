@@ -42,6 +42,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "sooji", name: "Sooji (semolina)", emoji: "🥣", category: "grains", allergens: ["gluten"] },
   { id: "sabudana", name: "Sabudana (tapioca pearls)", emoji: "⚪", category: "grains", allergens: [] },
   { id: "sourdough", name: "Sourdough bread", emoji: "🍞", category: "grains", allergens: ["gluten"] },
+  { id: "tortilla", name: "Tortillas (or soft rotis)", emoji: "🫓", category: "grains", allergens: ["gluten"] },
   { id: "pasta", name: "Pasta", emoji: "🍝", category: "grains", allergens: ["gluten"] },
   { id: "quinoa", name: "Quinoa", emoji: "🌾", category: "grains", allergens: [] },
 

@@ -817,6 +817,43 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    id: "bean-paneer-enchiladas",
+    name: "Bean and paneer enchiladas",
+    emoji: "🌮",
+    blurb: "Baked rolls of beans, protein and veggies in a mild tomato sauce, with no rice needed.",
+    minutes: 40,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "tortilla", qty: "6 small" },
+      { id: "rajma", qty: "1 1/2 cups cooked (or 1 can, drained and rinsed)" },
+      { id: "paneer", qty: "150 g, crumbled" },
+      { id: "carrot", qty: "1, grated" },
+      { id: "spinach", qty: "1 cup, chopped", optional: true },
+      { id: "tomato", qty: "3 ripe, or 1 cup tomato puree" },
+      { id: "onion", qty: "1/2, finely chopped", optional: true },
+      { id: "cumin", qty: "1 tsp" },
+      { id: "chili", qty: "a pinch", optional: true },
+      { id: "salt", qty: "to taste" },
+      { id: "oil", qty: "2 tbsp" },
+    ],
+    steps: [
+      "Make the sauce: cook the tomato (and onion, if using) in a little oil with cumin and salt for 8 minutes, then blend smooth.",
+      "Roughly mash the beans, then mix with the paneer, carrot, spinach and a few spoonfuls of the sauce.",
+      "Fill each tortilla, roll it up and place seam-side down in an oiled baking dish.",
+      "Pour the rest of the sauce on top, cover with foil and bake at 375°F for 20 minutes. Let cool a few minutes before serving.",
+    ],
+    slots: { filling: 1, topping: 3 },
+    badges: ["Protein", "Fiber", "Iron"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "paneer",
+        with: "tofu",
+        note: "Crumble extra-firm tofu in place of paneer and squeeze out the extra water.",
+      },
+    ],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));
