@@ -747,6 +747,38 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    id: "green-cottage-cheese-dip",
+    name: "Green cottage cheese dip",
+    emoji: "🥬",
+    blurb: "Cottage cheese blended silky with spinach, cilantro and garlic. A sneaky-green, high-protein dip.",
+    minutes: 10,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "cottage_cheese", qty: "1 cup" },
+      { id: "spinach", qty: "1 cup, packed" },
+      { id: "cilantro", qty: "1/2 cup" },
+      { id: "garlic", qty: "1 small clove (or a pinch for little ones)" },
+      { id: "salt", qty: "to taste" },
+      { id: "carrot", qty: "sticks, for dipping", optional: true },
+      { id: "cucumber", qty: "sticks, for dipping", optional: true },
+    ],
+    steps: [
+      "Wash the spinach and cilantro well. Quickly blanch the spinach for 30 seconds if you prefer a milder taste, then squeeze it dry.",
+      "Blend the cottage cheese, spinach, cilantro, garlic and salt until completely smooth.",
+      "Chill for 10 minutes, then serve with veggie sticks, rotis, patties or waffles.",
+    ],
+    slots: { topping: 2 },
+    badges: ["Protein", "Calcium", "Iron"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "cottage_cheese",
+        with: "tofu",
+        note: "Use soft tofu in place of cottage cheese; it blends just as smoothly.",
+      },
+    ],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));

@@ -29,6 +29,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "tofu", name: "Tofu", emoji: "⬜", category: "dairy_protein", allergens: ["soy"] },
   { id: "milk", name: "Milk", emoji: "🥛", category: "dairy_protein", allergens: ["dairy"] },
   { id: "greek_yogurt", name: "Greek yogurt", emoji: "🥛", category: "dairy_protein", allergens: ["dairy"] },
+  { id: "cottage_cheese", name: "Cottage cheese", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
   { id: "cream_cheese", name: "Cream cheese", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
   { id: "pine_nuts", name: "Pine nuts", emoji: "🌰", category: "dairy_protein", allergens: ["tree_nuts"] },
   { id: "pumpkin_seeds", name: "Pumpkin seeds (pepitas)", emoji: "🎃", category: "dairy_protein", allergens: [] },
