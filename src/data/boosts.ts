@@ -233,6 +233,21 @@ export const BOOSTS: Boost[] = [
     note: "Rinse under running water until it stops foaming, or it can taste bitter. It cooks in about 15 minutes.",
     blendsIn: true,
   },
+  {
+    id: "soy-chunks",
+    name: "Soy chunks (Nutrela), shredded",
+    emoji: "🫘",
+    slots: ["filling"],
+    add: "Soy chunks, soaked, squeezed and finely shredded",
+    amount: "1/4 cup dry chunks per 2 servings",
+    stepText: "Soak 1/4 cup soy chunks in hot water for 15 minutes, squeeze out all the water, shred finely (or pulse in a blender) and mix into the filling.",
+    why: "Soy chunks are a high-protein pantry staple that takes on the flavor of whatever they are cooked with.",
+    badges: ["Protein", "Iron"],
+    minAge: 2,
+    allergens: ["soy"],
+    note: "Rinse well and squeeze dry, shred small, and cook thoroughly. They are packaged and can be salty, so check the label and use less salt.",
+    blendsIn: true,
+  },
 ];
 
 export const BOOST_BY_ID: Record<string, Boost> = Object.fromEntries(BOOSTS.map((b) => [b.id, b]));

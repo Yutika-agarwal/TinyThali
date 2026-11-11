@@ -303,7 +303,7 @@ export const RECIPES: Recipe[] = [
       "Saute the cumin, onion, carrot and peas until soft.",
       "Add 2 cups of hot water and salt, stir in the sooji and cook until fluffy.",
     ],
-    slots: { simmer: 2, topping: 2 },
+    slots: { simmer: 2, topping: 2, filling: 1 },
     badges: ["Fiber"],
   },
   {
@@ -689,7 +689,7 @@ export const RECIPES: Recipe[] = [
       "Add the rice, salt and 2 cups of water. Cook covered until the water is absorbed and the rice is fluffy.",
       "Serve warm with curd or raita.",
     ],
-    slots: { grain: 0, simmer: 2, topping: 3 },
+    slots: { grain: 0, simmer: 2, topping: 3, filling: 2 },
     badges: ["Fiber"],
   },
   {
