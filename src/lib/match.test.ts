@@ -129,3 +129,8 @@ test("new date sugar and ajwain boosts respect age", () => {
   const r = RECIPE_BY_ID["sooji-halwa"];
   assert.ok(!visibleBoosts(r, [kid({ ageBand: "1-3" })]).allowed.some((b) => b.id === "date-sugar"));
 });
+
+test("quinoa swap attaches to khichdi rice step", () => {
+  const r = RECIPE_BY_ID["veg-khichdi"];
+  assert.equal(boostStepIndex(r, BOOST_BY_ID["quinoa-swap"]), 0);
+});

@@ -218,6 +218,21 @@ export const BOOSTS: Boost[] = [
     note: "Grind the flax and pumpkin seeds fine. Make a jar ahead and keep it in the fridge.",
     exclusiveGroup: "flax",
   },
+  {
+    id: "quinoa-swap",
+    name: "Quinoa instead of rice",
+    emoji: "🌾",
+    slots: ["grain"],
+    add: "Quinoa, rinsed well",
+    amount: "the same amount as the rice",
+    stepText: "Use quinoa in place of the rice, the same amount. Rinse it very well first, and it cooks a little faster than rice.",
+    why: "Quinoa is a gluten-free grain with more protein and fiber than white rice.",
+    badges: ["Protein", "Fiber"],
+    minAge: 1,
+    allergens: [],
+    note: "Rinse under running water until it stops foaming, or it can taste bitter. It cooks in about 15 minutes.",
+    blendsIn: true,
+  },
 ];
 
 export const BOOST_BY_ID: Record<string, Boost> = Object.fromEntries(BOOSTS.map((b) => [b.id, b]));

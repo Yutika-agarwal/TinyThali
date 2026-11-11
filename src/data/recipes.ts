@@ -219,7 +219,7 @@ export const RECIPES: Recipe[] = [
       "Pressure-cook with the carrot, peas, turmeric, salt and 4 cups of water until very soft.",
       "Mash slightly and finish with a cumin and ghee tadka.",
     ],
-    slots: { simmer: 1 },
+    slots: { grain: 0, simmer: 1 },
     badges: ["Protein", "Fiber"],
   },
   {

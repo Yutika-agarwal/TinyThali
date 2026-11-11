@@ -61,7 +61,7 @@ export interface AllergenSwap {
 }
 
 /** Where in a recipe a boost can be added. */
-export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet";
+export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain";
 
 export interface Recipe {
   id: string;
