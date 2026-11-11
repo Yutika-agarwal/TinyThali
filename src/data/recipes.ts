@@ -171,7 +171,7 @@ export const RECIPES: Recipe[] = [
       "Mash it lightly and thin with warm water to the texture your kid likes.",
       "Heat the ghee, pop the cumin, add a pinch of chili and pour it over the dal.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 2 },
     badges: ["Protein", "Fiber"],
   },
   {
@@ -194,7 +194,7 @@ export const RECIPES: Recipe[] = [
       "Mash lightly to a creamy texture.",
       "Heat the ghee, pop the cumin and pour it over the dal.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 2 },
     badges: ["Protein", "Iron", "Fiber"],
   },
   {
@@ -219,7 +219,7 @@ export const RECIPES: Recipe[] = [
       "Pressure-cook with the carrot, peas, turmeric, salt and 4 cups of water until very soft.",
       "Mash slightly and finish with a cumin and ghee tadka.",
     ],
-    slots: { grain: 0, simmer: 1 },
+    slots: { grain: 0, simmer: 1, topping: 2 },
     badges: ["Protein", "Fiber"],
   },
   {
@@ -271,7 +271,7 @@ export const RECIPES: Recipe[] = [
       "Add the spinach puree and simmer for 5 minutes.",
       "Add the paneer cubes and cook for 3 more minutes.",
     ],
-    slots: { simmer: 2 },
+    slots: { simmer: 2, topping: 3 },
     badges: ["Iron", "Calcium", "Protein"],
     swaps: [
       {
@@ -303,7 +303,7 @@ export const RECIPES: Recipe[] = [
       "Saute the cumin, onion, carrot and peas until soft.",
       "Add 2 cups of hot water and salt, stir in the sooji and cook until fluffy.",
     ],
-    slots: { simmer: 2 },
+    slots: { simmer: 2, topping: 2 },
     badges: ["Fiber"],
   },
   {
@@ -330,7 +330,7 @@ export const RECIPES: Recipe[] = [
       "Lightly mash a few chickpeas to thicken the gravy.",
       "Top with cilantro and serve.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 3 },
     badges: ["Protein", "Fiber", "Iron"],
   },
   {
@@ -455,7 +455,7 @@ export const RECIPES: Recipe[] = [
       "Heat the ghee, pop the cumin and pour the tadka over the dal.",
       "Serve with rice or roti.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 3 },
     badges: ["Protein", "Iron"],
   },
   {
@@ -479,7 +479,7 @@ export const RECIPES: Recipe[] = [
       "Heat the ghee, pop the cumin and pour the tadka over the dal.",
       "Serve with rice or roti.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 3 },
     badges: ["Protein", "Iron"],
   },
   {
@@ -503,7 +503,7 @@ export const RECIPES: Recipe[] = [
       "Heat the ghee, pop the cumin and pour the tadka over the dal.",
       "Serve with rice or roti.",
     ],
-    slots: { simmer: 1 },
+    slots: { simmer: 1, topping: 3 },
     badges: ["Protein", "Iron"],
   },
   {
@@ -667,6 +667,52 @@ export const RECIPES: Recipe[] = [
     ],
     slots: { topping: 2 },
     badges: ["Fiber"],
+  },
+  {
+    id: "veg-pulao",
+    name: "Veggie pulao",
+    emoji: "🍚",
+    blurb: "Mildly spiced rice with carrots and peas. Easy to swap to quinoa.",
+    minutes: 25,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "rice", qty: "1 cup" },
+      { id: "carrot", qty: "1, diced" },
+      { id: "peas", qty: "1/2 cup" },
+      { id: "cumin", qty: "1/2 tsp" },
+      { id: "salt", qty: "to taste" },
+      { id: "oil", qty: "1 tbsp" },
+    ],
+    steps: [
+      "Rinse the rice and drain it.",
+      "Heat the oil, pop the cumin, add the carrot and peas and saute for 2 minutes.",
+      "Add the rice, salt and 2 cups of water. Cook covered until the water is absorbed and the rice is fluffy.",
+      "Serve warm with curd or raita.",
+    ],
+    slots: { grain: 0, simmer: 2, topping: 3 },
+    badges: ["Fiber"],
+  },
+  {
+    id: "makhana-kheer",
+    name: "Makhana kheer",
+    emoji: "🥛",
+    blurb: "A creamy, lightly sweet milk pudding with soft makhana.",
+    minutes: 20,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "makhana", qty: "1 cup" },
+      { id: "milk", qty: "2 cups" },
+      { id: "sugar", qty: "2 tbsp" },
+      { id: "cardamom", qty: "a pinch", optional: true },
+    ],
+    steps: [
+      "Dry roast the makhana for 3 minutes until crisp, then crush roughly.",
+      "Simmer the milk with the makhana for 10 minutes until creamy and the makhana is very soft.",
+      "Stir in the sugar and cardamom and cook for 2 more minutes.",
+      "Serve warm in small portions.",
+    ],
+    slots: { sweet: 2, topping: 3 },
+    badges: ["Calcium"],
   },
 ];
 
