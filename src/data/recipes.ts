@@ -714,6 +714,39 @@ export const RECIPES: Recipe[] = [
     slots: { sweet: 2, topping: 3 },
     badges: ["Calcium"],
   },
+  {
+    id: "yogurt-cilantro-dip",
+    name: "Greek yogurt garlic cilantro dip",
+    emoji: "🥣",
+    blurb: "A cool, creamy dip for rotis, patties, waffles and veggie sticks.",
+    minutes: 10,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "greek_yogurt", qty: "1 cup" },
+      { id: "cilantro", qty: "1/2 cup, finely chopped" },
+      { id: "garlic", qty: "1 small clove, grated (or a pinch for little ones)" },
+      { id: "salt", qty: "to taste" },
+      { id: "cumin", qty: "1/4 tsp, roasted and ground", optional: true },
+      { id: "carrot", qty: "sticks, for dipping", optional: true },
+      { id: "cucumber", qty: "sticks, for dipping", optional: true },
+    ],
+    steps: [
+      "Grate the garlic very fine. Raw garlic is strong, so use just a pinch for young kids.",
+      "Stir the garlic, cilantro, salt and cumin into the yogurt until smooth.",
+      "Chill for 10 minutes so the flavors blend.",
+      "Serve with veggie sticks, rotis, patties or waffles.",
+    ],
+    slots: { topping: 3 },
+    badges: ["Protein", "Calcium"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "greek_yogurt",
+        with: "tofu",
+        note: "Blend soft tofu with a pinch of salt until creamy and use it in place of the yogurt.",
+      },
+    ],
+  },
 ];
 
 export const RECIPE_BY_ID: Record<string, Recipe> = Object.fromEntries(RECIPES.map((r) => [r.id, r]));

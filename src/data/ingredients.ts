@@ -19,6 +19,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "kale", name: "Kale", emoji: "🥬", category: "veg", allergens: [] },
   { id: "methi", name: "Methi (fresh fenugreek leaves)", emoji: "🌱", category: "veg", allergens: [] },
   { id: "avocado", name: "Avocado", emoji: "🥑", category: "veg", allergens: [] },
+  { id: "garlic", name: "Garlic", emoji: "🧄", category: "veg", allergens: [], jainUnsafe: true },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
 
   // Dairy and protein
@@ -27,6 +28,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "eggs", name: "Eggs", emoji: "🥚", category: "dairy_protein", allergens: ["egg"] },
   { id: "tofu", name: "Tofu", emoji: "⬜", category: "dairy_protein", allergens: ["soy"] },
   { id: "milk", name: "Milk", emoji: "🥛", category: "dairy_protein", allergens: ["dairy"] },
+  { id: "greek_yogurt", name: "Greek yogurt", emoji: "🥛", category: "dairy_protein", allergens: ["dairy"] },
   { id: "cream_cheese", name: "Cream cheese", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
   { id: "pine_nuts", name: "Pine nuts", emoji: "🌰", category: "dairy_protein", allergens: ["tree_nuts"] },
   { id: "pumpkin_seeds", name: "Pumpkin seeds (pepitas)", emoji: "🎃", category: "dairy_protein", allergens: [] },
