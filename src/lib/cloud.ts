@@ -6,7 +6,10 @@ import type {
   Reaction,
   SavedRecipe,
 } from "../types.ts";
+import { allowedIngredientIds, PANTRY_IDS, validateIdeas } from "./aiIdeas.ts";
+import type { AiIdea } from "./aiIdeas.ts";
 import { supabase } from "./supabase.ts";
+import type { KidProfile } from "../types.ts";
 
 /**
  * Everything that talks to Supabase lives here. Access control is enforced by
@@ -332,4 +335,20 @@ export async function saveDisplayName(userId: string, name: string): Promise<voi
 export async function deleteMyAccount(): Promise<void> {
   const { error } = await db().rpc("delete_my_account");
   check(error);
+}
+
+// ---------------------------------------------------------------------------
+// AI recipe ideas
+// ---------------------------------------------------------------------------
+
+/** Asks the edge function for ideas. Resolves to [] when accounts or the function are not set up. */
+export async function fetchIdeas(fridge: string[], kids: KidProfile[]): Promise<AiIdea[]> {
+  const allowed = allowedIngredientIds(fridge, kids);
+  const fromFridge = fridge.filter((id) => allowed.includes(id));
+  if (fromFridge.length === 0) return [];
+  const { data, error } = await db().functions.invoke("suggest-recipes", {
+    body: { fridge: fromFridge, pantry: PANTRY_IDS.filter((id) => allowed.includes(id)) },
+  });
+  if (error) throw new Error(error.message);
+  return validateIdeas((data as { ideas?: unknown })?.ideas, allowed, kids);
 }

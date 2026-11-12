@@ -19,6 +19,7 @@ The live demo is the original prototype built with [Lovable](https://lovable.dev
 - **Kid profiles:** age band, allergies, diet (vegetarian, eggetarian, non-veg, Jain) and a picky-eater flag. Select several kids and the app uses everyone's allergies and the youngest age.
 - **Cook mode:** large, one-step-at-a-time view with boosts highlighted, then "Did your kid eat it?".
 - **Saved recipes and history:** keeps the boosts you used, with "Cook again".
+- **More from your fridge (optional, needs accounts):** AI-written recipe ideas from only your ingredients. Kid profiles never leave the device; only allergen-safe ingredient ids are sent, and every idea is re-checked against the allergy list before it is shown. Deploy with `supabase functions deploy suggest-recipes` and `supabase secrets set ANTHROPIC_API_KEY=...`.
 - **Community:** parents share their own boosts. Tips carry allergen tags, age bands, "Helpful" and "Kid approved" reactions, and a report button.
 - **Accounts (optional):** email and password, or a magic link. Saved recipes and cooking history sync across devices. Kid profiles never leave the device.
 - **Moderation:** tips are reviewed before they appear. Admins approve, reject with a reason, and handle reports.
@@ -87,7 +88,7 @@ This is a prototype. The accounts, shared community and moderation code is writt
 - [x] Allergen-safe recipe matching and boosts, with tests
 - [x] Email sign-in, synced saved recipes, shared community and moderation (needs Supabase keys)
 - [ ] Real-project test pass of the Supabase setup and the row-level security policies
-- [ ] Claude-powered recipe adaptation for unusual fridge contents, keeping boost rules deterministic
+- [x] AI recipe ideas from the fridge, with deterministic safety re-checks (untested against a live project)
 - [ ] Weekly planner and grocery list
 - [ ] Native iOS and Android apps
 

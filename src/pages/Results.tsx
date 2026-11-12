@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
+import AiIdeas from "../components/AiIdeas.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { AllergenChips, btn, Card, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
@@ -107,6 +108,8 @@ export default function Results() {
           ))}
         </section>
       )}
+
+      <AiIdeas />
     </div>
   );
 }

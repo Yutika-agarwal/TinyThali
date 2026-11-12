@@ -134,3 +134,18 @@ test("quinoa swap attaches to khichdi rice step", () => {
   const r = RECIPE_BY_ID["veg-khichdi"];
   assert.equal(boostStepIndex(r, BOOST_BY_ID["quinoa-swap"]), 0);
 });
+
+import { allowedIngredientIds, validateIdeas } from "./aiIdeas.ts";
+
+test("AI ideas: unknown ingredients and allergen words are rejected", () => {
+  const kids = [kid({ allergies: ["dairy"] })];
+  const allowed = allowedIngredientIds(["potato", "paneer", "spinach"], kids);
+  assert.ok(!allowed.includes("paneer"));
+  assert.ok(!allowed.includes("ghee"));
+  const good = { name: "Aloo palak", blurb: "Simple.", minutes: 20, ingredients: [{ id: "potato", qty: "2" }], steps: ["Boil.", "Mash with spinach."] };
+  const sneaky = { ...good, name: "Creamy aloo", steps: ["Add a splash of cream."] };
+  const unknown = { ...good, ingredients: [{ id: "paneer", qty: "100 g" }] };
+  const out = validateIdeas([good, sneaky, unknown, "junk", null], allowed, kids);
+  assert.equal(out.length, 1);
+  assert.equal(out[0].name, "Aloo palak");
+});
