@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CATEGORY_LABELS, INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
+import PhotoScan from "../components/PhotoScan.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { btn, Card, Chip, cx, PageTitle } from "../components/ui.tsx";
 import { RECIPE_BY_ID } from "../data/recipes.ts";
@@ -29,6 +30,8 @@ export default function Fridge() {
     <div className="space-y-5">
       <PageTitle title="What's in your fridge?" subtitle="Tap what you have. We'll find a recipe." />
       <KidSwitcher />
+
+      <PhotoScan />
 
       {weekly.length > 0 && (
         <section aria-label="This week's kid picks">

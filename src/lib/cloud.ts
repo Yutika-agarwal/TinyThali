@@ -8,6 +8,7 @@ import type {
 } from "../types.ts";
 import { allowedIngredientIds, PANTRY_IDS, validateIdeas } from "./aiIdeas.ts";
 import type { AiIdea } from "./aiIdeas.ts";
+import { scanCandidateIds, validateDetected } from "./photo.ts";
 import { supabase } from "./supabase.ts";
 import type { KidProfile } from "../types.ts";
 
@@ -351,4 +352,17 @@ export async function fetchIdeas(fridge: string[], kids: KidProfile[]): Promise<
   });
   if (error) throw new Error(error.message);
   return validateIdeas((data as { ideas?: unknown })?.ideas, allowed, kids);
+}
+
+// ---------------------------------------------------------------------------
+// Photo scan
+// ---------------------------------------------------------------------------
+
+/** Sends a downscaled photo to the edge function and returns validated ingredient ids. */
+export async function identifyIngredients(imageBase64: string): Promise<string[]> {
+  const { data, error } = await db().functions.invoke("identify-ingredients", {
+    body: { image: imageBase64, candidates: scanCandidateIds() },
+  });
+  if (error) throw new Error(error.message);
+  return validateDetected((data as { ids?: unknown })?.ids);
 }

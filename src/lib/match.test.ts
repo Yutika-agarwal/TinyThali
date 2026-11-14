@@ -167,3 +167,10 @@ test("Boost it for me respects allergies", () => {
   const picks = autoBoosts(r, [kid({ allergies: ["soy", "sesame"] })]);
   assert.ok(!picks.includes("tofu-dough") && !picks.includes("sesame"));
 });
+
+import { validateDetected } from "./photo.ts";
+
+test("photo scan keeps only known, non-pantry ingredient ids", () => {
+  assert.deepEqual(validateDetected(["potato", "spinach", "potato", "salt", "unicorn", 5, null]), ["potato", "spinach"]);
+  assert.deepEqual(validateDetected("potato"), []);
+});

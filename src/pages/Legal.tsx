@@ -32,6 +32,11 @@ export function Privacy() {
           details, no allergy information and no personal information are sent. Every idea is checked again on your
           device before it is shown.
         </p>
+        <h2 className="text-lg font-extrabold">Photo scan</h2>
+        <p>
+          When you scan a photo of your ingredients, the photo is shrunk on your device, sent to an AI service to spot
+          the food, and not saved by us. Please avoid photos that show people, faces or personal documents.
+        </p>
         <h2 className="text-lg font-extrabold">What we don't do</h2>
         <p>We don't sell your data, show ads, or share it with advertisers.</p>
         <h2 className="text-lg font-extrabold">Contact</h2>
