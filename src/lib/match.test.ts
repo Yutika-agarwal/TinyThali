@@ -149,3 +149,21 @@ test("AI ideas: unknown ingredients and allergen words are rejected", () => {
   assert.equal(out.length, 1);
   assert.equal(out[0].name, "Aloo palak");
 });
+
+import { autoBoosts } from "./boosts.ts";
+
+test("Boost it for me: small, safe, no duplicates", () => {
+  const r = RECIPE_BY_ID["aloo-paratha"];
+  const picks = autoBoosts(r, [kid({ ageBand: "1-3" })]);
+  assert.ok(picks.length >= 1 && picks.length <= 2);
+  const allowed = visibleBoosts(r, [kid({ ageBand: "1-3" })]).allowed.map((b) => b.id);
+  assert.ok(picks.every((id) => allowed.includes(id)));
+  const groups = picks.map((id) => BOOST_BY_ID[id].exclusiveGroup).filter(Boolean);
+  assert.equal(new Set(groups).size, groups.length);
+});
+
+test("Boost it for me respects allergies", () => {
+  const r = RECIPE_BY_ID["aloo-paratha"];
+  const picks = autoBoosts(r, [kid({ allergies: ["soy", "sesame"] })]);
+  assert.ok(!picks.includes("tofu-dough") && !picks.includes("sesame"));
+});

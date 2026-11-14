@@ -10,7 +10,7 @@ import {
   Notice,
   NutrientBadges,
 } from "../components/ui.tsx";
-import { badgeSummary, boostTextsForStep, displayIngredients } from "../lib/boosts.ts";
+import { autoBoosts, badgeSummary, boostTextsForStep, displayIngredients } from "../lib/boosts.ts";
 import { combinedAllergies, recipeAllergens, usesGhee } from "../lib/safety.ts";
 import { useRecipeSession } from "../lib/useRecipeSession.ts";
 import { useApp } from "../state/AppState.tsx";
@@ -183,6 +183,22 @@ export default function RecipePage() {
 
       <section aria-labelledby="boost-heading" className="space-y-3">
         <h2 id="boost-heading" className="text-2xl font-extrabold">Make it stronger ✨</h2>
+        {options.allowed.length > 0 && (
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => session.setBoostIds(autoBoosts(recipe, activeKids))}
+              className={btn("primary", "flex-1")}
+            >
+              ✨ Boost it for me
+            </button>
+            {boostIds.length > 0 && (
+              <button type="button" onClick={() => session.setBoostIds([])} className={btn("secondary")}>
+                Clear
+              </button>
+            )}
+          </div>
+        )}
         {options.allowed.length === 0 && (
           <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>
         )}

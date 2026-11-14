@@ -43,6 +43,8 @@ function mergeById<T extends { id: string }>(local: T[], remote: T[], dateKey: k
   return merged.sort((a, b) => String(b[dateKey]).localeCompare(String(a[dateKey])));
 }
 
+const DEFAULT_QUICK_PICKS = ["atta", "potato", "paneer", "moong", "spinach", "rice", "tomato", "carrot"];
+
 const isSample = (postId: string) => postId.startsWith("sample-");
 
 export type ReactionType = "helpful" | "kidApproved";
@@ -64,6 +66,8 @@ interface AppState {
 
   fridge: string[];
   toggleFridge: (id: string) => void;
+  /** Fridge ingredients ranked by how often they were added, for the quick-pick row. */
+  quickPicks: string[];
   clearFridge: () => void;
 
   saved: SavedRecipe[];
@@ -103,6 +107,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [kids, setKids] = useStored<KidProfile[]>("kids", []);
   const [activeKidIds, setActiveKidIds] = useStored<string[]>("activeKidIds", []);
   const [fridge, setFridge] = useStored<string[]>("fridge", []);
+  const [usage, setUsage] = useStored<Record<string, number>>("fridgeUsage", {});
   const [saved, setSaved] = useStored<SavedRecipe[]>("saved", []);
   const [history, setHistory] = useStored<CookEntry[]>("history", []);
   const [localPosts, setLocalPosts] = useStored<CommunityPost[]>("myPosts", []);
@@ -224,9 +229,19 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   );
 
   const toggleFridge = useCallback(
-    (id: string) => setFridge((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id])),
-    [setFridge],
+    (id: string) => {
+      if (!fridge.includes(id)) setUsage((u) => ({ ...u, [id]: (u[id] ?? 0) + 1 }));
+      setFridge((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    },
+    [fridge, setFridge, setUsage],
   );
+
+  const quickPicks = useMemo(() => {
+    const used = Object.entries(usage)
+      .sort((a, b) => b[1] - a[1])
+      .map(([id]) => id);
+    return [...new Set([...used, ...DEFAULT_QUICK_PICKS])].slice(0, 8);
+  }, [usage]);
 
   // ---- Saved recipes and history (written through to the account) ----------
 
@@ -358,6 +373,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     removeKid,
     fridge,
     toggleFridge,
+    quickPicks,
     clearFridge: () => setFridge([]),
     saved,
     saveRecipe,

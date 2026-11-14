@@ -9,7 +9,7 @@ import { useApp } from "../state/AppState.tsx";
 type Category = keyof typeof CATEGORY_LABELS;
 
 export default function Fridge() {
-  const { fridge, toggleFridge, clearFridge, activeKids } = useApp();
+  const { fridge, toggleFridge, clearFridge, activeKids, quickPicks } = useApp();
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category>("veg");
   const [query, setQuery] = useState("");
@@ -24,6 +24,23 @@ export default function Fridge() {
     <div className="space-y-5">
       <PageTitle title="What's in your fridge?" subtitle="Tap what you have. We'll find a recipe." />
       <KidSwitcher />
+
+      <div>
+        <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink-soft">Quick picks</p>
+        <div className="flex flex-wrap gap-2">
+          {quickPicks.map((id) => {
+            const i = INGREDIENT_BY_ID[id];
+            if (!i) return null;
+            const flagged = i.allergens.some((a) => allergies.includes(a));
+            return (
+              <Chip key={id} active={fridge.includes(id)} onClick={() => toggleFridge(id)}>
+                {i.emoji} {i.name}
+                {flagged && <span aria-label="on your allergy list"> ⚠️</span>}
+              </Chip>
+            );
+          })}
+        </div>
+      </div>
 
       <input
         type="search"

@@ -57,6 +57,7 @@ export function useRecipeSession() {
       const s = q.toString();
       return s ? `?${s}` : "";
     })(),
+    setBoostIds: (ids: string[]) => write(ids, postIds),
     toggleBoostId: (boostId: string) => write(toggleBoost(boostIds, boostId), postIds),
     togglePostId: (postId: string) =>
       write(boostIds, postIds.includes(postId) ? postIds.filter((x) => x !== postId) : [...postIds, postId]),

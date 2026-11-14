@@ -51,6 +51,31 @@ export function toggleBoost(selected: string[], id: string): string[] {
   return [...next, id];
 }
 
+/**
+ * One-tap "Boost it for me": a small, sensible default. At most one boost per recipe step and
+ * two in total, never two from the same exclusive group, preferring boosts that blend in for
+ * picky eaters and boosts that earn more nutrient badges. Only allowed boosts are considered.
+ */
+export function autoBoosts(recipe: Recipe, kids: KidProfile[], max = 2): string[] {
+  const picky = kids.some((k) => k.picky);
+  const ranked = [...visibleBoosts(recipe, kids).allowed].sort((a, b) => {
+    if (picky && !!a.blendsIn !== !!b.blendsIn) return a.blendsIn ? -1 : 1;
+    return b.badges.length - a.badges.length;
+  });
+  const chosen: string[] = [];
+  const steps = new Set<number | null>();
+  for (const boost of ranked) {
+    if (chosen.length >= max) break;
+    const step = boostStepIndex(recipe, boost);
+    if (steps.has(step)) continue;
+    const next = toggleBoost(chosen, boost.id);
+    if (next.length <= chosen.length) continue; // an exclusive group would have replaced one
+    chosen.splice(0, chosen.length, ...next);
+    steps.add(step);
+  }
+  return chosen;
+}
+
 /** Drop any selected ids that are not currently allowed (e.g. after switching kid profiles). */
 export function pruneSelected(selected: string[], allowed: Boost[]): string[] {
   const ok = new Set(allowed.map((b) => b.id));

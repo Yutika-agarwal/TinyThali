@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { btn, Card, cx, Notice } from "../components/ui.tsx";
 import { boostTextsForStep, postsForStep } from "../lib/boosts.ts";
@@ -20,6 +20,16 @@ export default function Cook() {
   const [finished, setFinished] = useState(false);
   const [reaction, setReaction] = useState<Reaction | null>(null);
   const [saved, setSaved] = useState(false);
+
+  // Keep the screen awake while cooking, so there is no tapping with floury hands.
+  useEffect(() => {
+    let lock: { release: () => Promise<void> } | null = null;
+    const nav = navigator as Navigator & { wakeLock?: { request: (t: "screen") => Promise<{ release: () => Promise<void> }> } };
+    nav.wakeLock?.request("screen").then((l) => (lock = l)).catch(() => undefined);
+    return () => {
+      lock?.release().catch(() => undefined);
+    };
+  }, []);
 
   if (!session || !session.fits) {
     return (
