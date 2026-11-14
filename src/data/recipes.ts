@@ -736,7 +736,7 @@ export const RECIPES: Recipe[] = [
       "Chill for 10 minutes so the flavors blend.",
       "Serve with veggie sticks, rotis, patties or waffles.",
     ],
-    slots: { topping: 3 },
+    slots: { topping: 3, blend: 1 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -768,7 +768,7 @@ export const RECIPES: Recipe[] = [
       "Blend the cottage cheese, spinach, cilantro, garlic and salt until completely smooth.",
       "Chill for 10 minutes, then serve with veggie sticks, rotis, patties or waffles.",
     ],
-    slots: { topping: 2 },
+    slots: { topping: 2, blend: 1 },
     badges: ["Protein", "Calcium", "Iron"],
     swaps: [
       {
@@ -1372,6 +1372,102 @@ export const RECIPES: Recipe[] = [
     ],
     slots: { batter: 1, topping: 3 },
     badges: ["Protein", "Calcium", "Fiber"],
+  },
+  {
+    id: "white-sauce-pasta",
+    name: "White sauce pasta",
+    emoji: "🍝",
+    blurb: "Classic creamy pasta with peas and carrot. Try the blended tofu boost for a dairy-free sauce.",
+    minutes: 25,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "pasta", qty: "2 cups, uncooked" },
+      { id: "milk", qty: "1 1/2 cups" },
+      { id: "atta", qty: "2 tbsp" },
+      { id: "ghee", qty: "1 tbsp" },
+      { id: "peas", qty: "1/2 cup" },
+      { id: "carrot", qty: "1, finely diced", optional: true },
+      { id: "basil", qty: "a few leaves", optional: true },
+      { id: "salt", qty: "to taste" },
+    ],
+    steps: [
+      "Boil the pasta in salted water until soft and drain, keeping a little of the cooking water.",
+      "Melt the ghee, stir in the atta for 1 minute, then whisk in the milk a little at a time and simmer until thick and smooth. Add salt.",
+      "Saute the peas and carrot in a little oil until tender.",
+      "Toss the pasta and veggies in the sauce, loosening with pasta water. Top with basil.",
+    ],
+    slots: { sauce: 1, filling: 2 },
+    badges: ["Protein", "Calcium"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "milk",
+        with: "tofu",
+        note: "Blend silken tofu with warm water until it pours like milk and use it in the sauce. Use oil in place of ghee.",
+      },
+    ],
+  },
+  {
+    id: "creamy-veg-soup",
+    name: "Creamy veggie soup",
+    emoji: "🥣",
+    blurb: "A warm, velvety blended soup of potato and carrot, gentle for little ones.",
+    minutes: 25,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "potato", qty: "1 medium, diced" },
+      { id: "carrot", qty: "2, chopped" },
+      { id: "milk", qty: "1 cup" },
+      { id: "cumin", qty: "1/2 tsp" },
+      { id: "salt", qty: "to taste" },
+      { id: "oil", qty: "1 tbsp" },
+    ],
+    steps: [
+      "Heat the oil, add the cumin and saute the potato and carrot for 2 minutes. Add 2 cups of water and salt and simmer for 15 minutes until very soft.",
+      "Add the milk and blend everything until completely smooth and creamy.",
+      "Reheat gently and serve warm with toast or rotis.",
+    ],
+    slots: { sauce: 1, topping: 2 },
+    badges: ["Calcium", "Fiber"],
+    swaps: [
+      {
+        allergen: "dairy",
+        replace: "milk",
+        with: "tofu",
+        note: "Blend silken tofu with warm water until it pours like milk and use it in place of the milk.",
+      },
+    ],
+  },
+  {
+    id: "hummus",
+    name: "Hummus",
+    emoji: "🫙",
+    blurb: "Smooth chickpea and tahini dip for rotis, veggie sticks and sandwiches.",
+    minutes: 10,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "chickpeas", qty: "1 1/2 cups, well cooked (or 1 can, drained and rinsed)" },
+      { id: "tahini", qty: "3 tbsp" },
+      { id: "oil", qty: "2 tbsp" },
+      { id: "cumin", qty: "1/2 tsp" },
+      { id: "salt", qty: "to taste" },
+      { id: "garlic", qty: "1 small clove", optional: true },
+    ],
+    steps: [
+      "Drain and rinse the chickpeas. For the smoothest dip, rub off the loose skins.",
+      "Blend the chickpeas, tahini, oil, cumin and salt with a few spoons of cold water until completely smooth and creamy.",
+      "Serve with rotis, cucumber and carrot sticks, or spread in a sandwich.",
+    ],
+    slots: { blend: 1, topping: 2 },
+    badges: ["Protein", "Fiber", "Calcium", "Iron"],
+    swaps: [
+      {
+        allergen: "sesame",
+        replace: "tahini",
+        with: "pumpkin_seeds",
+        note: "Grind pumpkin seeds to a fine, smooth paste with a little oil and use it in place of tahini.",
+      },
+    ],
   },
 ];
 

@@ -25,6 +25,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "corn", name: "Sweet corn", emoji: "🌽", category: "veg", allergens: [] },
   { id: "sweet_potato", name: "Sweet potato", emoji: "🍠", category: "veg", allergens: [] },
   { id: "capsicum", name: "Capsicum (bell pepper)", emoji: "🫑", category: "veg", allergens: [] },
+  { id: "cauliflower", name: "Cauliflower", emoji: "🥦", category: "veg", allergens: [] },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
 
   // Dairy and protein
@@ -39,6 +40,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "edamame", name: "Edamame (shelled)", emoji: "🫛", category: "dairy_protein", allergens: ["soy"] },
   { id: "cream_cheese", name: "Cream cheese", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
   { id: "pine_nuts", name: "Pine nuts", emoji: "🌰", category: "dairy_protein", allergens: ["tree_nuts"] },
+  { id: "tahini", name: "Tahini (sesame paste)", emoji: "🫙", category: "dairy_protein", allergens: ["sesame"] },
   { id: "pumpkin_seeds", name: "Pumpkin seeds (pepitas)", emoji: "🎃", category: "dairy_protein", allergens: [] },
   { id: "makhana", name: "Makhana (fox nuts)", emoji: "⚪", category: "dairy_protein", allergens: [] },
 

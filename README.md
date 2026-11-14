@@ -13,7 +13,7 @@ The live demo is the original prototype built with [Lovable](https://lovable.dev
 ## Features
 
 - **Fridge-first matching:** pick ingredients, get ranked recipes, plus "almost there" options missing one or two items.
-- **Tiny Boosts:** 21 vetted add-ins and swaps (flours, seeds, ajwain, date sugar, quinoa for rice, shredded soy chunks, five cottage cheese upgrades, paneer whey in dough, peanut butter in batters). They attach to the right step of each recipe, and every boost shows what it adds and why.
+- **Tiny Boosts:** 25 vetted add-ins and swaps (flours, seeds, ajwain, date sugar, quinoa for rice, shredded soy chunks, five cottage cheese upgrades, blended tofu sauce and batter, extra sesame in dips, paneer whey in dough, peanut butter in batters). They attach to the right step of each recipe, and every boost shows what it adds and why.
 - **Recipes:** parathas, dals (moong, masoor, spinach, kale, methi), waffles (sabudana, moong), rajma-quinoa patties, spinach pesto pasta, makhana raita, cream cheese roti pinwheels and more.
 - **Allergen-safe by design:** one tested module decides what is safe (see below).
 - **Kid profiles:** age band, allergies, diet (vegetarian, eggetarian, non-veg, Jain) and a picky-eater flag. Select several kids and the app uses everyone's allergies and the youngest age.

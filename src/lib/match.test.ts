@@ -183,3 +183,17 @@ test("cottage cheese boosts: dairy-safe, sauce slot, hidden when already in the 
   assert.ok(!visibleBoosts(roti, [kid()]).allowed.some((b) => b.id === "cc-dough"));
   assert.ok(visibleBoosts(RECIPE_BY_ID["aloo-paratha"], [kid()]).allowed.some((b) => b.id === "cc-dough"));
 });
+
+test("white sauce pasta: dairy swap, and tofu sauce is a boost alternative", () => {
+  const r = RECIPE_BY_ID["white-sauce-pasta"];
+  assert.equal(checkRecipe(r, [kid({ allergies: ["dairy"] })]).status, "swap");
+  assert.ok(visibleBoosts(r, [kid()]).allowed.some((b) => b.id === "tofu-creamy"));
+  assert.ok(!visibleBoosts(r, [kid({ allergies: ["soy"] })]).allowed.some((b) => b.id === "tofu-creamy"));
+});
+
+test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () => {
+  const h = RECIPE_BY_ID["hummus"];
+  assert.ok(visibleBoosts(h, [kid()]).allowed.some((b) => b.id === "sesame-blend"));
+  assert.ok(!visibleBoosts(h, [kid({ allergies: ["sesame"] })]).allowed.some((b) => b.id === "sesame-blend"));
+  assert.equal(checkRecipe(h, [kid({ allergies: ["sesame"] })]).status, "swap");
+});
