@@ -5,6 +5,7 @@ import Admin from "./pages/Admin.tsx";
 import Community from "./pages/Community.tsx";
 import Cook from "./pages/Cook.tsx";
 import Fridge from "./pages/Fridge.tsx";
+import { Guidelines, Privacy, Terms } from "./pages/Legal.tsx";
 import Login from "./pages/Login.tsx";
 import Profile from "./pages/Profile.tsx";
 import RecipePage from "./pages/RecipePage.tsx";
@@ -37,6 +38,9 @@ export default function App() {
         <Route path="saved" element={<Saved />} />
         <Route path="profile" element={<Profile />} />
         <Route path="login" element={<Login />} />
+        <Route path="privacy" element={<Privacy />} />
+        <Route path="terms" element={<Terms />} />
+        <Route path="guidelines" element={<Guidelines />} />
         <Route path="admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Route>
