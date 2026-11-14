@@ -174,3 +174,12 @@ test("photo scan keeps only known, non-pantry ingredient ids", () => {
   assert.deepEqual(validateDetected(["potato", "spinach", "potato", "salt", "unicorn", 5, null]), ["potato", "spinach"]);
   assert.deepEqual(validateDetected("potato"), []);
 });
+
+test("cottage cheese boosts: dairy-safe, sauce slot, hidden when already in the recipe", () => {
+  const palak = RECIPE_BY_ID["palak-paneer"];
+  assert.ok(visibleBoosts(palak, [kid()]).allowed.some((b) => b.id === "cc-creamy"));
+  assert.ok(!visibleBoosts(palak, [kid({ allergies: ["dairy"] })]).allowed.some((b) => b.id.startsWith("cc-")));
+  const roti = RECIPE_BY_ID["cottage-cheese-roti"];
+  assert.ok(!visibleBoosts(roti, [kid()]).allowed.some((b) => b.id === "cc-dough"));
+  assert.ok(visibleBoosts(RECIPE_BY_ID["aloo-paratha"], [kid()]).allowed.some((b) => b.id === "cc-dough"));
+});

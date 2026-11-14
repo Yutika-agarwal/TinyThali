@@ -61,7 +61,7 @@ export interface AllergenSwap {
 }
 
 /** Where in a recipe a boost can be added. */
-export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain";
+export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain" | "sauce";
 
 export interface Recipe {
   id: string;
@@ -100,6 +100,8 @@ export interface Boost {
   blendsIn?: boolean;
   /** Boosts in the same group replace each other (e.g. only one flour swap). */
   exclusiveGroup?: "flour" | "flax";
+  /** Hidden on recipes that already contain any of these ingredient ids (nothing to add). */
+  hideIfRecipeHas?: string[];
 }
 
 export interface KidProfile {

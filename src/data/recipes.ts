@@ -107,7 +107,7 @@ export const RECIPES: Recipe[] = [
       "Crumble in the paneer and stir for 2 to 3 minutes.",
       "Finish with cilantro and serve with roti or in a wrap.",
     ],
-    slots: { simmer: 2, topping: 3 },
+    slots: { simmer: 2, topping: 3, sauce: 2 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -271,7 +271,7 @@ export const RECIPES: Recipe[] = [
       "Add the spinach puree and simmer for 5 minutes.",
       "Add the paneer cubes and cook for 3 more minutes.",
     ],
-    slots: { simmer: 2, topping: 3 },
+    slots: { simmer: 2, topping: 3, sauce: 2 },
     badges: ["Iron", "Calcium", "Protein"],
     swaps: [
       {
@@ -330,7 +330,7 @@ export const RECIPES: Recipe[] = [
       "Lightly mash a few chickpeas to thicken the gravy.",
       "Top with cilantro and serve.",
     ],
-    slots: { simmer: 1, topping: 3 },
+    slots: { simmer: 1, topping: 3, sauce: 1 },
     badges: ["Protein", "Fiber", "Iron"],
   },
   {
@@ -528,7 +528,7 @@ export const RECIPES: Recipe[] = [
       "Toss the pesto with the hot pasta, loosening with pasta water.",
       "Serve warm.",
     ],
-    slots: { filling: 1, topping: 3 },
+    slots: { filling: 1, topping: 3, sauce: 1 },
     badges: ["Protein", "Iron"],
     swaps: [
       {
@@ -843,7 +843,7 @@ export const RECIPES: Recipe[] = [
       "Fill each tortilla, roll it up and place seam-side down in an oiled baking dish.",
       "Pour the rest of the sauce on top, cover with foil and bake at 375°F for 20 minutes. Let cool a few minutes before serving.",
     ],
-    slots: { filling: 1, topping: 3 },
+    slots: { filling: 1, topping: 3, sauce: 0 },
     badges: ["Protein", "Fiber", "Iron"],
     swaps: [
       {
@@ -985,7 +985,7 @@ export const RECIPES: Recipe[] = [
       "Add the boiled veggies and the potato and mash everything together with a splash of water. Simmer for 8 minutes.",
       "Warm the pav in a little ghee or oil and serve with the bhaji.",
     ],
-    slots: { simmer: 2, topping: 3 },
+    slots: { simmer: 2, topping: 3, sauce: 2 },
     badges: ["Fiber"],
   },
   {
@@ -1035,7 +1035,7 @@ export const RECIPES: Recipe[] = [
       "Mash or blend the sauce lightly for picky eaters.",
       "Toss the pasta in the sauce and serve warm.",
     ],
-    slots: { simmer: 1, filling: 2 },
+    slots: { simmer: 1, filling: 2, sauce: 1 },
     badges: ["Fiber"],
   },
   {
@@ -1176,7 +1176,7 @@ export const RECIPES: Recipe[] = [
       "Bake the balls at 400°F for 20 minutes or pan-fry until golden.",
       "Boil the pasta until soft, toss with the sauce and top with the paneer balls.",
     ],
-    slots: { filling: 0, topping: 3 },
+    slots: { filling: 0, topping: 3, sauce: 1 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -1326,6 +1326,52 @@ export const RECIPES: Recipe[] = [
     ],
     slots: { filling: 1, topping: 3 },
     badges: ["Fiber"],
+  },
+  {
+    id: "cottage-cheese-roti",
+    name: "Soft cottage cheese rotis",
+    emoji: "🫓",
+    blurb: "Rotis made soft and protein-rich by kneading in blended cottage cheese.",
+    minutes: 25,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "atta", qty: "1 cup" },
+      { id: "cottage_cheese", qty: "1/2 cup" },
+      { id: "salt", qty: "a pinch" },
+      { id: "oil", qty: "for cooking" },
+    ],
+    steps: [
+      "Blend the cottage cheese until completely smooth.",
+      "Mix the atta, salt and blended cottage cheese into a soft dough, adding a splash of water only if needed. Rest for 10 minutes.",
+      "Divide, roll into thin rounds and cook on a hot tawa with a little oil until puffed and golden.",
+    ],
+    slots: { dough: 1 },
+    badges: ["Protein", "Calcium"],
+  },
+  {
+    id: "cottage-cheese-chilla",
+    name: "Cottage cheese besan chilla",
+    emoji: "🥞",
+    blurb: "Besan pancakes with blended cottage cheese for a soft, high-protein bite.",
+    minutes: 20,
+    diet: "vegetarian",
+    ingredients: [
+      { id: "besan", qty: "1/2 cup" },
+      { id: "cottage_cheese", qty: "1/2 cup" },
+      { id: "spinach", qty: "1/2 cup, finely chopped", optional: true },
+      { id: "carrot", qty: "1/2, grated", optional: true },
+      { id: "salt", qty: "to taste" },
+      { id: "turmeric", qty: "1/4 tsp" },
+      { id: "oil", qty: "for cooking" },
+    ],
+    steps: [
+      "Blend the cottage cheese with a splash of water until smooth.",
+      "Whisk it into the besan with salt and turmeric into a pourable batter, then stir in the veggies.",
+      "Pour a ladle onto a hot, lightly oiled tawa, spread thin and cook until golden. Flip and cook the other side.",
+      "Serve with chutney or curd.",
+    ],
+    slots: { batter: 1, topping: 3 },
+    badges: ["Protein", "Calcium", "Fiber"],
   },
 ];
 

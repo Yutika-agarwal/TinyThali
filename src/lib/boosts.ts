@@ -20,7 +20,10 @@ export function boostStepIndex(recipe: Recipe, boost: Boost): number | null {
 }
 
 export function boostsForRecipe(recipe: Recipe): Boost[] {
-  return BOOSTS.filter((b) => boostStepIndex(recipe, b) !== null);
+  const have = new Set(recipe.ingredients.map((i) => i.id));
+  return BOOSTS.filter(
+    (b) => boostStepIndex(recipe, b) !== null && !(b.hideIfRecipeHas ?? []).some((id) => have.has(id)),
+  );
 }
 
 export interface BoostOptions {
