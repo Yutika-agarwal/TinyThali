@@ -20,6 +20,9 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "methi", name: "Methi (fresh fenugreek leaves)", emoji: "🌱", category: "veg", allergens: [] },
   { id: "avocado", name: "Avocado", emoji: "🥑", category: "veg", allergens: [] },
   { id: "garlic", name: "Garlic", emoji: "🧄", category: "veg", allergens: [], jainUnsafe: true },
+  { id: "lauki", name: "Lauki (bottle gourd)", emoji: "🥒", category: "veg", allergens: [] },
+  { id: "broccoli", name: "Broccoli", emoji: "🥦", category: "veg", allergens: [] },
+  { id: "corn", name: "Sweet corn", emoji: "🌽", category: "veg", allergens: [] },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
 
   // Dairy and protein
@@ -43,6 +46,8 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "sabudana", name: "Sabudana (tapioca pearls)", emoji: "⚪", category: "grains", allergens: [] },
   { id: "sourdough", name: "Sourdough bread", emoji: "🍞", category: "grains", allergens: ["gluten"] },
   { id: "tortilla", name: "Tortillas (or soft rotis)", emoji: "🫓", category: "grains", allergens: ["gluten"] },
+  { id: "bread", name: "Bread", emoji: "🍞", category: "grains", allergens: ["gluten"] },
+  { id: "pav", name: "Pav (soft buns)", emoji: "🥖", category: "grains", allergens: ["gluten"] },
   { id: "pasta", name: "Pasta", emoji: "🍝", category: "grains", allergens: ["gluten"] },
   { id: "quinoa", name: "Quinoa", emoji: "🌾", category: "grains", allergens: [] },
 
