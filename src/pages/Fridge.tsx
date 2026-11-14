@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CATEGORY_LABELS, INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { btn, Card, Chip, cx, PageTitle } from "../components/ui.tsx";
-import { combinedAllergies } from "../lib/safety.ts";
+import { RECIPE_BY_ID } from "../data/recipes.ts";
+import { WEEKLY } from "../data/weekly.ts";
+import { checkRecipe, combinedAllergies, dietAllows } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
 
 type Category = keyof typeof CATEGORY_LABELS;
@@ -15,6 +17,9 @@ export default function Fridge() {
   const [query, setQuery] = useState("");
 
   const allergies = combinedAllergies(activeKids);
+  const weekly = WEEKLY.recipeIds
+    .map((id) => RECIPE_BY_ID[id])
+    .filter((r) => r && checkRecipe(r, activeKids).status !== "blocked" && dietAllows(r, activeKids));
   const q = query.trim().toLowerCase();
   const visible = INGREDIENTS.filter((i) => i.category !== "pantry").filter((i) =>
     q ? i.name.toLowerCase().includes(q) : i.category === category,
@@ -24,6 +29,25 @@ export default function Fridge() {
     <div className="space-y-5">
       <PageTitle title="What's in your fridge?" subtitle="Tap what you have. We'll find a recipe." />
       <KidSwitcher />
+
+      {weekly.length > 0 && (
+        <section aria-label="This week's kid picks">
+          <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink-soft">
+            This week's kid picks · {WEEKLY.label}
+          </p>
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+            {weekly.map((r) => (
+              <Link
+                key={r.id}
+                to={`/recipe/${r.id}`}
+                className="min-h-11 shrink-0 rounded-2xl bg-white px-3 py-2 text-sm font-extrabold ring-1 ring-black/10"
+              >
+                {r.emoji} {r.name}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div>
         <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink-soft">Quick picks</p>
