@@ -1,6 +1,6 @@
 import { INGREDIENT_BY_ID, INGREDIENTS } from "../data/ingredients.ts";
 import type { Allergen, KidProfile } from "../types.ts";
-import { combinedAllergies } from "./safety.ts";
+import { combinedAllergies, otherAllergyHit } from "./safety.ts";
 
 /**
  * "More from your fridge": recipe ideas written by an AI model, using only the
@@ -37,7 +37,7 @@ export function allowedIngredientIds(fridge: string[], kids: KidProfile[]): stri
   const allergies = combinedAllergies(kids);
   const safe = (id: string) => {
     const ing = INGREDIENT_BY_ID[id];
-    return !!ing && !ing.allergens.some((a) => allergies.includes(a));
+    return !!ing && !ing.allergens.some((a) => allergies.includes(a)) && otherAllergyHit(ing.name, kids) === null;
   };
   return [...new Set([...fridge, ...PANTRY_IDS])].filter(safe);
 }
@@ -75,7 +75,7 @@ export function validateIdeas(raw: unknown, allowed: string[], kids: KidProfile[
     if (!valid || !steps.every((s) => typeof s === "string")) continue;
 
     const text = [o.name, o.blurb, ...steps, ...parsedIngredients.map((i) => i.qty)].join(" ");
-    if (textHasAllergen(text, allergies)) continue;
+    if (textHasAllergen(text, allergies) || otherAllergyHit(text, kids)) continue;
 
     const minutes = typeof o.minutes === "number" && o.minutes > 0 && o.minutes < 240 ? Math.round(o.minutes) : 30;
     out.push({

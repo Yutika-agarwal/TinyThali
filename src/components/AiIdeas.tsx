@@ -14,7 +14,7 @@ export default function AiIdeas() {
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [ideas, setIdeas] = useState<AiIdea[]>([]);
 
-  const key = fridge.join(",") + "|" + activeKids.map((k) => k.allergies.join("+")).join(";");
+  const key = fridge.join(",") + "|" + activeKids.map((k) => [...k.allergies, ...k.otherAllergies].join("+")).join(";");
 
   useEffect(() => {
     if (!cloudEnabled || !user || fridge.length === 0) return;

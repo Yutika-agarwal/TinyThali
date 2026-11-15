@@ -42,6 +42,8 @@ export const BOOST_ICON: Record<string, string> = {
   "tofu-herb-dip": "dip",
   "yogurt-cilantro-dip": "dip",
   "spinach-dough": "spinach",
+  "spinach-batter": "spinach",
+  "whole-moong-batter": "dal",
   "carrot-dough": "carrot",
   "beet-dough": "beet",
   "dal-dough": "dal",

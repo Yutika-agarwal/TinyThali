@@ -118,6 +118,15 @@ export const DISH_TYPES: DishType[] = [
     when: "in the filling, or on the side",
   },
   {
+    id: "moong-chilla",
+    label: "Moong dal chilla",
+    emoji: "🥞",
+    chip: "Moong chilla",
+    keywords: ["moong chilla", "moong dal chilla", "moong cheela", "moong dal cheela", "mung chilla", "mung dal chilla", "green moong chilla"],
+    slots: ["soak", "batter", "side", "topping"],
+    when: "in the batter, or on top",
+  },
+  {
     id: "batter",
     label: "Chilla, dosa, waffle or pancake",
     emoji: "🥞",

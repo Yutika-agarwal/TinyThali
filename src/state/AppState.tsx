@@ -18,7 +18,7 @@ export function uid(): string {
 function migrate(key: string, v: unknown): unknown {
   if (key !== "kids" || !Array.isArray(v)) return v;
   return v.map((k: Record<string, unknown>) =>
-    Array.isArray(k.ageBands) ? k : { ...k, ageBands: [k.ageBand ?? "4-8"] },
+    ({ ...k, ageBands: Array.isArray(k.ageBands) ? k.ageBands : [k.ageBand ?? "4-8"], otherAllergies: Array.isArray(k.otherAllergies) ? k.otherAllergies : [], pickyAbout: Array.isArray(k.pickyAbout) ? k.pickyAbout : [] }),
   );
 }
 

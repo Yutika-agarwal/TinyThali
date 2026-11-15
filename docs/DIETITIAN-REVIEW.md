@@ -22,6 +22,9 @@ Generated from `src/data/boosts.ts`. Please mark each row Approve / Change / Rem
 | Leftover dal in the atta | ½ cup per 2 cups atta, in place of most of the water | 1+ | none | none | |
 | Blended tofu for creaminess | 1/4 cup per serving, in place of cream | 1+ | soy | Protein | |
 | Kale with the greens | about 1 cup per 3 cups of palak, methi or sarson greens | 1+ | none | none | |
+| Whole green moong instead of split moong dal | same quantity as the split yellow moong dal | 1+ | none | none | |
+| Spinach blended into the batter | about 1 cup of spinach per cup of dal | 1+ | none | none | |
+| Quinoa with the rice in the batter | replace up to 1/4 of the rice with quinoa | 1+ | none | none | |
 | Cottage cheese and cilantro dip | 2 tbsp cottage cheese per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
 | Tofu and herb dip | 2 tbsp silken tofu per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | soy | Protein | |
 | Greek yogurt and cilantro dip | 2 tbsp Greek yogurt per serving, with finely chopped cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
@@ -68,6 +71,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Soaked makhana raita | dairy | none | |
 | Homemade paneer and whey rotis | dairy, gluten | none | |
 | Cream cheese veggie roti pinwheels | gluten, dairy | cream_cheese to tofu | |
+| Moong dal chilla | none | none | |
 | Whole moong chilla | none | none | |
 | Seedy avocado sourdough toast | gluten | none | |
 | Veggie pulao | none | none | |

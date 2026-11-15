@@ -21,6 +21,8 @@ const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
   nickname: "K",
   ageBands: ["4-8"],
   allergies: [],
+  otherAllergies: [],
+  pickyAbout: [],
   diet: "vegetarian",
   picky: false,
   ...over,
@@ -301,7 +303,7 @@ test("dish detection: head of the name wins, whole words only, never guesses on 
   assert.equal(type("sweet potato fries"), null); // never "sweet": no date sugar on fries
   assert.equal(type("sourdough toast"), "toast"); // "dough" inside "sourdough" is not a roti
   assert.equal(type("dalia"), "upma"); // "dal" inside "dalia" is not a dal
-  assert.equal(type("moong dal chilla"), "batter");
+  assert.equal(type("moong dal chilla"), "moong-chilla");
   assert.equal(type("chole bhature"), "dal");
   assert.equal(type("paneer tikka"), null); // not sure beats a wrong guess
   assert.equal(type("chicken curry"), null);
@@ -426,4 +428,11 @@ test("dosa and idli: quinoa goes in with the rice, and only there", () => {
   assert.ok(ids("masala dosa").includes("quinoa-batter") && ids("idli").includes("quinoa-batter"));
   assert.ok(!ids("besan chilla").includes("quinoa-batter") && !ids("pancakes").includes("quinoa-batter"));
   assert.ok(!ids("masala dosa").includes("cc-batter")); // no cottage cheese in a fermented batter
+});
+
+test("moong dal chilla: whole green moong swap and spinach batter lead; besan chilla gets neither moong swap", () => {
+  const ids = (q: string) => boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+  const m = ids("moong dal chilla");
+  assert.ok(m.includes("whole-moong-batter") && m.includes("spinach-batter"));
+  assert.ok(!ids("besan chilla").includes("whole-moong-batter"));
 });

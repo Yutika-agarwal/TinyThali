@@ -1,5 +1,6 @@
 import { ALLERGENS } from "../types.ts";
 import type {
+  PickyTrait,
   AgeBand,
   Allergen,
   AllergenSwap,
@@ -46,6 +47,31 @@ export function combinedAllergies(kids: KidProfile[]): Allergen[] {
   return [...new Set(kids.flatMap((k) => k.allergies))];
 }
 
+/** A free-text allergy as a clean lowercase word or short phrase, or null if it isn't usable. */
+export function cleanAllergyWord(raw: string): string | null {
+  const w = raw.toLowerCase().replace(/[^a-z\s-]/g, " ").replace(/\s+/g, " ").trim();
+  return w.length >= 2 && w.length <= 30 ? w : null;
+}
+
+/** Whole-word match, so "nut" does not match "coconut" but "walnut" matches "walnuts". */
+export function mentionsAllergy(text: string, word: string): boolean {
+  const w = cleanAllergyWord(word);
+  if (!w) return false;
+  const base = w.replace(/(es|s)$/, "");
+  const stem = base.length >= 3 ? base : w;
+  const re = new RegExp(`(?:^|[^a-z])${stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:s|es)?(?![a-z])`, "i");
+  return re.test(text);
+}
+
+export function combinedOtherAllergies(kids: KidProfile[]): string[] {
+  return [...new Set(kids.flatMap((k) => k.otherAllergies ?? []))];
+}
+
+/** The first of the parents' own allergy words that appears in the text, if any. */
+export function otherAllergyHit(text: string, kids: KidProfile[]): string | null {
+  return combinedOtherAllergies(kids).find((w) => mentionsAllergy(text, w)) ?? null;
+}
+
 export function allergensOfIngredients(ids: string[]): Allergen[] {
   const found = new Set<Allergen>();
   for (const id of ids) {
@@ -78,6 +104,21 @@ export function applySwaps(recipe: Recipe, swaps: AllergenSwap[]): string[] {
   return ids.map((id) => swaps.find((s) => s.replace === id)?.with ?? id);
 }
 
+/** Everything a recipe says: name, blurb, ingredient names and amounts (after swaps) and steps. */
+function recipeText(recipe: Recipe, swaps: AllergenSwap[]): string {
+  const ids = applySwaps(recipe, swaps);
+  const names = ids.map((id) => INGREDIENT_BY_ID[id]?.name ?? id);
+  return [recipe.name, recipe.blurb, ...names, ...recipe.steps].join(" | ");
+}
+
+export function checkRecipe(recipe: Recipe, kids: KidProfile[]): RecipeSafety {
+  const result = checkRecipeBuiltIn(recipe, kids);
+  if (result.status === "blocked") return result;
+  const hit = otherAllergyHit(recipeText(recipe, result.swaps), kids);
+  if (hit) return { status: "blocked", conflicts: result.conflicts, swaps: [], reason: `Mentions ${hit}, which is on your allergy list` };
+  return result;
+}
+
 export interface RecipeSafety {
   status: "safe" | "swap" | "blocked";
   conflicts: Allergen[];
@@ -85,7 +126,7 @@ export interface RecipeSafety {
   reason?: string;
 }
 
-export function checkRecipe(recipe: Recipe, kids: KidProfile[]): RecipeSafety {
+function checkRecipeBuiltIn(recipe: Recipe, kids: KidProfile[]): RecipeSafety {
   const allergies = combinedAllergies(kids);
   const conflicts = recipeAllergens(recipe).filter((a) => allergies.includes(a));
   if (conflicts.length === 0) return { status: "safe", conflicts, swaps: [] };
@@ -132,11 +173,24 @@ export function dietAllows(recipe: Recipe, kids: KidProfile[]): boolean {
   });
 }
 
+const PICKY_PHRASE: Record<PickyTrait, string> = {
+  green: "avoids green food",
+  texture: "dislikes bits and seeds",
+  strong: "dislikes strong tastes",
+  plain: "wants food to look unchanged",
+};
+
 export function checkBoost(boost: Boost, kids: KidProfile[]): Check {
   if (kids.length === 0) return { ok: true };
   const overlap = boost.allergens.filter((a) => combinedAllergies(kids).includes(a));
   if (overlap.length > 0) {
     return { ok: false, reason: `Contains ${listLabels(overlap)}, which is on your allergy list.` };
+  }
+  const hit = otherAllergyHit([boost.name, boost.add, boost.amount, boost.stepText].join(" | "), kids);
+  if (hit) return { ok: false, reason: `Mentions ${hit}, which is on your allergy list.` };
+  const bothered = kids.flatMap((k) => (k.picky ? k.pickyAbout ?? [] : [])).find((t) => boost.pickyTraits?.includes(t));
+  if (bothered) {
+    return { ok: false, reason: `Skipped: it may bother a child who ${PICKY_PHRASE[bothered]}.` };
   }
   if (boost.jainUnsafe && kids.some((k) => k.diet === "jain")) {
     return { ok: false, reason: "Root vegetables aren't used in Jain cooking." };
@@ -155,6 +209,8 @@ export function checkPost(post: CommunityPost, kids: KidProfile[]): Check {
   if (allergies.length > 0 && !post.allergensConfirmed) {
     return { ok: false, reason: "The allergen info for this tip hasn't been confirmed." };
   }
+  const hit = otherAllergyHit([post.title, post.whatAdded, post.amount, post.whereInRecipe].join(" | "), kids);
+  if (hit) return { ok: false, reason: `Mentions ${hit}, which is on your allergy list.` };
   const overlap = post.allergenTags.filter((a) => allergies.includes(a));
   if (overlap.length > 0) {
     return { ok: false, reason: `Contains ${listLabels(overlap)}, which is on your allergy list.` };

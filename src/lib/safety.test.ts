@@ -20,6 +20,8 @@ const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
   nickname: "K",
   ageBands: ["4-8"],
   allergies: [],
+  otherAllergies: [],
+  pickyAbout: [],
   diet: "vegetarian",
   picky: false,
   ...over,

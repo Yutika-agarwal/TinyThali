@@ -123,6 +123,7 @@ export const BOOSTS: Boost[] = [
     minAge: 2,
     allergens: [],
     note: "Soft and mild, so there is nothing to grind.",
+    pickyTraits: ["texture"],
   },
   {
     id: "pumpkin",
@@ -172,7 +173,8 @@ export const BOOSTS: Boost[] = [
     minAge: 2,
     allergens: [],
     note: "Strong flavor, so start small. Crush the seeds so they aren't whole.",
-    onlyDishes: ["roti", "stuffed-paratha", "batter"],
+    onlyDishes: ["roti", "stuffed-paratha", "batter", "moong-chilla"],
+    pickyTraits: ["strong"],
   },
   {
     id: "date-sugar",
@@ -225,6 +227,7 @@ export const BOOSTS: Boost[] = [
     blendsIn: true,
     exclusiveGroup: "dough-add",
     hideIfRecipeHas: ["spinach"],
+    pickyTraits: ["green", "plain"],
   },
   {
     id: "carrot-dough",
@@ -245,6 +248,7 @@ export const BOOSTS: Boost[] = [
     exclusiveGroup: "dough-add",
     hideIfRecipeHas: ["carrot"],
     jainUnsafe: true,
+    pickyTraits: ["plain"],
   },
   {
     id: "beet-dough",
@@ -265,6 +269,7 @@ export const BOOSTS: Boost[] = [
     exclusiveGroup: "dough-add",
     hideIfRecipeHas: ["beetroot"],
     jainUnsafe: true,
+    pickyTraits: ["plain"],
   },
   {
     id: "dal-dough",
@@ -320,6 +325,45 @@ export const BOOSTS: Boost[] = [
     blendsIn: true,
     hideIfRecipeHas: ["kale"],
     onlyDishes: ["greens", "creamy-curry"],
+    pickyTraits: ["green"],
+  },
+  {
+    id: "whole-moong-batter",
+    name: "Whole green moong instead of split moong dal",
+    emoji: "🟢",
+    kind: "swap",
+    slots: ["soak"],
+    add: "Whole green moong (sabut moong)",
+    amount: "same quantity as the split yellow moong dal",
+    stepText: "Use whole green moong instead of split yellow moong dal. Soak it for 6 to 8 hours (or soak, drain and let it sprout for a day), then grind to a smooth batter as usual.",
+    why: "Whole moong keeps its skin, which brings more fiber, and sprouting makes it milder to digest. The chilla cooks up the same way.",
+    badges: [],
+    minAge: 1,
+    allergens: [],
+    note: "Grind it very smooth with a little water so no skin bits show. The chilla turns a little greener and earthier.",
+    blendsIn: true,
+    hideIfRecipeHas: ["moong_whole"],
+    onlyDishes: ["moong-chilla"],
+    pickyTraits: ["plain"],
+  },
+  {
+    id: "spinach-batter",
+    name: "Spinach blended into the batter",
+    emoji: "🥬",
+    kind: "addon",
+    slots: ["batter"],
+    add: "Spinach, washed",
+    amount: "about 1 cup of spinach per cup of dal",
+    stepText: "Blend a cup of washed spinach right in with the soaked dal and grind to a smooth batter. It makes a green chilla.",
+    why: "Blended in, the spinach disappears into the batter and gives a bright green chilla that looks fun.",
+    badges: [],
+    minAge: 1,
+    allergens: [],
+    note: "Use fresh spinach and grind it fine. Cook the chilla a little longer on medium heat so it crisps.",
+    blendsIn: true,
+    hideIfRecipeHas: ["spinach"],
+    onlyDishes: ["moong-chilla", "batter"],
+    pickyTraits: ["green"],
   },
   {
     id: "quinoa-batter",
@@ -338,6 +382,7 @@ export const BOOSTS: Boost[] = [
     blendsIn: true,
     hideIfRecipeHas: ["quinoa"],
     onlyDishes: ["fermented"],
+    pickyTraits: ["texture"],
   },
   {
     id: "cc-cilantro-dip",
@@ -355,6 +400,7 @@ export const BOOSTS: Boost[] = [
     note: "Keep it cold and use it the same day. Skip the lemon if your child doesn't like sour tastes.",
     blendsIn: true,
     hideIfRecipeHas: ["cottage_cheese"],
+    pickyTraits: ["strong"],
   },
   {
     id: "tofu-herb-dip",
@@ -372,6 +418,7 @@ export const BOOSTS: Boost[] = [
     note: "Use silken tofu, keep the dip cold, and use it the same day.",
     blendsIn: true,
     hideIfRecipeHas: ["tofu"],
+    pickyTraits: ["strong"],
   },
   {
     id: "yogurt-cilantro-dip",
@@ -389,6 +436,7 @@ export const BOOSTS: Boost[] = [
     note: "Keep it cold and use it the same day.",
     blendsIn: true,
     hideIfRecipeHas: ["greek_yogurt"],
+    pickyTraits: ["strong"],
   },
   {
     id: "peanut-butter",
@@ -422,6 +470,7 @@ export const BOOSTS: Boost[] = [
     allergens: [],
     note: "Grind the flax and pumpkin seeds fine. Make a jar ahead and keep it in the fridge.",
     exclusiveGroup: "flax",
+    pickyTraits: ["texture"],
   },
   {
     id: "quinoa-swap",
@@ -437,6 +486,7 @@ export const BOOSTS: Boost[] = [
     minAge: 1,
     allergens: [],
     note: "Rinse under running water until it stops foaming, or it can taste bitter. It cooks in about 15 minutes.",
+    pickyTraits: ["texture"],
   },
   {
     id: "soy-chunks",
@@ -454,6 +504,7 @@ export const BOOSTS: Boost[] = [
     note: "Rinse well and squeeze dry, shred small, and cook thoroughly. They are packaged and can be salty, so check the label and use less salt.",
     onlyDishes: ["pulao", "stuffed-paratha", "stuffed", "wrap"],
     blendsIn: true,
+    pickyTraits: ["texture"],
   },
   {
     id: "cc-dough",

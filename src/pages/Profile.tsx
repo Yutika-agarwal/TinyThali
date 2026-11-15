@@ -59,11 +59,11 @@ export default function Profile() {
                   <h3 className="font-extrabold">{k.nickname}</h3>
                   <p className="text-sm text-ink-soft">
                     Ages {k.ageBands.join(", ")} · {DIETS.find((d) => d.id === k.diet)?.label}
-                    {k.picky && " · Picky eater"}
+                    {k.picky && ` · Picky${k.pickyNote ? `: ${k.pickyNote}` : ""}`}
                   </p>
                   <p className="text-sm">
-                    {k.allergies.length > 0
-                      ? `Allergic to: ${k.allergies.map(allergenLabel).join(", ")}`
+                    {k.allergies.length + k.otherAllergies.length > 0
+                      ? `Allergic to: ${[...k.allergies.map(allergenLabel), ...k.otherAllergies].join(", ")}`
                       : "No allergies listed"}
                   </p>
                 </div>

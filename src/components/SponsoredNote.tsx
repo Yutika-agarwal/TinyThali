@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DEMO_OFFERS } from "../data/sponsors.ts";
 import { fetchOffers } from "../lib/cloud.ts";
 import { cloudEnabled } from "../lib/supabase.ts";
-import { combinedAllergies } from "../lib/safety.ts";
+import { combinedAllergies, combinedOtherAllergies } from "../lib/safety.ts";
 import { pickOffers } from "../lib/sponsors.ts";
 import { useApp } from "../state/AppState.tsx";
 import type { SponsorOffer } from "../types.ts";
@@ -26,6 +26,7 @@ export default function SponsoredNote({ ingredientIds }: { ingredientIds: string
 
   const ctx = {
     allergies: combinedAllergies(activeKids),
+    others: combinedOtherAllergies(activeKids),
     diets: activeKids.map((k) => k.diet),
     today: new Date().toLocaleDateString("en-CA"),
   };

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useApp } from "../state/AppState.tsx";
-import { combinedAllergies } from "../lib/safety.ts";
+import { combinedAllergies, combinedOtherAllergies } from "../lib/safety.ts";
 import { allergenLabel, Chip, Notice } from "./ui.tsx";
 
 /** "Cooking for:" selector. With several kids selected, results are safe for all of them. */
@@ -29,7 +29,8 @@ export default function KidSwitcher() {
   }
 
   const names = activeKids.map((k) => k.nickname).join(", ");
-  const summary = `${names}${allergies.length > 0 ? ` · No ${allergies.map(allergenLabel).join(", ")}` : " · No allergies"}`;
+  const noList = [...allergies.map(allergenLabel), ...combinedOtherAllergies(activeKids)];
+  const summary = `${names}${noList.length > 0 ? ` · No ${noList.join(", ")}` : " · No allergies"}`;
 
   return (
     <details className="rounded-2xl bg-white px-3 py-2 ring-1 ring-black/10">

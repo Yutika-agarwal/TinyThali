@@ -108,7 +108,19 @@ export interface Boost {
   onlyDishes?: string[];
   /** Root vegetable: hidden for Jain households. */
   jainUnsafe?: boolean;
+  /** Might bother a child who refuses this (green food, bits and seeds, strong tastes, changed looks). */
+  pickyTraits?: PickyTrait[];
 }
+
+/** What a picky eater tends to refuse. Used to skip boosts that could bother them. */
+export type PickyTrait = "green" | "texture" | "strong" | "plain";
+
+export const PICKY_TRAITS: { id: PickyTrait; label: string }[] = [
+  { id: "green", label: "Avoids green food" },
+  { id: "texture", label: "Dislikes bits and seeds" },
+  { id: "strong", label: "Dislikes strong tastes" },
+  { id: "plain", label: "Wants food to look unchanged" },
+];
 
 export interface KidProfile {
   id: string;
@@ -116,8 +128,14 @@ export interface KidProfile {
   /** One or more age bands; safety uses the youngest. */
   ageBands: AgeBand[];
   allergies: Allergen[];
+  /** Anything else they react to, in the parent's own words (e.g. "kiwi", "mustard"). */
+  otherAllergies: string[];
   diet: Diet;
   picky: boolean;
+  /** When picky: what they tend to refuse. */
+  pickyAbout: PickyTrait[];
+  /** Anything else about the pickiness, just for the parent. */
+  pickyNote?: string;
 }
 
 export interface CommunityPost {

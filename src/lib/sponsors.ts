@@ -1,8 +1,11 @@
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
+import { mentionsAllergy } from "./safety.ts";
 import type { Allergen, Diet, SponsorOffer } from "../types.ts";
 
 export interface SponsorContext {
   allergies: Allergen[];
+  /** The parents' own allergy words. */
+  others?: string[];
   diets: Diet[];
   /** YYYY-MM-DD */
   today: string;
@@ -13,6 +16,7 @@ export function ingredientConflicts(ingredientId: string, ctx: SponsorContext): 
   const ing = INGREDIENT_BY_ID[ingredientId];
   if (!ing) return true;
   if (ing.allergens.some((a) => ctx.allergies.includes(a))) return true;
+  if ((ctx.others ?? []).some((w) => mentionsAllergy(ing.name, w))) return true;
   if (ctx.diets.includes("jain") && ing.jainUnsafe) return true;
   return false;
 }

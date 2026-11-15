@@ -27,6 +27,7 @@ Cook each recipe once. Note quantities, timings and textures that are off.
 | Soaked makhana raita | 15 | | | |
 | Homemade paneer and whey rotis | 45 | | | |
 | Cream cheese veggie roti pinwheels | 20 | | | |
+| Moong dal chilla | 25 | | | |
 | Whole moong chilla | 25 | | | |
 | Seedy avocado sourdough toast | 10 | | | |
 | Veggie pulao | 25 | | | |

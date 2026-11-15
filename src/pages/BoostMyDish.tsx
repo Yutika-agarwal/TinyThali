@@ -3,6 +3,7 @@ import KidSwitcher from "../components/KidSwitcher.tsx";
 import { NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { logDishRequest } from "../lib/cloud.ts";
 import { collapseGroups, groupBoosts } from "../lib/boosts.ts";
+import { otherAllergyHit } from "../lib/safety.ts";
 import { boostsForDish, detectDish, dishToLog, isMeatDish, suggestDishes } from "../lib/dish.ts";
 import { useApp } from "../state/AppState.tsx";
 import Glyph from "../components/Glyph.tsx";
@@ -17,7 +18,8 @@ export default function BoostMyDish() {
   const detected = detectDish(query);
   const suggestions = suggestDishes(query);
   // Boosts appear once the dish is settled: nothing while the field is empty, nothing while suggestions are still open.
-  const settled = detected && suggestions.length === 0 ? detected : null;
+  const typedOther = otherAllergyHit(query, activeKids);
+  const settled = detected && suggestions.length === 0 && !typedOther ? detected : null;
   const result = settled ? boostsForDish(settled, activeKids) : null;
   const [showAll, setShowAll] = useState(false);
   const list = result?.allowed ?? [];
@@ -69,6 +71,9 @@ export default function BoostMyDish() {
         )}
       </div>
 
+      {typedOther && (
+        <p className="text-sm font-bold text-beet">This mentions {typedOther}, which is on your allergy list. No boosts shown.</p>
+      )}
       {isMeatDish(query) && (
         <p className="text-sm text-ink-soft">We only suggest boosts for vegetarian dishes and eggs for now.</p>
       )}

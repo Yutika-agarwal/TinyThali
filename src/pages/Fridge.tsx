@@ -7,7 +7,7 @@ import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import PhotoScan from "../components/PhotoScan.tsx";
 import { btn, Chip } from "../components/ui.tsx";
-import { checkRecipe, combinedAllergies, dietAllows } from "../lib/safety.ts";
+import { checkRecipe, combinedAllergies, dietAllows, otherAllergyHit } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
 
 export default function Fridge() {
@@ -27,7 +27,7 @@ export default function Fridge() {
   function ingredientChip(id: string) {
     const i = INGREDIENT_BY_ID[id];
     if (!i) return null;
-    const flagged = i.allergens.some((a) => allergies.includes(a));
+    const flagged = i.allergens.some((a) => allergies.includes(a)) || otherAllergyHit(i.name, activeKids) !== null;
     return (
       <Chip key={id} active={fridge.includes(id)} onClick={() => toggleFridge(id)}>
         <Glyph kind="ing" id={id} emoji={i.emoji} /> {i.name}
