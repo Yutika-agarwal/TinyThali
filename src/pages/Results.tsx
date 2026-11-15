@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
+import SaveHeart from "../components/SaveHeart.tsx";
 import { btn, Card, Chip, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
 import { matchRecipes, pageResults } from "../lib/match.ts";
@@ -37,6 +38,7 @@ function RecipeCard({ result }: { result: MatchResult }) {
               {reaction === "not_this_time" && " · Not a hit last time"}
             </p>
           </div>
+          <SaveHeart recipeId={recipe.id} />
         </div>
       </Card>
     </Link>

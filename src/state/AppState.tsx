@@ -255,8 +255,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const saveRecipe = useCallback(
     (recipeId: string, boostIds: string[], postIds: string[]) => {
-      const item: SavedRecipe = { id: uid(), recipeId, boostIds, postIds, savedAt: new Date().toISOString() };
-      setSaved((prev) => [item, ...prev]);
+      // One entry per recipe: saving again updates its boosts instead of piling up copies.
+      const existing = savedRef.current.find((x) => x.recipeId === recipeId);
+      const item: SavedRecipe = { id: existing?.id ?? uid(), recipeId, boostIds, postIds, savedAt: new Date().toISOString() };
+      setSaved((prev) => [item, ...prev.filter((x) => x.recipeId !== recipeId)]);
       if (cloudEnabled && userId) cloud.upsertSaved([item]).catch(warn("Could not save to your account"));
     },
     [setSaved, userId],

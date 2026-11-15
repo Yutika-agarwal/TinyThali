@@ -16,7 +16,7 @@ const REACTIONS: { id: Reaction; emoji: string; label: string }[] = [
 
 export default function Cook() {
   const session = useRecipeSession();
-  const { activeKids, addHistory, saveRecipe } = useApp();
+  const { activeKids, addHistory, saveRecipe, saved: savedList } = useApp();
   const [step, setStep] = useState(0);
   const [finished, setFinished] = useState(false);
   const [reaction, setReaction] = useState<Reaction | null>(null);
@@ -128,13 +128,13 @@ export default function Cook() {
           <button
             type="button"
             className={btn("secondary")}
-            disabled={saved}
+            disabled={saved || savedList.some((x) => x.recipeId === recipe.id)}
             onClick={() => {
               saveRecipe(recipe.id, boostIds, postIds);
               setSaved(true);
             }}
           >
-            {saved ? "Saved ✓" : "Save to my recipes ❤️"}
+            {saved || savedList.some((x) => x.recipeId === recipe.id) ? "Saved ✓" : "Save to my recipes ❤️"}
           </button>
           <Link to="/saved" className={btn("ghost")}>See saved and history</Link>
           <Link to="/" className={btn("primary")}>Back to ingredients</Link>

@@ -18,6 +18,7 @@ import { combinedAllergies, recipeAllergens, usesGhee } from "../lib/safety.ts";
 import { useRecipeSession } from "../lib/useRecipeSession.ts";
 import { useApp } from "../state/AppState.tsx";
 import type { Boost, CommunityPost } from "../types.ts";
+import SaveHeart from "../components/SaveHeart.tsx";
 import Glyph from "../components/Glyph.tsx";
 import SponsoredNote from "../components/SponsoredNote.tsx";
 
@@ -100,8 +101,7 @@ function PostToggle({ post, on, onToggle }: { post: CommunityPost; on: boolean; 
 
 export default function RecipePage() {
   const session = useRecipeSession();
-  const { activeKids, saveRecipe, fridge, history } = useApp();
-  const [justSaved, setJustSaved] = useState(false);
+  const { activeKids, fridge, history } = useApp();
   const [showAllBoosts, setShowAllBoosts] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -155,19 +155,17 @@ export default function RecipePage() {
     }
   }
 
-  function save() {
-    saveRecipe(recipe.id, boostIds, postIds);
-    setJustSaved(true);
-  }
-
   return (
     <div className="space-y-5">
       <Link to="/results" className="text-sm font-bold text-beet">← Recipes</Link>
 
       <header>
-        <h1 className="text-3xl font-extrabold leading-tight">
-          <span aria-hidden>{recipe.emoji}</span> {recipe.name}
-        </h1>
+        <div className="flex items-start justify-between gap-2">
+          <h1 className="text-3xl font-extrabold leading-tight">
+            <span aria-hidden>{recipe.emoji}</span> {recipe.name}
+          </h1>
+          <SaveHeart recipeId={recipe.id} boostIds={boostIds} postIds={postIds} />
+        </div>
         <p className="text-ink-soft">{recipe.blurb}</p>
         <p className="mt-1 text-sm font-bold">
           {recipe.minutes} minutes
@@ -362,9 +360,6 @@ export default function RecipePage() {
         <Link to={`/cook/${recipe.id}${query}`} className={btn("primary", "flex-1")}>
           Start cooking 👩‍🍳
         </Link>
-        <button type="button" onClick={save} disabled={justSaved} className={btn("secondary")}>
-          {justSaved ? "Saved ✓" : "Save ❤️"}
-        </button>
       </div>
     </div>
   );

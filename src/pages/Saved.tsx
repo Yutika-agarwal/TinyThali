@@ -31,10 +31,12 @@ export default function Saved() {
   const { saved, removeSaved, history } = useApp();
   const { enabled, user } = useAuth();
   const [tab, setTab] = useState<"saved" | "history">("saved");
+  const [find, setFind] = useState("");
+  const shown = saved.filter((s) => !find.trim() || (RECIPE_BY_ID[s.recipeId]?.name ?? "").toLowerCase().includes(find.trim().toLowerCase()));
 
   return (
     <div className="space-y-5">
-      <PageTitle title="Your recipes" subtitle="Saved with the boosts you used." />
+      <PageTitle title="Your recipes" />
 
       <div className="flex gap-2">
         <Chip active={tab === "saved"} onClick={() => setTab("saved")}>Saved ({saved.length})</Chip>
@@ -51,7 +53,17 @@ export default function Saved() {
               <Link to="/" className={btn("secondary", "mt-4")}>Find a recipe</Link>
             </Card>
           )}
-          {saved.map((s) => {
+          {saved.length > 4 && (
+            <input
+              type="search"
+              value={find}
+              onChange={(e) => setFind(e.target.value)}
+              placeholder="Search saved recipes"
+              aria-label="Search saved recipes"
+              className="min-h-12 w-full rounded-2xl bg-white px-4 ring-1 ring-black/10"
+            />
+          )}
+          {shown.map((s) => {
             const recipe = RECIPE_BY_ID[s.recipeId];
             if (!recipe) return null;
             return (
