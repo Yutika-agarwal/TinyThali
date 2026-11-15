@@ -409,3 +409,12 @@ export async function fetchOffers(): Promise<SponsorOffer[]> {
     priority: r.priority as number,
   }));
 }
+
+// ---------------------------------------------------------------------------
+// Dish requests: anonymous dish names, to grow the menu
+// ---------------------------------------------------------------------------
+
+export async function logDishRequest(dish: string, matched: boolean): Promise<void> {
+  if (!supabase) return;
+  await supabase.from("dish_requests").insert({ dish, matched });
+}

@@ -39,3 +39,6 @@ Never paste the key into chat or into the code.
 ## 7. Pilot, then launch
 - Invite about 10 parents. Ask: did you find a recipe in under a minute, did the allergen filtering feel trustworthy, what confused you.
 - Fix, then launch.
+
+## Growing the menu from what parents cook
+"Boost what you're cooking" saves each dish name a parent types (text only, no account or kid data) in the `dish_requests` table (`supabase/migrations/0004_dish_requests.sql`). Once a week, run the query at the bottom of that file in the Supabase SQL editor to see the most-requested dishes we don't cover yet, then add recipes or dish keywords for them. The privacy page already says this.

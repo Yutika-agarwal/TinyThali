@@ -198,7 +198,7 @@ test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () 
   assert.equal(checkRecipe(h, [kid({ allergies: ["sesame"] })]).status, "swap");
 });
 
-import { boostsForDish, detectDish } from "./dish.ts";
+import { boostsForDish, suggestDishes, detectDish, dishToLog } from "./dish.ts";
 
 test("Boost my dish: detects the dish type from free text", () => {
   assert.equal(detectDish("Paneer paratha")?.id, "roti");
@@ -234,4 +234,19 @@ test("donation amounts: valid dollars become cents, junk is rejected", () => {
   assert.equal(dollarsToCents("abc"), null);
   assert.equal(dollarsToCents("500"), 50000);
   assert.equal(dollarsToCents("500.01"), null);
+});
+
+test("dish suggestions are predictive and only offer dishes we can boost", () => {
+  assert.deepEqual(suggestDishes("p"), []);
+  const s = suggestDishes("paneer par");
+  assert.ok(s.length > 0 && s.every((n) => detectDish(n) !== null));
+  assert.ok(suggestDishes("pas").some((n) => n.toLowerCase().includes("pasta")));
+  assert.deepEqual(suggestDishes("pasta"), []); // an exact pick closes the list
+});
+
+test("only plain dish names are kept for menu research", () => {
+  assert.equal(dishToLog("  Paneer   Paratha "), "paneer paratha");
+  assert.equal(dishToLog("hi"), null);
+  assert.equal(dishToLog("call me 555 1234"), null);
+  assert.equal(dishToLog("me@x.com"), null);
 });

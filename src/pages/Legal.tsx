@@ -20,6 +20,11 @@ export function Privacy() {
           Your children's nicknames, age groups and allergies are saved only in this browser, on this device. They are
           never uploaded to our servers. Tiny Thali is meant to be used by parents and caregivers, not by children.
         </p>
+        <h2 className="text-lg font-extrabold">Dishes you type</h2>
+        <p>
+          When you tell "Boost what you're cooking" what you're making, we keep just that dish name, with no account,
+          name or kid details attached, to learn which recipes to add. Please don't type personal information there.
+        </p>
         <h2 className="text-lg font-extrabold">If you make an account</h2>
         <p>
           We store your email address, a display name, your saved recipes, your cooking history, and any community tips
