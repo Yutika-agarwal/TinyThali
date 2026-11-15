@@ -96,7 +96,7 @@ export interface Boost {
   minAge: number;
   allergens: Allergen[];
   note: string;
-  /** Disappears into the dish, so it is a good first try for picky eaters. */
+  /** Looks and tastes like normal food, so a child is unlikely to notice or object. These are suggested first. */
   blendsIn?: boolean;
   /** Boosts in the same group replace each other (e.g. only one flour swap). */
   exclusiveGroup?: "flour" | "flax" | "dough-add";

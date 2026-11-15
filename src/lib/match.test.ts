@@ -368,3 +368,15 @@ test("chole and other curries: no white sauce, no ajwain, no soy chunks", () => 
   assert.ok(!boostsForDish(detectDish("ravioli")!, []).allowed.some((b) => b.slots.includes("dough"))); // no atta in pasta dough
   assert.ok(!boostsForDish(detectDish("curd rice")!, []).allowed.some((b) => b.id === "soy-chunks")); // pulao only
 });
+
+test("boosts a child could notice (hemp or seed sprinkles, ragi, quinoa, ajwain) never lead", () => {
+  const noticeable = ["hemp", "seed-mix", "ragi", "jowar", "besan", "quinoa-swap", "ajwain"];
+  for (const q of ["roti", "pulao", "chole", "pasta", "quesadilla", "halwa"]) {
+    const ids = boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+    const firstVisible = ids.findIndex((id) => noticeable.includes(id));
+    const lastQuiet = ids.map((id) => !noticeable.includes(id)).lastIndexOf(true);
+    assert.ok(firstVisible === -1 || firstVisible > lastQuiet, `${q}: ${ids.join(",")}`);
+  }
+  const r = RECIPE_BY_ID["moong-dal-tadka"];
+  assert.ok(autoBoosts(r, [kid()]).every((id) => !noticeable.includes(id)));
+});

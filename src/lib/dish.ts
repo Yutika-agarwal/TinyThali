@@ -51,14 +51,13 @@ export function boostFitsDish(b: Boost, dishId: string | null): boolean {
 
 /** Boosts that fit a dish type and are safe for these kids. Easiest first. */
 export function boostsForDish(type: DishType, kids: KidProfile[]): DishBoosts {
-  const picky = kids.some((k) => k.picky);
   const fitting = BOOSTS.filter((b) => b.slots.some((s) => type.slots.includes(s)) && boostFitsDish(b, type.id));
   const safe = fitting.filter((b) => checkBoost(b, kids).ok);
-  // Lead with the steps the dish lists first (a quesadilla leads with its dip), then picky-friendly, then richer.
+  // Unnoticeable boosts first; then the steps the dish lists first (a quesadilla leads with its dip), then richer.
   const order = (b: Boost) => Math.min(...b.slots.map((s) => (type.slots.includes(s) ? type.slots.indexOf(s) : 99)));
   const ranked = [...safe].sort((a, b) => {
+    if (!!a.blendsIn !== !!b.blendsIn) return a.blendsIn ? -1 : 1; // the unnoticeable ones lead
     if (order(a) !== order(b)) return order(a) - order(b);
-    if (picky && !!a.blendsIn !== !!b.blendsIn) return a.blendsIn ? -1 : 1;
     return b.badges.length - a.badges.length;
   });
   const groups = new Set<string>();

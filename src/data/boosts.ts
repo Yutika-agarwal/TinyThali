@@ -163,7 +163,6 @@ export const BOOSTS: Boost[] = [
     allergens: [],
     note: "Strong flavor, so start small. Crush the seeds so they aren't whole.",
     onlyDishes: ["roti", "stuffed-paratha", "batter"],
-    blendsIn: true,
   },
   {
     id: "date-sugar",
@@ -178,6 +177,7 @@ export const BOOSTS: Boost[] = [
     minAge: 2,
     allergens: [],
     note: "It doesn't fully dissolve, so the texture is slightly grainy. It is still a sugar, so keep portions small and avoid added sugar for kids under 2.",
+    blendsIn: true,
   },
   {
     id: "whey-dough",
@@ -378,7 +378,6 @@ export const BOOSTS: Boost[] = [
     minAge: 1,
     allergens: [],
     note: "Rinse under running water until it stops foaming, or it can taste bitter. It cooks in about 15 minutes.",
-    blendsIn: true,
   },
   {
     id: "soy-chunks",
