@@ -24,7 +24,7 @@ export const DISH_TYPES: DishType[] = [
     emoji: "🫓",
     chip: "Roti / paratha",
     keywords: ["roti", "chapati", "chapathi", "phulka", "paratha", "parantha", "thepla", "puri", "naan", "kulcha", "bhatura", "dough", "flatbread", "tortilla"],
-    slots: ["dough", "filling"],
+    slots: ["dough"],
     when: "while making the dough or the stuffing",
   },
   {
@@ -51,7 +51,7 @@ export const DISH_TYPES: DishType[] = [
     emoji: "🥣",
     chip: "Upma / poha",
     keywords: ["upma", "poha", "daliya", "dalia", "porridge", "oats", "sheera", "semolina", "sooji", "rava"],
-    slots: ["simmer", "filling", "topping"],
+    slots: ["simmer", "topping"],
     when: "while it cooks, or on top",
   },
   {
@@ -60,8 +60,17 @@ export const DISH_TYPES: DishType[] = [
     emoji: "🍝",
     chip: "Pasta / noodles",
     keywords: ["pasta", "noodles", "macaroni", "mac and cheese", "spaghetti", "penne", "maggi", "ramen"],
-    slots: ["sauce", "filling", "topping"],
+    slots: ["sauce", "topping"],
     when: "in the sauce, or on top",
+  },
+  {
+    id: "stuffed",
+    label: "Stuffed dish",
+    emoji: "🥟",
+    chip: "Stuffed",
+    keywords: ["stuffed", "ravioli", "tortellini", "stuffed shells", "lasagna", "lasagne", "momos", "dumpling", "samosa", "kachori", "aloo paratha", "paneer paratha", "gobi paratha", "mooli paratha", "methi paratha stuffed", "stuffed paratha", "stuffed roti", "calzone"],
+    slots: ["filling", "dough"],
+    when: "in the filling or the dough",
   },
   {
     id: "batter",

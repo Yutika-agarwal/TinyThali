@@ -203,7 +203,7 @@ test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () 
 import { boostsForDish, suggestDishes, detectDish, dishToLog } from "./dish.ts";
 
 test("Boost my dish: detects the dish type from free text", () => {
-  assert.equal(detectDish("Paneer paratha")?.id, "roti");
+  assert.equal(detectDish("Paneer paratha")?.id, "stuffed");
   assert.equal(detectDish("moong dal tadka")?.id, "dal");
   assert.equal(detectDish("palak paneer")?.id, "dal");
   assert.equal(detectDish("veg pasta")?.id, "pasta");
@@ -280,4 +280,14 @@ test("results pages: at most 5 at once, at most 3 almost on the first page, See 
   const lots = pageResults([...mk("ready", 9), ...mk("almost", 4)], 1);
   assert.equal(lots.ready.length, 5);
   assert.equal(lots.almost.length, 0);
+});
+
+test("filling boosts only show when the dish is actually stuffed", () => {
+  const ids = (q: string) => boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+  assert.ok(!ids("pasta").includes("cc-filling") && !ids("pasta").includes("soy-chunks"));
+  assert.ok(!ids("roti").includes("cc-filling"));
+  assert.equal(detectDish("ravioli")!.id, "stuffed");
+  assert.equal(detectDish("aloo paratha")!.id, "stuffed");
+  assert.ok(ids("ravioli").includes("cc-filling"));
+  assert.ok(ids("pulao").includes("soy-chunks"));
 });
