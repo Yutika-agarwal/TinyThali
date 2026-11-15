@@ -5,6 +5,7 @@ import type {
   CookEntry,
   Reaction,
   SavedRecipe,
+  SponsorOffer,
 } from "../types.ts";
 import { allowedIngredientIds, PANTRY_IDS, validateIdeas } from "./aiIdeas.ts";
 import type { AiIdea } from "./aiIdeas.ts";
@@ -385,4 +386,26 @@ export async function myDonationTotal(): Promise<number> {
   const { data, error } = await db().from("donations").select("amount_cents");
   check(error);
   return ((data as { amount_cents: number }[] | null) ?? []).reduce((sum, d) => sum + d.amount_cents, 0);
+}
+
+// ---------------------------------------------------------------------------
+// Sponsor offers (read-only; stores never receive user data)
+// ---------------------------------------------------------------------------
+
+export async function fetchOffers(): Promise<SponsorOffer[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from("sponsor_offers")
+    .select("id, store, ingredient_id, headline, url, starts_on, ends_on, priority");
+  if (error || !data) return [];
+  return data.map((r) => ({
+    id: r.id as string,
+    store: r.store as string,
+    ingredientId: r.ingredient_id as string,
+    headline: r.headline as string,
+    url: r.url as string,
+    startsOn: r.starts_on as string,
+    endsOn: r.ends_on as string,
+    priority: r.priority as number,
+  }));
 }

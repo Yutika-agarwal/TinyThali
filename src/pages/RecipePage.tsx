@@ -16,6 +16,7 @@ import { useRecipeSession } from "../lib/useRecipeSession.ts";
 import { useApp } from "../state/AppState.tsx";
 import type { Boost, CommunityPost } from "../types.ts";
 import Glyph from "../components/Glyph.tsx";
+import SponsoredNote from "../components/SponsoredNote.tsx";
 
 function BoostToggle({
   boost,
@@ -294,6 +295,7 @@ export default function RecipePage() {
             </li>
           ))}
         </ul>
+        <SponsoredNote ingredientIds={lines.map((l) => l.id)} />
       </section>
 
       <section aria-labelledby="steps-heading">

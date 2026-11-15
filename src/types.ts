@@ -153,3 +153,18 @@ export interface CookEntry {
   reaction: Reaction;
   cookedAt: string;
 }
+
+/** A grocery store's paid placement on one ingredient. Shown as a small "Sponsored" line. */
+export interface SponsorOffer {
+  id: string;
+  store: string;
+  ingredientId: string;
+  /** One short line, e.g. "Fresh palak, $1.99 / bunch". */
+  headline: string;
+  /** Opens in a new tab. Must be https. */
+  url: string;
+  startsOn: string; // YYYY-MM-DD
+  endsOn: string; // YYYY-MM-DD
+  /** Higher wins when several stores bid on the same ingredient. */
+  priority: number;
+}
