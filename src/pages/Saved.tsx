@@ -48,7 +48,7 @@ export default function Saved() {
           {saved.length === 0 && (
             <Card className="text-center">
               <p className="text-4xl" aria-hidden>❤️</p>
-              <p className="mt-2 font-bold">Nothing saved yet.</p>
+              <p className="mt-2 font-semibold">Nothing saved yet.</p>
               <p className="text-sm text-ink-soft">Save a recipe to keep it with the boosts you chose.</p>
               <Link to="/" className={btn("secondary", "mt-4")}>Find a recipe</Link>
             </Card>
@@ -71,7 +71,7 @@ export default function Saved() {
                 <div className="flex items-start gap-3">
                   <span className="text-3xl" aria-hidden>{recipe.emoji}</span>
                   <div className="min-w-0 flex-1">
-                    <h2 className="font-extrabold">{recipe.name}</h2>
+                    <h2 className="font-semibold">{recipe.name}</h2>
                     <p className="text-sm text-ink-soft">{boostNames(s.boostIds)}</p>
                     <p className="text-xs text-ink-soft">Saved {formatDate(s.savedAt)}</p>
                   </div>
@@ -94,7 +94,7 @@ export default function Saved() {
         <div className="space-y-3">
           {history.length === 0 && (
             <Card className="text-center">
-              <p className="font-bold">No cooking history yet.</p>
+              <p className="font-semibold">No cooking history yet.</p>
               <p className="text-sm text-ink-soft">Finish a recipe in cook mode and tell us how it went.</p>
             </Card>
           )}
@@ -106,13 +106,13 @@ export default function Saved() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl" aria-hidden>{REACTION_EMOJI[h.reaction]}</span>
                   <div className="min-w-0 flex-1">
-                    <h2 className="font-extrabold">{recipe.name}</h2>
+                    <h2 className="font-semibold">{recipe.name}</h2>
                     <p className="text-sm text-ink-soft">
                       {REACTION_LABEL[h.reaction]} · {formatDate(h.cookedAt)}
                     </p>
                     <p className="text-sm text-ink-soft">{boostNames(h.boostIds)}</p>
                   </div>
-                  <Link to={cookAgainLink(h.recipeId, h.boostIds, h.postIds)} className="text-sm font-extrabold text-beet">
+                  <Link to={cookAgainLink(h.recipeId, h.boostIds, h.postIds)} className="text-sm font-semibold text-spinach">
                     Again
                   </Link>
                 </div>
@@ -127,7 +127,7 @@ export default function Saved() {
       {enabled && !user && (
         <Notice>
           Stored on this device only.{" "}
-          <Link to="/login" className="font-extrabold text-beet underline">Sign in</Link> to keep them on every device.
+          <Link to="/login" className="font-semibold text-spinach underline">Sign in</Link> to keep them on every device.
         </Notice>
       )}
     </div>

@@ -39,7 +39,7 @@ export default function Support() {
       <PageTitle title="Support Tiny Thali" subtitle="Pay what you like. Paying nothing is completely fine." />
 
       {params.get("thanks") && <Notice tone="warn">Thank you! Your support keeps Tiny Thali going.</Notice>}
-      {given > 0 && <p className="text-sm font-bold text-spinach">You've supported Tiny Thali. Thank you.</p>}
+      {given > 0 && <p className="text-sm font-semibold text-spinach">You've supported Tiny Thali. Thank you.</p>}
 
       <Card className="space-y-4">
         <p className="text-sm text-ink-soft">
@@ -75,7 +75,7 @@ export default function Support() {
             {busy ? "Opening secure checkout…" : cents ? `Continue with $${(cents / 100).toFixed(2)}` : "Enter an amount"}
           </button>
         )}
-        {error && <p className="text-sm font-bold text-beet">{error}</p>}
+        {error && <p className="text-sm font-semibold text-spinach">{error}</p>}
         <p className="text-xs text-ink-soft">
           Payments are handled by Stripe on its own secure page. We never see your card. This is a voluntary payment to
           support the app and is not a tax-deductible charitable donation.

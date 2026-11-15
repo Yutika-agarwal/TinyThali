@@ -99,7 +99,7 @@ export default function ShareBoost() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>✍️</p>
-        <h1 className="text-xl font-extrabold">Sign in to share a boost</h1>
+        <h1 className="text-xl font-semibold">Sign in to share a boost</h1>
         <p className="text-sm text-ink-soft">
           Signing in lets other parents know tips come from real accounts, and keeps spam out.
         </p>
@@ -112,7 +112,7 @@ export default function ShareBoost() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>📬</p>
-        <h1 className="text-xl font-extrabold">Please confirm your email first</h1>
+        <h1 className="text-xl font-semibold">Please confirm your email first</h1>
         <p className="text-sm text-ink-soft">
           We sent a confirmation link to {user.email}. Tap it, then come back here to share your boost.
         </p>
@@ -125,7 +125,7 @@ export default function ShareBoost() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-5xl" aria-hidden>🙏</p>
-        <h1 className="text-2xl font-extrabold">Thanks for sharing!</h1>
+        <h1 className="text-2xl font-semibold">Thanks for sharing!</h1>
         <p className="text-sm text-ink-soft">
           Your tip is saved as pending review. Once it's approved, other parents with a matching age and allergy
           profile will see it.
@@ -137,11 +137,11 @@ export default function ShareBoost() {
 
   return (
     <form onSubmit={submit} className="space-y-5">
-      <Link to="/community" className="text-sm font-bold text-beet">← Community</Link>
+      <Link to="/community" className="text-sm font-semibold text-spinach">← Community</Link>
       <PageTitle title="Share your boost" subtitle="How do you add nutrition to a favorite recipe?" />
 
       <div>
-        <label htmlFor="recipe" className="mb-1 block text-sm font-extrabold">Recipe</label>
+        <label htmlFor="recipe" className="mb-1 block text-sm font-semibold">Recipe</label>
         <select id="recipe" value={recipeId} onChange={(e) => setRecipeId(e.target.value)} className={inputClass}>
           {RECIPES.map((r) => (
             <option key={r.id} value={r.id}>{r.name}</option>
@@ -150,24 +150,24 @@ export default function ShareBoost() {
       </div>
 
       <div>
-        <label htmlFor="title" className="mb-1 block text-sm font-extrabold">Title</label>
+        <label htmlFor="title" className="mb-1 block text-sm font-semibold">Title</label>
         <input id="title" value={title} onChange={(e) => setTitle(e.target.value)} maxLength={80} placeholder="e.g. Ragi dough my picky eater didn't notice" className={inputClass} />
       </div>
       <div>
-        <label htmlFor="what" className="mb-1 block text-sm font-extrabold">What did you add?</label>
+        <label htmlFor="what" className="mb-1 block text-sm font-semibold">What did you add?</label>
         <input id="what" value={whatAdded} onChange={(e) => setWhatAdded(e.target.value)} maxLength={60} placeholder="e.g. Ground flaxseed" className={inputClass} />
       </div>
       <div>
-        <label htmlFor="amount" className="mb-1 block text-sm font-extrabold">How much?</label>
+        <label htmlFor="amount" className="mb-1 block text-sm font-semibold">How much?</label>
         <input id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} maxLength={60} placeholder="e.g. 1 tsp per serving" className={inputClass} />
       </div>
       <div>
-        <label htmlFor="where" className="mb-1 block text-sm font-extrabold">Where does it go in the recipe?</label>
+        <label htmlFor="where" className="mb-1 block text-sm font-semibold">Where does it go in the recipe?</label>
         <input id="where" value={whereInRecipe} onChange={(e) => setWhereInRecipe(e.target.value)} maxLength={100} placeholder="e.g. Kneaded into the dough" className={inputClass} />
       </div>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">How did your kid react?</legend>
+        <legend className="mb-2 text-sm font-semibold">How did your kid react?</legend>
         <div className="flex flex-wrap gap-2">
           {REACTIONS.map((r) => (
             <Chip key={r.id} active={kidReaction === r.id} onClick={() => setKidReaction(r.id)}>{r.label}</Chip>
@@ -176,7 +176,7 @@ export default function ShareBoost() {
       </fieldset>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">Youngest age you'd suggest it for</legend>
+        <legend className="mb-2 text-sm font-semibold">Youngest age you'd suggest it for</legend>
         <div className="flex gap-2">
           {AGE_BANDS.map((b) => (
             <Chip key={b} active={ageBand === b} onClick={() => setAgeBand(b)}>{b} yrs</Chip>
@@ -185,7 +185,7 @@ export default function ShareBoost() {
       </fieldset>
 
       <fieldset>
-        <legend className="mb-1 text-sm font-extrabold">Allergens in your boost (required)</legend>
+        <legend className="mb-1 text-sm font-semibold">Allergens in your boost (required)</legend>
         <p className="mb-2 text-xs text-ink-soft">This keeps your tip away from kids with those allergies.</p>
         <div className="flex flex-wrap gap-2">
           {ALLERGENS.map((a) => (
@@ -196,7 +196,7 @@ export default function ShareBoost() {
       </fieldset>
 
       <div>
-        <label htmlFor="taste" className="mb-1 block text-sm font-extrabold">Taste or texture note (optional)</label>
+        <label htmlFor="taste" className="mb-1 block text-sm font-semibold">Taste or texture note (optional)</label>
         <textarea id="taste" value={tasteNote} onChange={(e) => setTasteNote(e.target.value)} maxLength={200} rows={3} className="w-full rounded-2xl bg-white p-4 ring-1 ring-black/10" />
       </div>
 

@@ -35,7 +35,7 @@ export default function MicButton({ onText, onProblem, label = "Speak" }: { onTe
         aria-label={on ? "Stop listening" : label}
         className={cx(
           "grid size-12 shrink-0 place-items-center rounded-2xl text-xl ring-1 transition",
-          on ? "animate-pulse bg-beet text-white ring-beet" : "bg-white ring-black/10",
+          on ? "animate-pulse bg-spinach text-white ring-spinach" : "bg-white ring-black/10",
         )}
       >
         🎙

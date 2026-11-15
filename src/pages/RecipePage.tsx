@@ -44,18 +44,18 @@ function BoostToggle({
         >
           <span className="text-2xl"><Glyph kind="boost" id={boost.id} emoji={boost.emoji} size="1.6em" /></span>
           <span className="min-w-0 flex-1">
-            <span className="block font-extrabold leading-tight">{boost.name}</span>
+            <span className="block font-semibold leading-tight">{boost.name}</span>
             <span className="block truncate text-sm text-ink-soft">{boost.amount}</span>
           </span>
         </button>
       </div>
       <details className="px-3 pb-2 text-sm">
-        <summary className="min-h-8 cursor-pointer text-xs font-extrabold text-ink-soft">ⓘ Why this helps</summary>
+        <summary className="min-h-8 cursor-pointer text-xs font-semibold text-ink-soft">ⓘ Why this helps</summary>
         <p className="mt-1 text-ink-soft">{boost.why}</p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {boost.badges.length > 0 && <NutrientBadges badges={boost.badges} />}
           {picky && boost.blendsIn && (
-            <span className="rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">Blends in easily</span>
+            <span className="rounded-full bg-black/5 px-2.5 py-1 text-xs font-semibold">Blends in easily</span>
           )}
         </div>
         {boost.allergens.length > 0 && (
@@ -76,12 +76,12 @@ function PostToggle({ post, on, onToggle }: { post: CommunityPost; on: boolean; 
       onClick={onToggle}
       aria-pressed={on}
       className={cx(
-        "w-full rounded-3xl p-4 text-left ring-2 transition active:scale-[0.99]",
+        "w-full rounded-2xl p-4 text-left ring-2 transition active:scale-[0.99]",
         on ? "bg-spinach-soft ring-spinach" : "bg-white ring-black/10",
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <h3 className="font-extrabold">{post.title}</h3>
+        <h3 className="font-semibold">{post.title}</h3>
       </div>
       <p className="text-sm">
         Add <strong>{post.whatAdded}</strong>: {post.amount}
@@ -108,7 +108,7 @@ export default function RecipePage() {
   if (!session) {
     return (
       <Card className="text-center">
-        <p className="font-bold">We couldn't find that recipe.</p>
+        <p className="font-semibold">We couldn't find that recipe.</p>
         <Link to="/" className={btn("secondary", "mt-4")}>Back to ingredients</Link>
       </Card>
     );
@@ -121,7 +121,7 @@ export default function RecipePage() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>🚫</p>
-        <h1 className="text-xl font-extrabold">{recipe.name} isn't a fit right now</h1>
+        <h1 className="text-xl font-semibold">{recipe.name} isn't a fit right now</h1>
         <p className="text-sm text-ink-soft">
           {safety.reason ?? "It doesn't match the selected diet."} Change who you're cooking for, or pick another
           recipe.
@@ -157,24 +157,24 @@ export default function RecipePage() {
 
   return (
     <div className="space-y-5">
-      <Link to="/results" className="text-sm font-bold text-beet">← Recipes</Link>
+      <Link to="/results" className="text-sm font-semibold text-spinach">← Recipes</Link>
 
       <header>
         <div className="flex items-start justify-between gap-2">
-          <h1 className="text-3xl font-extrabold leading-tight">
+          <h1 className="text-3xl font-semibold leading-tight">
             <span aria-hidden>{recipe.emoji}</span> {recipe.name}
           </h1>
           <SaveHeart recipeId={recipe.id} boostIds={boostIds} postIds={postIds} />
         </div>
         <p className="text-ink-soft">{recipe.blurb}</p>
-        <p className="mt-1 text-sm font-bold">
+        <p className="mt-1 text-sm font-semibold">
           {recipe.minutes} minutes
           {last?.reaction === "loved" && <span className="text-spinach"> · Loved last time 😍</span>}
           {last?.reaction === "not_this_time" && <span className="text-ink-soft"> · Not a hit last time</span>}
         </p>
         {recipeAllergens(recipe).length > 0 && (
           <details className="mt-1 text-sm">
-            <summary className="min-h-8 cursor-pointer text-xs font-extrabold text-ink-soft">Contains…</summary>
+            <summary className="min-h-8 cursor-pointer text-xs font-semibold text-ink-soft">Contains…</summary>
             <div className="mt-1"><AllergenChips allergens={recipeAllergens(recipe)} /></div>
           </details>
         )}
@@ -199,7 +199,7 @@ export default function RecipePage() {
 
       <section aria-labelledby="ing-heading">
         <div className="mb-2 flex items-center justify-between gap-3">
-          <h2 id="ing-heading" className="text-2xl font-extrabold">Ingredients</h2>
+          <h2 id="ing-heading" className="text-2xl font-semibold">Ingredients</h2>
           <div className="flex gap-1" role="group" aria-label="Batch size">
             {[1, 2, 3].map((n) => (
               <button
@@ -207,7 +207,7 @@ export default function RecipePage() {
                 type="button"
                 onClick={() => setBatch(n)}
                 aria-pressed={batch === n}
-                className={cx("min-h-11 min-w-11 rounded-full px-3 font-extrabold ring-1", batch === n ? "bg-turmeric ring-turmeric" : "bg-white ring-black/10")}
+                className={cx("min-h-11 min-w-11 rounded-full px-3 font-semibold ring-1", batch === n ? "bg-spinach text-white ring-spinach" : "bg-white ring-black/10")}
               >
                 ×{n}
               </button>
@@ -226,7 +226,7 @@ export default function RecipePage() {
             </li>
           ))}
           {selectedBoosts.map((b) => (
-            <li key={b.id} className="flex gap-2 font-bold text-spinach">
+            <li key={b.id} className="flex gap-2 font-semibold text-spinach">
               <span aria-hidden>✨</span>
               <span>
                 {b.add}: {b.amount}
@@ -234,7 +234,7 @@ export default function RecipePage() {
             </li>
           ))}
           {selectedPosts.map((p) => (
-            <li key={p.id} className="flex gap-2 font-bold text-spinach">
+            <li key={p.id} className="flex gap-2 font-semibold text-spinach">
               <span aria-hidden>💬</span>
               <span>
                 {p.whatAdded}: {p.amount} (parent tip)
@@ -243,7 +243,7 @@ export default function RecipePage() {
           ))}
         </ul>
         {need.length > 0 && (
-          <button type="button" onClick={copyList} className="mt-3 min-h-11 text-sm font-extrabold text-beet">
+          <button type="button" onClick={copyList} className="mt-3 min-h-11 text-sm font-semibold text-spinach">
             {copied ? "Copied ✓" : `Copy shopping list (${need.length})`}
           </button>
         )}
@@ -265,11 +265,11 @@ export default function RecipePage() {
         )}
         {options.allowed.length > 0 && (
           <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
-            <summary className="min-h-11 cursor-pointer font-extrabold">Choose boosts ({options.allowed.length})</summary>
+            <summary className="min-h-11 cursor-pointer font-semibold">Choose boosts ({options.allowed.length})</summary>
             <div className="mt-3 space-y-3">
         {shownGroups.map((g) => (
           <div key={g.kind} className="space-y-2">
-            <h3 className="pt-1 text-xs font-extrabold uppercase tracking-wide text-ink-soft">{g.label}</h3>
+            <h3 className="pt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">{g.label}</h3>
             {g.items.map((b) => (
               <BoostToggle
                 key={b.id}
@@ -285,7 +285,7 @@ export default function RecipePage() {
           <button
             type="button"
             onClick={() => setShowAllBoosts(true)}
-            className="min-h-11 w-full text-sm font-extrabold text-beet"
+            className="min-h-11 w-full text-sm font-semibold text-spinach"
           >
             Show {options.allowed.length - shownCount} more
           </button>
@@ -293,7 +293,7 @@ export default function RecipePage() {
 
         {allowedPosts.length > 0 && (
           <>
-            <h3 className="pt-2 text-lg font-extrabold">Community boosts</h3>
+            <h3 className="pt-2 text-lg font-semibold">Community boosts</h3>
             {allowedPosts.map((p) => (
               <PostToggle key={p.id} post={p} on={postIds.includes(p.id)} onToggle={() => session.togglePostId(p.id)} />
             ))}
@@ -302,7 +302,7 @@ export default function RecipePage() {
 
         {(options.hidden.length > 0 || hiddenPostCount > 0) && (
           <details className="rounded-2xl bg-white p-3 text-sm ring-1 ring-black/10">
-            <summary className="cursor-pointer font-bold">Why are some boosts hidden?</summary>
+            <summary className="cursor-pointer font-semibold">Why are some boosts hidden?</summary>
             <ul className="mt-2 list-disc space-y-1 pl-5">
               {options.hidden.map(({ boost, reason }) => (
                 <li key={boost.id}>
@@ -324,24 +324,24 @@ export default function RecipePage() {
 
       {boostIds.length > 0 && (
       <Card>
-        <h2 className="mb-2 text-base font-extrabold">What it adds</h2>
+        <h2 className="mb-2 text-base font-semibold">What it adds</h2>
         <NutrientBadges badges={badges.after} highlight={badges.added} />
         <p className="mt-2 text-xs text-ink-soft">Estimates only. Not medical advice.</p>
       </Card>
       )}
 
       <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
-        <summary className="min-h-11 cursor-pointer text-lg font-extrabold">Steps ({recipe.steps.length})</summary>
+        <summary className="min-h-11 cursor-pointer text-lg font-semibold">Steps ({recipe.steps.length})</summary>
         <ol className="mt-3 space-y-3">
           {recipe.steps.map((s, i) => (
             <li key={i} className="flex gap-3">
-              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-turmeric font-extrabold">
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-spinach-soft font-semibold">
                 {i + 1}
               </span>
               <div>
                 <p>{s}</p>
                 {boostTextsForStep(recipe, i, boostIds).map((b) => (
-                  <p key={b.id} className="mt-1 rounded-xl bg-spinach-soft px-3 py-1.5 text-sm font-bold">
+                  <p key={b.id} className="mt-1 rounded-xl bg-spinach-soft px-3 py-1.5 text-sm font-semibold">
                     ✨ {b.stepText}
                   </p>
                 ))}

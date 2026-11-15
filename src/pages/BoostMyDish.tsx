@@ -67,7 +67,7 @@ export default function BoostMyDish() {
                 <button
                   type="button"
                   onClick={() => setQuery(n)}
-                  className="min-h-11 w-full px-4 py-2 text-left font-bold active:bg-turmeric-soft"
+                  className="min-h-11 w-full px-4 py-2 text-left font-semibold active:bg-black/5"
                 >
                   {n}
                 </button>
@@ -78,7 +78,7 @@ export default function BoostMyDish() {
       </div>
 
       {typedOther && (
-        <p className="text-sm font-bold text-beet">This mentions {typedOther}, which is on your allergy list. No boosts shown.</p>
+        <p className="text-sm font-semibold text-red-700">This mentions {typedOther}, which is on your allergy list. No boosts shown.</p>
       )}
       {isMeatDish(query) && (
         <p className="text-sm text-ink-soft">We only suggest boosts for vegetarian dishes and eggs for now.</p>
@@ -93,13 +93,13 @@ export default function BoostMyDish() {
           {list.length === 0 && <p className="text-sm text-ink-soft">No boosts fit this dish for these kids.</p>}
           {shownGroups.map((g) => (
             <div key={g.kind} className="space-y-2">
-              <h3 className="pt-1 text-xs font-extrabold uppercase tracking-wide text-ink-soft">{g.label}</h3>
+              <h3 className="pt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">{g.label}</h3>
               {g.items.map((b) => (
                 <details key={b.id} open={b.id === list[0].id} className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
-                  <summary className="min-h-9 cursor-pointer font-bold">
+                  <summary className="min-h-9 cursor-pointer font-semibold">
                     <Glyph kind="boost" id={b.id} emoji={b.emoji} /> {b.name}
                   </summary>
-                  <p className="mt-2 rounded-xl bg-spinach-soft px-3 py-2 text-sm font-bold">✨ {b.stepText}</p>
+                  <p className="mt-2 rounded-xl bg-spinach-soft px-3 py-2 text-sm font-semibold">✨ {b.stepText}</p>
                   <p className="mt-2 text-sm text-ink-soft">{b.why}</p>
                   {b.badges.length > 0 && (
                     <div className="mt-2">
@@ -112,7 +112,7 @@ export default function BoostMyDish() {
             </div>
           ))}
           {list.length > shownCount && (
-            <button type="button" onClick={() => setShowAll(true)} className="min-h-11 w-full text-sm font-extrabold text-beet">
+            <button type="button" onClick={() => setShowAll(true)} className="min-h-11 w-full text-sm font-semibold text-spinach">
               Show {list.length - shownCount} more
             </button>
           )}

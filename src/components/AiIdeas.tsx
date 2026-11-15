@@ -37,7 +37,7 @@ export default function AiIdeas() {
 
   return (
     <section className="space-y-3" aria-labelledby="ai-heading">
-      <h2 id="ai-heading" className="text-xl font-extrabold">✨ More ideas</h2>
+      <h2 id="ai-heading" className="text-xl font-semibold">✨ More ideas</h2>
       {!user && <p className="text-sm text-ink-soft">Sign in to get fresh recipe ideas made from just your ingredients.</p>}
       {user && state === "loading" && <Card><p className="text-sm text-ink-soft">Creating recipes from your ingredients…</p></Card>}
       {user && state === "error" && <p className="text-sm text-ink-soft">Couldn't create ideas right now. The recipes above still work.</p>}
@@ -52,11 +52,11 @@ export default function AiIdeas() {
           </Notice>
           {ideas.map((idea) => (
             <Card key={idea.name}>
-              <h3 className="text-lg font-extrabold">{idea.name}</h3>
+              <h3 className="text-lg font-semibold">{idea.name}</h3>
               <p className="text-sm text-ink-soft">{idea.blurb}</p>
-              <p className="mt-1 text-sm font-bold">{idea.minutes} minutes</p>
+              <p className="mt-1 text-sm font-semibold">{idea.minutes} minutes</p>
               <details className="mt-2">
-                <summary className="cursor-pointer font-bold">See recipe</summary>
+                <summary className="cursor-pointer font-semibold">See recipe</summary>
                 <ul className="mt-2 list-disc pl-5 text-sm">
                   {idea.ingredients.map((i) => (
                     <li key={i.id}>{INGREDIENT_BY_ID[i.id]?.name}, {i.qty}</li>

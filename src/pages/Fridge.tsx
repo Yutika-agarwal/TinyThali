@@ -58,7 +58,7 @@ export default function Fridge() {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-extrabold leading-tight">What do you have?</h1>
+      <h1 className="text-3xl font-semibold leading-tight">What do you have?</h1>
 
       <KidSwitcher />
 
@@ -75,7 +75,7 @@ export default function Fridge() {
         <PhotoScan />
       </div>
 
-      {heard && <p role="status" className="text-sm font-bold text-spinach">{heard}</p>}
+      {heard && <p role="status" className="text-sm font-semibold text-spinach">{heard}</p>}
 
       {hits ? (
         <div className="flex flex-wrap gap-2">
@@ -92,11 +92,11 @@ export default function Fridge() {
 
       {fridge.length === 0 && tonight.length > 0 && (
         <section className="space-y-2" aria-label="Quick tonight">
-          <h2 className="text-lg font-extrabold">Quick tonight</h2>
+          <h2 className="text-lg font-semibold">Quick tonight</h2>
           {tonight.map((r) => (
             <Link key={r.id} to={`/recipe/${r.id}`} className="flex min-h-12 items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-black/10">
               <span className="text-2xl" aria-hidden>{r.emoji}</span>
-              <span className="flex-1 font-bold">{r.name}</span>
+              <span className="flex-1 font-semibold">{r.name}</span>
               <span className="text-sm text-ink-soft">{r.minutes} min</span>
             </Link>
           ))}
@@ -113,7 +113,7 @@ export default function Fridge() {
           {fridge.length ? `Find recipes · ${fridge.length}` : "Pick what you have"}
         </button>
         {fridge.length > 0 && (
-          <button type="button" onClick={clearFridge} className="min-h-11 px-2 text-sm font-extrabold text-beet">
+          <button type="button" onClick={clearFridge} className="min-h-11 px-2 text-sm font-semibold text-spinach">
             Clear
           </button>
         )}

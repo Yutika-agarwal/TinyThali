@@ -72,7 +72,7 @@ export default function Cook() {
     return (
       <div className="mx-auto min-h-dvh max-w-md p-4">
         <Card className="space-y-3 text-center">
-          <p className="font-bold">This recipe isn't available for the selected kids.</p>
+          <p className="font-semibold">This recipe isn't available for the selected kids.</p>
           <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
         </Card>
       </div>
@@ -93,7 +93,7 @@ export default function Cook() {
     return (
       <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 p-4 pt-10 text-center">
         <p className="text-6xl" aria-hidden>🎉</p>
-        <h1 className="text-3xl font-extrabold">All done!</h1>
+        <h1 className="text-3xl font-semibold">All done!</h1>
         <p className="text-ink-soft">Did your kid eat it? This helps you remember what works.</p>
 
         <div className="grid grid-cols-3 gap-2">
@@ -105,7 +105,7 @@ export default function Cook() {
               disabled={reaction !== null}
               aria-pressed={reaction === r.id}
               className={cx(
-                "min-h-24 rounded-3xl p-2 text-sm font-extrabold ring-2 transition",
+                "min-h-24 rounded-2xl p-2 text-sm font-semibold ring-2 transition",
                 reaction === r.id ? "bg-spinach-soft ring-spinach" : "bg-white ring-black/10",
                 reaction !== null && reaction !== r.id && "opacity-50",
               )}
@@ -149,19 +149,19 @@ export default function Cook() {
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col p-4">
       <div className="flex items-center justify-between">
-        <Link to={`/recipe/${recipe.id}${query}`} className="text-sm font-bold text-beet">✕ Exit</Link>
+        <Link to={`/recipe/${recipe.id}${query}`} className="text-sm font-semibold text-spinach">✕ Exit</Link>
         <div className="flex items-center gap-3">
           {speechSupported() && (
             <button
               type="button"
               onClick={() => setHandsFree((v) => !v)}
               aria-pressed={handsFree}
-              className={cx("min-h-11 rounded-full px-3 text-sm font-extrabold ring-1", handsFree ? "animate-pulse bg-beet text-white ring-beet" : "bg-white ring-black/10")}
+              className={cx("min-h-11 rounded-full px-3 text-sm font-semibold ring-1", handsFree ? "animate-pulse bg-spinach text-white ring-spinach" : "bg-white ring-black/10")}
             >
               🎙 {handsFree ? 'Say "next"' : "Hands-free"}
             </button>
           )}
-          <p className="text-sm font-extrabold">
+          <p className="text-sm font-semibold">
             Step {step + 1} of {recipe.steps.length}
           </p>
         </div>
@@ -172,26 +172,26 @@ export default function Cook() {
 
       <div className="flex flex-1 flex-col justify-center gap-4 py-6">
         <p className="text-5xl" aria-hidden>{recipe.emoji}</p>
-        <p className="text-2xl font-extrabold leading-snug">{recipe.steps[step]}</p>
+        <p className="text-2xl font-semibold leading-snug">{recipe.steps[step]}</p>
 
         {boostsHere.map((b) => (
-          <div key={b.id} className="rounded-2xl bg-spinach-soft p-4 text-lg font-bold ring-2 ring-spinach">
+          <div key={b.id} className="rounded-2xl bg-spinach-soft p-4 text-lg font-semibold ring-2 ring-spinach">
             ✨ Boost: {b.stepText}
           </div>
         ))}
         {tipsHere.map((p) => (
-          <div key={p.id} className="rounded-2xl bg-spinach-soft p-4 font-bold ring-2 ring-spinach">
+          <div key={p.id} className="rounded-2xl bg-spinach-soft p-4 font-semibold ring-2 ring-spinach">
             💬 Parent tip: add {p.whatAdded} ({p.amount}). {p.whereInRecipe}.
           </div>
         ))}
 
         {safety.swaps.map((s) => (
-          <p key={s.allergen} className="rounded-2xl bg-beet-soft p-3 text-sm font-bold">
+          <p key={s.allergen} className="rounded-2xl bg-beet-soft p-3 text-sm font-semibold">
             Swap: {s.note}
           </p>
         ))}
         {noGhee && step === 0 && (
-          <p className="rounded-2xl bg-beet-soft p-3 text-sm font-bold">No ghee: use oil instead.</p>
+          <p className="rounded-2xl bg-beet-soft p-3 text-sm font-semibold">No ghee: use oil instead.</p>
         )}
       </div>
 

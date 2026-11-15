@@ -37,7 +37,7 @@ export default function Admin() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>🔒</p>
-        <h1 className="text-xl font-extrabold">Admins only</h1>
+        <h1 className="text-xl font-semibold">Admins only</h1>
         <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
       </Card>
     );
@@ -74,11 +74,11 @@ export default function Admin() {
       {error && <Notice tone="warn"><span role="alert">{error}</span></Notice>}
 
       <section className="space-y-3" aria-labelledby="pending-heading">
-        <h2 id="pending-heading" className="text-xl font-extrabold">Pending tips ({pending.length})</h2>
+        <h2 id="pending-heading" className="text-xl font-semibold">Pending tips ({pending.length})</h2>
         {pending.length === 0 && <Card className="text-sm text-ink-soft">Nothing waiting. 🎉</Card>}
         {pending.map((p) => (
           <Card key={p.id} className="space-y-2">
-            <h3 className="font-extrabold">{p.title}</h3>
+            <h3 className="font-semibold">{p.title}</h3>
             <p className="text-xs text-ink-soft">
               {RECIPE_BY_ID[p.recipeId]?.name ?? p.recipeId} · by {p.authorName} · ages {p.ageBand}
             </p>
@@ -89,7 +89,7 @@ export default function Admin() {
             {p.allergenTags.length > 0 ? (
               <AllergenChips allergens={p.allergenTags} />
             ) : (
-              <p className="text-xs font-bold text-ink-soft">Author says: no common allergens</p>
+              <p className="text-xs font-semibold text-ink-soft">Author says: no common allergens</p>
             )}
             <div className="flex gap-2 pt-1">
               <button type="button" onClick={() => decide(p, "approved")} className={btn("primary", "flex-1")}>
@@ -104,11 +104,11 @@ export default function Admin() {
       </section>
 
       <section className="space-y-3" aria-labelledby="reports-heading">
-        <h2 id="reports-heading" className="text-xl font-extrabold">Open reports ({reports.length})</h2>
+        <h2 id="reports-heading" className="text-xl font-semibold">Open reports ({reports.length})</h2>
         {reports.length === 0 && <Card className="text-sm text-ink-soft">No open reports.</Card>}
         {reports.map((r) => (
           <Card key={r.id} className="space-y-2">
-            <h3 className="font-extrabold">{r.postTitle}</h3>
+            <h3 className="font-semibold">{r.postTitle}</h3>
             <p className="text-sm">Reason: {r.reason}{r.note ? `. "${r.note}"` : ""}</p>
             <div className="flex gap-2">
               <button type="button" onClick={() => dismiss(r, true)} className={btn("danger", "flex-1")}>

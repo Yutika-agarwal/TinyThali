@@ -76,7 +76,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
       </div>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">Age</legend>
+        <legend className="mb-2 text-sm font-semibold">Age</legend>
         <div className="flex gap-2">
           {AGE_BANDS.map((b) => (
             <Chip key={b} active={ageBands.includes(b)} onClick={() => toggleBand(b)}>
@@ -87,7 +87,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
       </fieldset>
 
       <fieldset>
-        <legend className="mb-1 text-sm font-extrabold">Allergies</legend>
+        <legend className="mb-1 text-sm font-semibold">Allergies</legend>
         <div className="flex flex-wrap gap-2">
           {ALLERGENS.map((a) => (
             <Chip key={a.id} active={allergies.includes(a.id)} onClick={() => toggleAllergen(a.id)}>
@@ -134,7 +134,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
       </fieldset>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">Diet</legend>
+        <legend className="mb-2 text-sm font-semibold">Diet</legend>
         <div className="flex flex-wrap gap-2">
           {DIETS.map((d) => (
             <Chip key={d.id} active={diet === d.id} onClick={() => setDiet(d.id)}>

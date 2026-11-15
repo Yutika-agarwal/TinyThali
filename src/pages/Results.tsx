@@ -26,12 +26,12 @@ function RecipeCard({ result }: { result: MatchResult }) {
     <Link to={`/recipe/${recipe.id}`} className="block">
       <Card className="transition hover:shadow-md active:scale-[0.99]">
         <div className="flex gap-3">
-          <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-turmeric-soft text-3xl" aria-hidden>
+          <div className="grid size-14 shrink-0 place-items-center rounded-2xl bg-black/5 text-3xl" aria-hidden>
             {recipe.emoji}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-lg font-extrabold leading-tight">{recipe.name}</h3>
-            <p className={missing.length > 0 ? "text-sm text-ink-soft" : "text-sm font-bold text-spinach"}>{note}</p>
+            <h3 className="text-lg font-semibold leading-tight">{recipe.name}</h3>
+            <p className={missing.length > 0 ? "text-sm text-ink-soft" : "text-sm font-semibold text-spinach"}>{note}</p>
             <p className="mt-0.5 text-xs text-ink-soft">
               {recipe.minutes} min{boostCount > 0 ? ` · ✨ ${boostCount} boosts` : ""}
               {reaction === "loved" && " · 😍 Loved"}
@@ -68,7 +68,7 @@ export default function Results() {
       {results.length === 0 && (
         <Card className="text-center">
           <p className="text-4xl" aria-hidden>🤔</p>
-          <p className="mt-2 font-bold">No safe matches yet.</p>
+          <p className="mt-2 font-semibold">No safe matches yet.</p>
           <p className="mt-1 text-sm text-ink-soft">
             Try adding a staple like atta, dal or paneer, or check your kid's allergies and diet in Profile.
           </p>
@@ -80,7 +80,7 @@ export default function Results() {
 
       {ready.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-xl font-extrabold">Ready to cook</h2>
+          <h2 className="text-xl font-semibold">Ready to cook</h2>
           {ready.map((r) => (
             <RecipeCard key={r.recipe.id} result={r} />
           ))}
@@ -89,7 +89,7 @@ export default function Results() {
 
       {almost.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-xl font-extrabold">Almost there</h2>
+          <h2 className="text-xl font-semibold">Almost there</h2>
           {almost.map((r) => (
             <RecipeCard key={r.recipe.id} result={r} />
           ))}

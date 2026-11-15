@@ -16,8 +16,8 @@ export default function Welcome() {
   return (
     <div className="mx-auto min-h-dvh max-w-md px-4 py-8">
       <Wordmark />
-      <h1 className="mt-6 text-4xl font-extrabold leading-tight">
-        Same favorite food. <span className="text-beet">Stronger in every bite.</span>
+      <h1 className="mt-6 text-4xl font-semibold leading-tight">
+        Same favorite food. <span className="text-spinach">Stronger in every bite.</span>
       </h1>
       <p className="mt-3 text-ink-soft">
         Tell us what ingredients you have and we'll suggest Indian home recipes your kids will eat, plus small,
@@ -25,7 +25,7 @@ export default function Welcome() {
       </p>
 
       <Card className="mt-6">
-        <h2 className="mb-1 text-xl font-extrabold">Who are you cooking for?</h2>
+        <h2 className="mb-1 text-xl font-semibold">Who are you cooking for?</h2>
         <p className="mb-4 text-sm text-ink-soft">
           This keeps allergens out of every suggestion. You can add more kids later, and it all stays on this
           device.

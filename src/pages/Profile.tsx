@@ -38,7 +38,7 @@ export default function Profile() {
             <Card key={k.id}>
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h3 className="font-extrabold">{k.nickname}</h3>
+                  <h3 className="font-semibold">{k.nickname}</h3>
                   <p className="text-sm text-ink-soft">
                     Ages {k.ageBands.join(", ")} · {DIETS.find((d) => d.id === k.diet)?.label}
                     {k.picky && ` · Picky${k.pickyNote ? `: ${k.pickyNote}` : ""}`}
@@ -95,7 +95,7 @@ export default function Profile() {
           <>
             <p className="text-sm">Signed in as <strong>{user.email}</strong></p>
             {!user.confirmed && <Notice tone="warn">Please confirm your email to share community tips.</Notice>}
-            <label htmlFor="display" className="block pt-1 text-sm font-extrabold">Name on your tips</label>
+            <label htmlFor="display" className="block pt-1 text-sm font-semibold">Name on your tips</label>
             <input
               id="display"
               value={displayName}
@@ -119,7 +119,7 @@ export default function Profile() {
         Kid details stay on this device.{" "}
         <button
           type="button"
-          className="font-bold underline"
+          className="font-semibold underline"
           onClick={() => {
             const message = user
               ? "Delete your account and all your data, here and in the cloud? This can't be undone."

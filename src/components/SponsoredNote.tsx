@@ -41,12 +41,12 @@ export default function SponsoredNote({ ingredientIds }: { ingredientIds: string
       className="mt-2 flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-white px-3 py-2 text-sm ring-1 ring-black/10"
     >
       <span className="min-w-0">
-        <span className="mr-2 rounded bg-black/5 px-1.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-ink-soft">
+        <span className="mr-2 rounded bg-black/5 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-soft">
           Sponsored
         </span>
         <strong>{offer.store}</strong>: {offer.headline}
       </span>
-      <span aria-hidden className="text-beet">↗</span>
+      <span aria-hidden className="text-spinach">↗</span>
     </a>
   );
 }

@@ -3,7 +3,7 @@ import { Card, PageTitle } from "../components/ui.tsx";
 
 function Draft() {
   return (
-    <p className="rounded-2xl bg-turmeric-soft p-3 text-sm font-bold">
+    <p className="rounded-2xl bg-black/5 p-3 text-sm font-semibold">
       Draft for review. Have a lawyer check this before launch, and fill in the contact details.
     </p>
   );
@@ -15,50 +15,50 @@ export function Privacy() {
       <PageTitle title="Privacy" subtitle="Plain-language summary" />
       <Draft />
       <Card className="space-y-3 text-sm">
-        <h2 className="text-lg font-extrabold">Kids' details stay on your device</h2>
+        <h2 className="text-lg font-semibold">Kids' details stay on your device</h2>
         <p>
           Your children's nicknames, age groups and allergies are saved only in this browser, on this device. They are
           never uploaded to our servers. Tiny Thali is meant to be used by parents and caregivers, not by children.
         </p>
-        <h2 className="text-lg font-extrabold">Dishes you type</h2>
+        <h2 className="text-lg font-semibold">Dishes you type</h2>
         <p>
           When you tell "Boost what you're cooking" what you're making, we keep just that dish name, with no account,
           name or kid details attached, to learn which recipes to add. Please don't type personal information there.
         </p>
-        <h2 className="text-lg font-extrabold">If you make an account</h2>
+        <h2 className="text-lg font-semibold">If you make an account</h2>
         <p>
           We store your email address, a display name, your saved recipes, your cooking history, and any community tips
           and reactions you post. Tips you share show your display name. You can delete your account and all of this
           from your Profile at any time.
         </p>
-        <h2 className="text-lg font-extrabold">AI recipe ideas</h2>
+        <h2 className="text-lg font-semibold">AI recipe ideas</h2>
         <p>
           "More ideas" sends only a list of ingredient names to an AI service to write recipe ideas. No kid
           details, no allergy information and no personal information are sent. Every idea is checked again on your
           device before it is shown.
         </p>
-        <h2 className="text-lg font-extrabold">Photo scan</h2>
+        <h2 className="text-lg font-semibold">Photo scan</h2>
         <p>
           When you scan a photo of your ingredients, the photo is shrunk on your device, sent to an AI service to spot
           the food, and not saved by us. Please avoid photos that show people, faces or personal documents.
         </p>
-        <h2 className="text-lg font-extrabold">Voice</h2>
+        <h2 className="text-lg font-semibold">Voice</h2>
         <p>
           The mic uses your browser's built-in speech recognition. Depending on your browser (Chrome and Edge send
           audio to their makers' servers), your voice may leave your device to be turned into text. We never receive
           or store the audio, only the words, and only on your device. Skip the mic if you prefer not to use it.
         </p>
-        <h2 className="text-lg font-extrabold">Payments</h2>
+        <h2 className="text-lg font-semibold">Payments</h2>
         <p>
           If you choose to chip in, payment is taken on Stripe's own page. We never see or store your card number. We
           keep a record of the amount and date against your account.
         </p>
-        <h2 className="text-lg font-extrabold">What we don't do</h2>
+        <h2 className="text-lg font-semibold">What we don't do</h2>
         <p>We don't sell your data, show ads, or share it with advertisers.</p>
-        <h2 className="text-lg font-extrabold">Contact</h2>
+        <h2 className="text-lg font-semibold">Contact</h2>
         <p>Questions or deletion help: [your contact email here].</p>
       </Card>
-      <Link to="/profile" className="text-sm font-bold text-beet">← Back</Link>
+      <Link to="/profile" className="text-sm font-semibold text-spinach">← Back</Link>
     </div>
   );
 }
@@ -69,32 +69,32 @@ export function Terms() {
       <PageTitle title="Terms and safety" subtitle="Please read" />
       <Draft />
       <Card className="space-y-3 text-sm">
-        <h2 className="text-lg font-extrabold">General ideas, not medical advice</h2>
+        <h2 className="text-lg font-semibold">General ideas, not medical advice</h2>
         <p>
           Tiny Thali offers cooking ideas and nutrition add-ins. It is not medical or dietary advice. Talk to your
           pediatrician or a registered dietitian about allergies, feeding concerns and what is right for your child.
         </p>
-        <h2 className="text-lg font-extrabold">Allergens</h2>
+        <h2 className="text-lg font-semibold">Allergens</h2>
         <p>
           We filter recipes and boosts using the allergies you enter, but food labels, brands and kitchens vary. Always
           read packaged ingredient labels. Introduce new foods and allergens as your pediatrician advises.
         </p>
-        <h2 className="text-lg font-extrabold">Choking and texture</h2>
+        <h2 className="text-lg font-semibold">Choking and texture</h2>
         <p>
           Grind seeds and nuts finely for children under 4, avoid whole nuts, and cut foods to a safe size and texture
           for your child's age.
         </p>
-        <h2 className="text-lg font-extrabold">Community tips</h2>
+        <h2 className="text-lg font-semibold">Community tips</h2>
         <p>
           Tips come from other parents and are not reviewed by a dietitian. We may remove tips that break the
-          <Link to="/guidelines" className="font-bold text-beet"> community guidelines</Link>.
+          <Link to="/guidelines" className="font-semibold text-spinach"> community guidelines</Link>.
         </p>
-        <h2 className="text-lg font-extrabold">Support payments</h2>
+        <h2 className="text-lg font-semibold">Support payments</h2>
         <p>
           Tiny Thali is free to use. Any payment is voluntary, gives no extra features, and is not a tax-deductible
           donation. Refund requests: [your contact email here].
         </p>
-        <h2 className="text-lg font-extrabold">Your account</h2>
+        <h2 className="text-lg font-semibold">Your account</h2>
         <p>You are responsible for what you post and for keeping your sign-in secure. You can delete your account any time.</p>
       </Card>
     </div>

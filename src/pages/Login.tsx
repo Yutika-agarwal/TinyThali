@@ -22,7 +22,7 @@ export default function Login() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>🔒</p>
-        <h1 className="text-xl font-extrabold">Accounts aren't switched on here</h1>
+        <h1 className="text-xl font-semibold">Accounts aren't switched on here</h1>
         <p className="text-sm text-ink-soft">
           This copy of Tiny Thali runs in local-only mode, so everything stays on your device.
         </p>
@@ -35,7 +35,7 @@ export default function Login() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-4xl" aria-hidden>👋</p>
-        <h1 className="text-xl font-extrabold">You're signed in</h1>
+        <h1 className="text-xl font-semibold">You're signed in</h1>
         <p className="text-sm text-ink-soft">{user.email}</p>
         <Link to="/profile" className={btn("primary")}>Go to profile</Link>
       </Card>
@@ -75,7 +75,7 @@ export default function Login() {
     return (
       <Card className="space-y-3 text-center">
         <p className="text-5xl" aria-hidden>📬</p>
-        <h1 className="text-2xl font-extrabold">Check your email</h1>
+        <h1 className="text-2xl font-semibold">Check your email</h1>
         <p className="text-sm text-ink-soft">
           {sent === "confirm"
             ? `We sent a confirmation link to ${email.trim()}. Tap it, then come back and sign in. You need a confirmed email to share community tips.`
@@ -100,13 +100,13 @@ export default function Login() {
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-extrabold">Email</label>
+        <label htmlFor="email" className="mb-1 block text-sm font-semibold">Email</label>
         <input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
       </div>
 
       {mode !== "magic" && (
         <div>
-          <label htmlFor="password" className="mb-1 block text-sm font-extrabold">Password</label>
+          <label htmlFor="password" className="mb-1 block text-sm font-semibold">Password</label>
           <input
             id="password"
             type="password"

@@ -12,7 +12,7 @@ export default function KidSwitcher() {
       <Notice tone="warn">
         <strong>Allergen filtering is off.</strong> Add a kid profile so Tiny Thali can hide recipes and boosts
         that aren't safe.{" "}
-        <Link to="/profile" className="font-extrabold text-beet underline">
+        <Link to="/profile" className="font-semibold text-spinach underline">
           Add profile
         </Link>
       </Notice>
@@ -34,7 +34,7 @@ export default function KidSwitcher() {
 
   return (
     <details className="rounded-2xl bg-white px-3 py-2 ring-1 ring-black/10">
-      <summary className="flex min-h-9 cursor-pointer items-center justify-between gap-2 text-sm font-extrabold">
+      <summary className="flex min-h-9 cursor-pointer items-center justify-between gap-2 text-sm font-semibold">
         <span className="truncate">👶 {summary}</span>
         <span aria-hidden className="text-ink-soft">▾</span>
       </summary>

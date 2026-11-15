@@ -40,13 +40,13 @@ function PostCard({
     <Card className="space-y-2">
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h3 className="font-extrabold leading-tight">{post.title}</h3>
+          <h3 className="font-semibold leading-tight">{post.title}</h3>
           <p className="text-xs text-ink-soft">
             {recipe?.emoji} {recipe?.name} · by {post.authorName}
           </p>
         </div>
         {pending && (
-          <span className="shrink-0 rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">
+          <span className="shrink-0 rounded-full bg-black/5 px-2.5 py-1 text-xs font-semibold">
             {post.status === "rejected" ? "Not approved" : "Pending review"}
           </span>
         )}
@@ -61,7 +61,7 @@ function PostCard({
       <p className="text-sm text-ink-soft">{post.whereInRecipe}</p>
       {post.tasteNote && <p className="text-sm italic text-ink-soft">"{post.tasteNote}"</p>}
 
-      <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
+      <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
         <span className="rounded-full bg-black/5 px-2.5 py-1">Ages {post.ageBand}</span>
         <span className="rounded-full bg-black/5 px-2.5 py-1">{REACTION_TEXT[post.kidReaction]}</span>
         {post.allergenTags.length === 0 && post.allergensConfirmed && (
@@ -77,7 +77,7 @@ function PostCard({
             type="button"
             onClick={() => onReact("helpful")}
             aria-pressed={!!reacted.helpful}
-            className={cx("min-h-11 rounded-full px-4 text-sm font-extrabold ring-1", reacted.helpful ? "bg-beet text-white ring-beet" : "bg-white ring-black/10")}
+            className={cx("min-h-11 rounded-full px-4 text-sm font-semibold ring-1", reacted.helpful ? "bg-spinach text-white ring-spinach" : "bg-white ring-black/10")}
           >
             👍 Helpful {helpful}
           </button>
@@ -85,17 +85,17 @@ function PostCard({
             type="button"
             onClick={() => onReact("kidApproved")}
             aria-pressed={!!reacted.kidApproved}
-            className={cx("min-h-11 rounded-full px-4 text-sm font-extrabold ring-1", reacted.kidApproved ? "bg-spinach text-white ring-spinach" : "bg-white ring-black/10")}
+            className={cx("min-h-11 rounded-full px-4 text-sm font-semibold ring-1", reacted.kidApproved ? "bg-spinach text-white ring-spinach" : "bg-white ring-black/10")}
           >
             🧒 Kid approved {kidApproved}
           </button>
-          <Link to={`/recipe/${post.recipeId}?p=${post.id}`} className="ml-auto text-sm font-extrabold text-beet">
+          <Link to={`/recipe/${post.recipeId}?p=${post.id}`} className="ml-auto text-sm font-semibold text-spinach">
             Try this boost →
           </Link>
         </div>
       )}
       {!pending && onReport && (
-        <button type="button" onClick={onReport} className="text-xs font-bold text-ink-soft underline">
+        <button type="button" onClick={onReport} className="text-xs font-semibold text-ink-soft underline">
           Report this tip
         </button>
       )}
@@ -141,17 +141,17 @@ export default function Community() {
 
       {top.length > 0 && (
         <section aria-labelledby="top-heading">
-          <h2 id="top-heading" className="mb-2 text-xl font-extrabold">Top boosts this week 🔥</h2>
+          <h2 id="top-heading" className="mb-2 text-xl font-semibold">Top boosts this week 🔥</h2>
           <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-2">
             {top.map((p) => (
               <Link
                 key={p.id}
                 to={`/recipe/${p.recipeId}?p=${p.id}`}
-                className="w-56 shrink-0 rounded-3xl bg-turmeric-soft p-4"
+                className="w-56 shrink-0 rounded-2xl bg-black/5 p-4"
               >
                 <p className="text-2xl" aria-hidden>{RECIPE_BY_ID[p.recipeId]?.emoji}</p>
-                <p className="mt-1 font-extrabold leading-tight">{p.title}</p>
-                <p className="mt-1 text-xs font-bold text-ink-soft">👍 {count(p, "helpful")} found this helpful</p>
+                <p className="mt-1 font-semibold leading-tight">{p.title}</p>
+                <p className="mt-1 text-xs font-semibold text-ink-soft">👍 {count(p, "helpful")} found this helpful</p>
               </Link>
             ))}
           </div>
@@ -164,7 +164,7 @@ export default function Community() {
           id="recipe-filter"
           value={recipeId}
           onChange={(e) => setRecipeId(e.target.value)}
-          className="min-h-11 rounded-full bg-white px-4 text-sm font-bold ring-1 ring-black/10"
+          className="min-h-11 rounded-full bg-white px-4 text-sm font-semibold ring-1 ring-black/10"
         >
           <option value="">All recipes</option>
           {RECIPES.map((r) => (
@@ -203,7 +203,7 @@ export default function Community() {
 
       {myPosts.length > 0 && (
         <section aria-labelledby="mine-heading" className="space-y-3">
-          <h2 id="mine-heading" className="text-xl font-extrabold">Your tips</h2>
+          <h2 id="mine-heading" className="text-xl font-semibold">Your tips</h2>
           {myPosts.map((p) => (
             <PostCard key={p.id} post={p} helpful={0} kidApproved={0} reacted={{}} />
           ))}

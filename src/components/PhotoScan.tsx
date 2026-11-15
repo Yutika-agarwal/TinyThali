@@ -75,7 +75,7 @@ export default function PhotoScan() {
             <p className="text-sm">We couldn't spot any ingredients. Try a closer photo, or tap them below.</p>
           ) : (
             <>
-              <p className="text-sm font-bold">Here's what we found. Untick anything wrong.</p>
+              <p className="text-sm font-semibold">Here's what we found. Untick anything wrong.</p>
               <div className="flex flex-wrap gap-2">
                 {found.map((id) => {
                   const i = INGREDIENT_BY_ID[id];
