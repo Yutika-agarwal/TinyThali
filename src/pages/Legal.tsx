@@ -42,6 +42,12 @@ export function Privacy() {
           When you scan a photo of your ingredients, the photo is shrunk on your device, sent to an AI service to spot
           the food, and not saved by us. Please avoid photos that show people, faces or personal documents.
         </p>
+        <h2 className="text-lg font-extrabold">Voice</h2>
+        <p>
+          The mic uses your browser's built-in speech recognition. Depending on your browser (Chrome and Edge send
+          audio to their makers' servers), your voice may leave your device to be turned into text. We never receive
+          or store the audio, only the words, and only on your device. Skip the mic if you prefer not to use it.
+        </p>
         <h2 className="text-lg font-extrabold">Payments</h2>
         <p>
           If you choose to chip in, payment is taken on Stripe's own page. We never see or store your card number. We
