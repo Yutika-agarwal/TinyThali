@@ -1,5 +1,7 @@
 # Daily improvement backlog
 
+> Superseded by `docs/AGENTS.md` and `docs/agents/lanes/`. Kept for history.
+
 Read by the daily scheduled run. Each run does ONE small item from "Next", tests it, pushes, and logs it below.
 
 ## Rules for the daily run (keep tokens low)

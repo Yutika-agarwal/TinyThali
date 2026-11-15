@@ -149,3 +149,14 @@ test("data integrity: ingredient ids, slots and swaps all resolve", () => {
     assert.ok(RECIPE_BY_ID[p.recipeId], `sample post ${p.id}: unknown recipe`);
   }
 });
+
+test("a parent's own allergy words block recipes, boosts and community tips", () => {
+  const kids = [kid({ otherAllergies: ["besan"] })];
+  assert.equal(checkRecipe(RECIPE_BY_ID["besan-chilla"], kids).status, "blocked");
+  assert.notEqual(checkRecipe(RECIPE_BY_ID["besan-chilla"], [kid()]).status, "blocked");
+  assert.equal(checkBoost(BOOST_BY_ID["ragi"], [kid({ otherAllergies: ["ragi"] })]).ok, false);
+  assert.equal(checkBoost(BOOST_BY_ID["ragi"], [kid()]).ok, true);
+  const tip: CommunityPost = { ...SAMPLE_POSTS[0], title: "Kiwi in the batter", whatAdded: "Kiwi", allergenTags: [] };
+  assert.equal(checkPost(tip, [kid({ otherAllergies: ["kiwi"] })]).ok, false);
+  assert.equal(checkPost(tip, [kid()]).ok, true);
+});
