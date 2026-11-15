@@ -58,7 +58,7 @@ export default function Profile() {
                 <div>
                   <h3 className="font-extrabold">{k.nickname}</h3>
                   <p className="text-sm text-ink-soft">
-                    Ages {k.ageBand} · {DIETS.find((d) => d.id === k.diet)?.label}
+                    Ages {k.ageBands.join(", ")} · {DIETS.find((d) => d.id === k.diet)?.label}
                     {k.picky && " · Picky eater"}
                   </p>
                   <p className="text-sm">

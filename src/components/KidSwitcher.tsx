@@ -35,7 +35,7 @@ export default function KidSwitcher() {
     <details className="rounded-2xl bg-white px-3 py-2 ring-1 ring-black/10">
       <summary className="flex min-h-9 cursor-pointer items-center justify-between gap-2 text-sm font-extrabold">
         <span className="truncate">👶 {summary}</span>
-        <span className="text-beet">Change</span>
+        <span aria-hidden className="text-ink-soft">▾</span>
       </summary>
       <div className="mt-2 space-y-2 pb-1">
         <div className="flex flex-wrap items-center gap-2">
@@ -48,7 +48,6 @@ export default function KidSwitcher() {
         {activeKids.length > 1 && (
           <p className="text-xs text-ink-soft">Using the youngest age and everyone's allergies.</p>
         )}
-        <Link to="/profile" className="text-xs font-extrabold text-beet">Edit profiles</Link>
       </div>
     </details>
   );

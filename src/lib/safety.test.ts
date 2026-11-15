@@ -18,7 +18,7 @@ import {
 const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
   id: "k",
   nickname: "K",
-  ageBand: "4-8",
+  ageBands: ["4-8"],
   allergies: [],
   diet: "vegetarian",
   picky: false,
@@ -27,8 +27,8 @@ const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
 
 test("several kids: union of allergies and youngest band", () => {
   const kids = [
-    kid({ id: "a", ageBand: "9-12", allergies: ["dairy"] }),
-    kid({ id: "b", ageBand: "1-3", allergies: ["soy", "dairy"] }),
+    kid({ id: "a", ageBands: ["9-12"], allergies: ["dairy"] }),
+    kid({ id: "b", ageBands: ["1-3"], allergies: ["soy", "dairy"] }),
   ];
   assert.equal(youngestBand(kids), "1-3");
   assert.deepEqual(combinedAllergies(kids).sort(), ["dairy", "soy"]);
@@ -48,11 +48,11 @@ test("soy allergy hides the tofu dough boost", () => {
 });
 
 test("age band hides boosts that need an older child", () => {
-  const toddler = [kid({ ageBand: "1-3" })];
+  const toddler = [kid({ ageBands: ["1-3"] })];
   assert.equal(checkBoost(BOOST_BY_ID.hemp, toddler).ok, false);
   assert.equal(checkBoost(BOOST_BY_ID.pumpkin, toddler).ok, false);
   assert.equal(checkBoost(BOOST_BY_ID.flax, toddler).ok, true);
-  assert.equal(checkBoost(BOOST_BY_ID.hemp, [kid({ ageBand: "4-8" })]).ok, true);
+  assert.equal(checkBoost(BOOST_BY_ID.hemp, [kid({ ageBands: ["4-8"] })]).ok, true);
 });
 
 test("one allergic kid among several hides the boost for everyone", () => {
@@ -125,8 +125,8 @@ test("community tips: unconfirmed allergens are hidden from kids with allergies 
 
 test("community tips: allergen overlap, age band and pending status", () => {
   assert.equal(checkPost(post({ allergenTags: ["sesame"] }), [kid({ allergies: ["sesame"] })]).ok, false);
-  assert.equal(checkPost(post({ ageBand: "4-8" }), [kid({ ageBand: "1-3" })]).ok, false);
-  assert.equal(checkPost(post({ ageBand: "1-3" }), [kid({ ageBand: "9-12" })]).ok, true);
+  assert.equal(checkPost(post({ ageBand: "4-8" }), [kid({ ageBands: ["1-3"] })]).ok, false);
+  assert.equal(checkPost(post({ ageBand: "1-3" }), [kid({ ageBands: ["9-12"] })]).ok, true);
   assert.equal(checkPost(post({ status: "pending" }), [kid()]).ok, false);
 });
 

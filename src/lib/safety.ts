@@ -37,11 +37,9 @@ function listLabels(list: Allergen[]): string {
 }
 
 export function youngestBand(kids: KidProfile[]): AgeBand | null {
-  if (kids.length === 0) return null;
-  return kids.reduce<AgeBand>(
-    (min, k) => (BAND_ORDER.indexOf(k.ageBand) < BAND_ORDER.indexOf(min) ? k.ageBand : min),
-    kids[0].ageBand,
-  );
+  const bands = kids.flatMap((k) => k.ageBands);
+  if (bands.length === 0) return null;
+  return bands.reduce((min, b) => (BAND_ORDER.indexOf(b) < BAND_ORDER.indexOf(min) ? b : min));
 }
 
 export function combinedAllergies(kids: KidProfile[]): Allergen[] {

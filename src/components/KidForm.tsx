@@ -14,7 +14,7 @@ interface Props {
 
 export default function KidForm({ initial, submitLabel, onSave, onCancel }: Props) {
   const [nickname, setNickname] = useState(initial?.nickname ?? "");
-  const [ageBand, setAgeBand] = useState<AgeBand>(initial?.ageBand ?? "4-8");
+  const [ageBands, setAgeBands] = useState<AgeBand[]>(initial?.ageBands ?? ["4-8"]);
   const [allergies, setAllergies] = useState<Allergen[]>(initial?.allergies ?? []);
   const [diet, setDiet] = useState<Diet>(initial?.diet ?? "vegetarian");
   const [picky, setPicky] = useState(initial?.picky ?? false);
@@ -23,12 +23,18 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
     setAllergies((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
   }
 
+  function toggleBand(b: AgeBand) {
+    setAgeBands((prev) =>
+      prev.includes(b) ? (prev.length > 1 ? prev.filter((x) => x !== b) : prev) : [...prev, b],
+    );
+  }
+
   function submit(e: FormEvent) {
     e.preventDefault();
     onSave({
       id: initial?.id ?? uid(),
       nickname: nickname.trim() || "My kid",
-      ageBand,
+      ageBands: AGE_BANDS.filter((b) => ageBands.includes(b)),
       allergies,
       diet,
       picky,
@@ -39,7 +45,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
     <form onSubmit={submit} className="space-y-5">
       <div>
         <label htmlFor="nickname" className="mb-1 block text-sm font-extrabold">
-          Nickname <span className="font-normal text-ink-soft">(private, only you see it)</span>
+          Nickname
         </label>
         <input
           id="nickname"
@@ -52,10 +58,10 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
       </div>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">Age</legend>
+        <legend className="mb-2 text-sm font-extrabold">Ages <span className="font-normal text-ink-soft">(pick all that apply)</span></legend>
         <div className="flex gap-2">
           {AGE_BANDS.map((b) => (
-            <Chip key={b} active={ageBand === b} onClick={() => setAgeBand(b)}>
+            <Chip key={b} active={ageBands.includes(b)} onClick={() => toggleBand(b)}>
               {b} yrs
             </Chip>
           ))}
@@ -64,9 +70,6 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
 
       <fieldset>
         <legend className="mb-1 text-sm font-extrabold">Allergies</legend>
-        <p className="mb-2 text-xs text-ink-soft">
-          Boosts and recipes with these will never be suggested. Leave empty if none.
-        </p>
         <div className="flex flex-wrap gap-2">
           {ALLERGENS.map((a) => (
             <Chip key={a.id} active={allergies.includes(a.id)} onClick={() => toggleAllergen(a.id)}>
@@ -94,7 +97,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
           onChange={(e) => setPicky(e.target.checked)}
           className="size-5 accent-beet"
         />
-        Picky eater (we'll flag boosts that blend in easily)
+        Picky eater
       </label>
 
       <div className="flex gap-2">

@@ -17,7 +17,7 @@ import { BOOST_BY_ID } from "../data/boosts.ts";
 const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
   id: "k",
   nickname: "K",
-  ageBand: "4-8",
+  ageBands: ["4-8"],
   allergies: [],
   diet: "vegetarian",
   picky: false,
@@ -91,7 +91,7 @@ test("only one flour swap can be selected at a time", () => {
 
 test("visibleBoosts hides unsafe boosts and explains why", () => {
   const { allowed, hidden } = visibleBoosts(RECIPE_BY_ID["beet-paneer-paratha"], [
-    kid({ ageBand: "1-3", allergies: ["sesame", "soy"] }),
+    kid({ ageBands: ["1-3"], allergies: ["sesame", "soy"] }),
   ]);
   const allowedIds = allowed.map((b) => b.id);
   assert.ok(!allowedIds.includes("sesame") && !allowedIds.includes("tofu-dough"));
@@ -127,7 +127,7 @@ test("whey boost hidden for dairy allergy, shown otherwise", () => {
 
 test("new date sugar and ajwain boosts respect age", () => {
   const r = RECIPE_BY_ID["sooji-halwa"];
-  assert.ok(!visibleBoosts(r, [kid({ ageBand: "1-3" })]).allowed.some((b) => b.id === "date-sugar"));
+  assert.ok(!visibleBoosts(r, [kid({ ageBands: ["1-3"] })]).allowed.some((b) => b.id === "date-sugar"));
 });
 
 test("quinoa swap attaches to khichdi rice step", () => {
@@ -154,9 +154,9 @@ import { autoBoosts } from "./boosts.ts";
 
 test("Boost it for me: small, safe, no duplicates", () => {
   const r = RECIPE_BY_ID["aloo-paratha"];
-  const picks = autoBoosts(r, [kid({ ageBand: "1-3" })]);
+  const picks = autoBoosts(r, [kid({ ageBands: ["1-3"] })]);
   assert.ok(picks.length >= 1 && picks.length <= 2);
-  const allowed = visibleBoosts(r, [kid({ ageBand: "1-3" })]).allowed.map((b) => b.id);
+  const allowed = visibleBoosts(r, [kid({ ageBands: ["1-3"] })]).allowed.map((b) => b.id);
   assert.ok(picks.every((id) => allowed.includes(id)));
   const groups = picks.map((id) => BOOST_BY_ID[id].exclusiveGroup).filter(Boolean);
   assert.equal(new Set(groups).size, groups.length);
@@ -212,14 +212,14 @@ test("Boost my dish: detects the dish type from free text", () => {
 
 test("Boost my dish: safe, ranked, one per exclusive group", () => {
   const dough = detectDish("roti")!;
-  const all = boostsForDish(dough, [kid({ ageBand: "4-8" })]);
+  const all = boostsForDish(dough, [kid({ ageBands: ["4-8"] })]);
   assert.ok(all.allowed.length > 0);
   const groups = all.allowed.map((b) => b.exclusiveGroup).filter(Boolean);
   assert.equal(new Set(groups).size, groups.length);
   const soy = boostsForDish(dough, [kid({ allergies: ["soy", "dairy", "sesame"] })]);
   assert.ok(!soy.allowed.some((b) => b.allergens.some((a) => ["soy", "dairy", "sesame"].includes(a))));
   assert.ok(soy.hiddenCount > 0);
-  const toddler = boostsForDish(detectDish("halwa")!, [kid({ ageBand: "1-3" })]);
+  const toddler = boostsForDish(detectDish("halwa")!, [kid({ ageBands: ["1-3"] })]);
   assert.ok(!toddler.allowed.some((b) => b.minAge > 1));
 });
 

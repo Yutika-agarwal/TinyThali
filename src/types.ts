@@ -107,7 +107,8 @@ export interface Boost {
 export interface KidProfile {
   id: string;
   nickname: string;
-  ageBand: AgeBand;
+  /** One or more age bands; safety uses the youngest. */
+  ageBands: AgeBand[];
   allergies: Allergen[];
   diet: Diet;
   picky: boolean;

@@ -43,14 +43,6 @@ function BoostToggle({
             <span className="block font-extrabold leading-tight">{boost.name}</span>
             <span className="block truncate text-sm text-ink-soft">{boost.amount}</span>
           </span>
-          <span
-            className={cx(
-              "shrink-0 rounded-full px-3 py-1.5 text-xs font-extrabold",
-              on ? "bg-spinach text-white" : "bg-turmeric text-ink",
-            )}
-          >
-            {on ? "On ✓" : "Add"}
-          </span>
         </button>
       </div>
       <details className="px-3 pb-2 text-sm">
@@ -86,9 +78,6 @@ function PostToggle({ post, on, onToggle }: { post: CommunityPost; on: boolean; 
     >
       <div className="flex items-center justify-between gap-2">
         <h3 className="font-extrabold">{post.title}</h3>
-        <span className={cx("shrink-0 rounded-full px-3 py-1 text-xs font-extrabold", on ? "bg-spinach text-white" : "bg-black/5 text-ink-soft")}>
-          {on ? "On" : "Off"}
-        </span>
       </div>
       <p className="text-sm">
         Add <strong>{post.whatAdded}</strong>: {post.amount}
@@ -190,20 +179,13 @@ export default function RecipePage() {
       <section aria-labelledby="boost-heading" className="space-y-3">
         <h2 id="boost-heading" className="text-xl font-extrabold">Make it stronger ✨</h2>
         {options.allowed.length > 0 && (
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => session.setBoostIds(autoBoosts(recipe, activeKids))}
-              className={btn("primary", "flex-1")}
-            >
-              ✨ Boost it for me
-            </button>
-            {boostIds.length > 0 && (
-              <button type="button" onClick={() => session.setBoostIds([])} className={btn("secondary")}>
-                Clear
-              </button>
-            )}
-          </div>
+          <button
+            type="button"
+            onClick={() => session.setBoostIds(boostIds.length > 0 ? [] : autoBoosts(recipe, activeKids))}
+            className={btn(boostIds.length > 0 ? "secondary" : "primary", "w-full")}
+          >
+            {boostIds.length > 0 ? "Clear boosts" : "✨ Boost it for me"}
+          </button>
         )}
         {options.allowed.length === 0 && (
           <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { Card, Chip, cx, NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { DISH_TYPES } from "../data/dishes.ts";
@@ -106,9 +105,6 @@ export default function BoostMyDish() {
         </section>
       )}
 
-      <Link to="/" className="block text-center text-sm font-bold text-beet">
-        No dish yet? Start from your fridge →
-      </Link>
     </div>
   );
 }

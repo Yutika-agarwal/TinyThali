@@ -14,11 +14,19 @@ export function uid(): string {
 }
 
 /** useState that persists to localStorage. Reads and writes never throw. */
+/** Older saves stored a single `ageBand` per kid. */
+function migrate(key: string, v: unknown): unknown {
+  if (key !== "kids" || !Array.isArray(v)) return v;
+  return v.map((k: Record<string, unknown>) =>
+    Array.isArray(k.ageBands) ? k : { ...k, ageBands: [k.ageBand ?? "4-8"] },
+  );
+}
+
 function useStored<T>(key: string, initial: T): [T, (v: T | ((prev: T) => T)) => void] {
   const [value, setValue] = useState<T>(() => {
     try {
       const raw = localStorage.getItem(PREFIX + key);
-      return raw ? (JSON.parse(raw) as T) : initial;
+      return raw ? migrate(key, JSON.parse(raw)) as T : initial;
     } catch {
       return initial;
     }

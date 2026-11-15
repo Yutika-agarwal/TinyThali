@@ -41,12 +41,7 @@ export default function Fridge() {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-3xl font-extrabold leading-tight">What's in your fridge?</h1>
-        <Link to="/boost" className="mt-1 inline-block min-h-8 text-sm font-extrabold text-beet">
-          Already cooking? Boost a dish →
-        </Link>
-      </div>
+      <h1 className="text-3xl font-extrabold leading-tight">What's in your fridge?</h1>
 
       <KidSwitcher />
 
