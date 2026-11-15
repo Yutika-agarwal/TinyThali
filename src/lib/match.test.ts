@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { KidProfile } from "../types.ts";
-import { RECIPE_BY_ID } from "../data/recipes.ts";
+import { RECIPE_BY_ID, RECIPES } from "../data/recipes.ts";
 import { matchRecipes } from "./match.ts";
 import { checkRecipe } from "./safety.ts";
 import {
@@ -249,4 +249,17 @@ test("only plain dish names are kept for menu research", () => {
   assert.equal(dishToLog("hi"), null);
   assert.equal(dishToLog("call me 555 1234"), null);
   assert.equal(dishToLog("me@x.com"), null);
+});
+
+test("colourful atta boosts: one at a time, none for Jain, hidden when the recipe has it", () => {
+  const roti = RECIPES.find((r) => visibleBoosts(r, [kid()]).allowed.some((b) => b.id === "spinach-dough"));
+  if (!roti) throw new Error("a dough recipe should offer spinach in atta");
+  const ids = ["spinach-dough", "carrot-dough", "beet-dough", "dal-dough"];
+  const picked = ids.reduce<string[]>((sel, id) => toggleBoost(sel, id), []);
+  assert.deepEqual(picked, ["dal-dough"]); // each replaces the last
+  const jain = visibleBoosts(roti, [kid({ diet: "jain" })]).allowed.map((b) => b.id);
+  assert.ok(!jain.includes("carrot-dough") && !jain.includes("beet-dough"));
+  assert.ok(jain.includes("spinach-dough") && jain.includes("dal-dough"));
+  const beetParatha = RECIPES.find((r) => r.ingredients.some((i) => i.id === "beetroot") && r.slots.dough !== undefined);
+  if (beetParatha) assert.ok(!visibleBoosts(beetParatha, [kid()]).allowed.some((b) => b.id === "beet-dough"));
 });

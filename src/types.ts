@@ -99,9 +99,11 @@ export interface Boost {
   /** Disappears into the dish, so it is a good first try for picky eaters. */
   blendsIn?: boolean;
   /** Boosts in the same group replace each other (e.g. only one flour swap). */
-  exclusiveGroup?: "flour" | "flax";
+  exclusiveGroup?: "flour" | "flax" | "dough-add";
   /** Hidden on recipes that already contain any of these ingredient ids (nothing to add). */
   hideIfRecipeHas?: string[];
+  /** Root vegetable: hidden for Jain households. */
+  jainUnsafe?: boolean;
 }
 
 export interface KidProfile {

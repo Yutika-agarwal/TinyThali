@@ -16,6 +16,10 @@ Generated from `src/data/boosts.ts`. Please mark each row Approve / Change / Rem
 | Ajwain (carom seeds) | 1/4 tsp per cup of flour or dal (a small pinch for little ones) | 2+ | none | none | |
 | Date sugar swap | the same amount as the sugar, or a little less | 2+ | none | none | |
 | Paneer whey in the dough | use in place of the water, as needed | 1+ | dairy | none | |
+| Spinach in the atta | 1 packed cup per 2 cups atta; blend smooth for green dough, or chop fine for flecks | 1+ | none | none | |
+| Carrot in the atta | 1 medium carrot per 2 cups atta | 1+ | none | none | |
+| Beetroot in the atta | 1 small beetroot per 2 cups atta | 1+ | none | none | |
+| Leftover dal in the atta | ½ cup per 2 cups atta, in place of most of the water | 1+ | none | none | |
 | Peanut butter in the batter | 1 tbsp per cup of batter, thinned with a little water | 1+ | peanuts | Protein | |
 | Seed sprinkle | 1 tsp per serving | 2+ | none | Omega-3, Fiber | |
 | Quinoa instead of rice | the same amount as the rice | 1+ | none | Protein, Fiber | |

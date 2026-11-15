@@ -138,6 +138,9 @@ export function checkBoost(boost: Boost, kids: KidProfile[]): Check {
   if (overlap.length > 0) {
     return { ok: false, reason: `Contains ${listLabels(overlap)}, which is on your allergy list.` };
   }
+  if (boost.jainUnsafe && kids.some((k) => k.diet === "jain")) {
+    return { ok: false, reason: "Root vegetables aren't used in Jain cooking." };
+  }
   const band = youngestBand(kids)!;
   if (BAND_MIN_AGE[band] < boost.minAge) {
     return { ok: false, reason: `Not suggested for kids under ${boost.minAge}.` };
