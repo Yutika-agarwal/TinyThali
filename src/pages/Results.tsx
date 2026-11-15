@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { btn, Card, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
-import { matchRecipes } from "../lib/match.ts";
+import { matchRecipes, pageResults } from "../lib/match.ts";
 import type { MatchResult } from "../lib/match.ts";
 import { useApp } from "../state/AppState.tsx";
 
@@ -42,8 +43,8 @@ function RecipeCard({ result }: { result: MatchResult }) {
 export default function Results() {
   const { fridge, activeKids } = useApp();
   const results = matchRecipes(fridge, activeKids);
-  const ready = results.filter((r) => r.kind === "ready");
-  const almost = results.filter((r) => r.kind === "almost");
+  const [pages, setPages] = useState(1);
+  const { ready, almost, hasMore } = pageResults(results, pages);
 
   return (
     <div className="space-y-5">
@@ -79,6 +80,12 @@ export default function Results() {
             <RecipeCard key={r.recipe.id} result={r} />
           ))}
         </section>
+      )}
+
+      {hasMore && (
+        <button type="button" onClick={() => setPages((n) => n + 1)} className={btn("secondary", "w-full")}>
+          See more
+        </button>
       )}
 
       <AiIdeas />

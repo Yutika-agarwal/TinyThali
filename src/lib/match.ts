@@ -57,3 +57,25 @@ export function matchRecipes(fridge: string[], kids: KidProfile[]): MatchResult[
       a.recipe.name.localeCompare(b.recipe.name),
   );
 }
+
+export const PAGE_SIZE = 5;
+const ALMOST_FIRST_PAGE = 3;
+
+/**
+ * Never more than PAGE_SIZE recipes at once. The first page leads with what is ready to cook and
+ * mixes in at most 3 "almost" ideas; each "See more" adds PAGE_SIZE more (ready first, then almost).
+ */
+export function pageResults(results: MatchResult[], pages: number) {
+  const ready = results.filter((r) => r.kind === "ready");
+  const almost = results.filter((r) => r.kind === "almost");
+  const firstReady = ready.slice(0, PAGE_SIZE);
+  const firstAlmost = almost.slice(0, Math.min(ALMOST_FIRST_PAGE, PAGE_SIZE - firstReady.length));
+  const rest = [...ready.slice(firstReady.length), ...almost.slice(firstAlmost.length)];
+  const more = rest.slice(0, Math.max(0, pages - 1) * PAGE_SIZE);
+  const shown = new Set([...firstReady, ...firstAlmost, ...more]);
+  return {
+    ready: ready.filter((r) => shown.has(r)),
+    almost: almost.filter((r) => shown.has(r)),
+    hasMore: shown.size < results.length,
+  };
+}

@@ -4,6 +4,8 @@ import type { KidProfile } from "../types.ts";
 import { RECIPE_BY_ID, RECIPES } from "../data/recipes.ts";
 import { matchRecipes } from "./match.ts";
 import { checkRecipe } from "./safety.ts";
+import { pageResults } from "./match.ts";
+import type { MatchResult } from "./match.ts";
 import {
   badgeSummary,
   boostStepIndex,
@@ -263,4 +265,19 @@ test("colourful atta boosts: one at a time, none for Jain, hidden when the recip
   assert.ok(jain.includes("spinach-dough") && jain.includes("dal-dough"));
   const beetParatha = RECIPES.find((r) => r.ingredients.some((i) => i.id === "beetroot") && r.slots.dough !== undefined);
   if (beetParatha) assert.ok(!visibleBoosts(beetParatha, [kid()]).allowed.some((b) => b.id === "beet-dough"));
+});
+
+test("results pages: at most 5 at once, at most 3 almost on the first page, See more adds 5", () => {
+  const mk = (kind: "ready" | "almost", n: number) =>
+    Array.from({ length: n }, (_, i) => ({ kind, recipe: { id: `${kind}${i}` } }) as unknown as MatchResult);
+  const first = pageResults([...mk("ready", 2), ...mk("almost", 6)], 1);
+  assert.equal(first.ready.length, 2);
+  assert.equal(first.almost.length, 3);
+  assert.ok(first.hasMore);
+  const second = pageResults([...mk("ready", 2), ...mk("almost", 6)], 2);
+  assert.equal(second.ready.length + second.almost.length, 8);
+  assert.ok(!second.hasMore);
+  const lots = pageResults([...mk("ready", 9), ...mk("almost", 4)], 1);
+  assert.equal(lots.ready.length, 5);
+  assert.equal(lots.almost.length, 0);
 });
