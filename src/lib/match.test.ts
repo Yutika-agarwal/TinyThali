@@ -14,7 +14,7 @@ import {
   toggleBoost,
   visibleBoosts,
 } from "./boosts.ts";
-import { BOOST_BY_ID } from "../data/boosts.ts";
+import { BOOST_BY_ID, BOOSTS } from "../data/boosts.ts";
 
 const kid = (over: Partial<KidProfile> = {}): KidProfile => ({
   id: "k",
@@ -152,7 +152,7 @@ test("AI ideas: unknown ingredients and allergen words are rejected", () => {
   assert.equal(out[0].name, "Aloo palak");
 });
 
-import { autoBoosts } from "./boosts.ts";
+import { autoBoosts, collapseGroups, groupBoosts } from "./boosts.ts";
 
 test("Boost it for me: small, safe, no duplicates", () => {
   const r = RECIPE_BY_ID["aloo-paratha"];
@@ -403,4 +403,27 @@ test("noodles and chowmein: no white sauce or creaminess, and chowmein is on the
   }
   assert.equal(detectDish("mac and cheese")?.id, "pasta");
   assert.ok(RECIPES.some((r) => r.id === "veggie-chowmein"));
+});
+
+test("boosts are grouped into Add on, Substitute and Side or dip", () => {
+  assert.ok(BOOSTS.every((b) => ["addon", "swap", "side"].includes(b.kind)));
+  assert.deepEqual(
+    BOOSTS.filter((b) => b.kind === "side").map((b) => b.slots.join()),
+    ["side", "side", "side"],
+  );
+  assert.ok(BOOSTS.filter((b) => b.slots.includes("side")).every((b) => b.kind === "side"));
+  const g = groupBoosts(boostsForDish(detectDish("quesadilla")!, []).allowed);
+  assert.deepEqual(g.map((x) => x.label), ["Add on", "Side or dip"]); // nothing to substitute: no empty section
+  const roti = groupBoosts(boostsForDish(detectDish("roti")!, []).allowed);
+  assert.deepEqual(roti.map((x) => x.kind), ["addon", "swap"]);
+  const collapsed = collapseGroups(roti, 2, []);
+  assert.ok(collapsed.every((x) => x.items.length <= 2));
+  assert.equal(collapseGroups(roti, 2, [roti[1].items[3].id])[1].items.length, 3); // a switched-on boost stays visible
+});
+
+test("dosa and idli: quinoa goes in with the rice, and only there", () => {
+  const ids = (q: string) => boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+  assert.ok(ids("masala dosa").includes("quinoa-batter") && ids("idli").includes("quinoa-batter"));
+  assert.ok(!ids("besan chilla").includes("quinoa-batter") && !ids("pancakes").includes("quinoa-batter"));
+  assert.ok(!ids("masala dosa").includes("cc-batter")); // no cottage cheese in a fermented batter
 });

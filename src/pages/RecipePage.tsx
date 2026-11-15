@@ -10,7 +10,7 @@ import {
   Notice,
   NutrientBadges,
 } from "../components/ui.tsx";
-import { autoBoosts, badgeSummary, boostTextsForStep, displayIngredients } from "../lib/boosts.ts";
+import { autoBoosts, badgeSummary, collapseGroups, groupBoosts, boostTextsForStep, displayIngredients } from "../lib/boosts.ts";
 import { combinedAllergies, recipeAllergens, usesGhee } from "../lib/safety.ts";
 import { useRecipeSession } from "../lib/useRecipeSession.ts";
 import { useApp } from "../state/AppState.tsx";
@@ -127,9 +127,9 @@ export default function RecipePage() {
     );
   }
 
-  const shownBoosts = showAllBoosts
-    ? options.allowed
-    : options.allowed.filter((b, i) => i < 3 || boostIds.includes(b.id));
+  const boostGroups = groupBoosts(options.allowed);
+  const shownGroups = showAllBoosts ? boostGroups : collapseGroups(boostGroups, 2, boostIds);
+  const shownCount = shownGroups.reduce((n, g) => n + g.items.length, 0);
   const picky = activeKids.some((k) => k.picky);
   const allergies = combinedAllergies(activeKids);
   const lines = displayIngredients(recipe, safety.swaps);
@@ -190,23 +190,27 @@ export default function RecipePage() {
         {options.allowed.length === 0 && (
           <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>
         )}
-        {shownBoosts.map((b) => (
-          <BoostToggle
-            key={b.id}
-            boost={b}
-            on={boostIds.includes(b.id)}
-            picky={picky}
-            onToggle={() => session.toggleBoostId(b.id)}
-          />
+        {shownGroups.map((g) => (
+          <div key={g.kind} className="space-y-2">
+            <h3 className="pt-1 text-xs font-extrabold uppercase tracking-wide text-ink-soft">{g.label}</h3>
+            {g.items.map((b) => (
+              <BoostToggle
+                key={b.id}
+                boost={b}
+                on={boostIds.includes(b.id)}
+                picky={picky}
+                onToggle={() => session.toggleBoostId(b.id)}
+              />
+            ))}
+          </div>
         ))}
-
-        {options.allowed.length > shownBoosts.length && (
+        {options.allowed.length > shownCount && (
           <button
             type="button"
             onClick={() => setShowAllBoosts(true)}
             className="min-h-11 w-full text-sm font-extrabold text-beet"
           >
-            Show {options.allowed.length - shownBoosts.length} more boosts
+            Show {options.allowed.length - shownCount} more
           </button>
         )}
 

@@ -35,6 +35,7 @@ export const ICON_SVG: Record<string, string> = {
 };
 
 export const BOOST_ICON: Record<string, string> = {
+  "quinoa-batter": "quinoa",
   "kale-greens": "kale",
   "tofu-creamy-curry": "tofu",
   "cc-cilantro-dip": "dip",

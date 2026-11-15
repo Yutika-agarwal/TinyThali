@@ -61,7 +61,7 @@ export interface AllergenSwap {
 }
 
 /** Where in a recipe a boost can be added. */
-export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain" | "sauce" | "blend" | "side" | "dollop";
+export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain" | "sauce" | "blend" | "side" | "dollop" | "soak";
 
 export interface Recipe {
   id: string;
@@ -84,6 +84,8 @@ export interface Boost {
   id: string;
   name: string;
   emoji: string;
+  /** How it goes into the dish: mixed or sprinkled in, swapped for an ingredient, or served on the side. */
+  kind: "addon" | "swap" | "side";
   slots: Slot[];
   /** Short label of what is added, e.g. "Ragi flour". */
   add: string;

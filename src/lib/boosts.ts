@@ -137,3 +137,25 @@ export function displayIngredients(recipe: Recipe, swaps: AllergenSwap[]): Displ
     };
   });
 }
+
+export const BOOST_KIND_LABEL: Record<Boost["kind"], string> = {
+  addon: "Add on",
+  swap: "Substitute",
+  side: "Side or dip",
+};
+
+/** Boosts grouped into Add on, Substitute and Side or dip (empty groups left out), keeping each group's order. */
+export function groupBoosts(list: Boost[]): { kind: Boost["kind"]; label: string; items: Boost[] }[] {
+  return (["addon", "swap", "side"] as const)
+    .map((kind) => ({ kind, label: BOOST_KIND_LABEL[kind], items: list.filter((b) => b.kind === kind) }))
+    .filter((g) => g.items.length > 0);
+}
+
+/** Collapsed view: the first `per` of each group. Anything already switched on stays visible. */
+export function collapseGroups(
+  groups: ReturnType<typeof groupBoosts>,
+  per = 2,
+  keep: string[] = [],
+): ReturnType<typeof groupBoosts> {
+  return groups.map((g) => ({ ...g, items: g.items.filter((b, i) => i < per || keep.includes(b.id)) }));
+}

@@ -132,8 +132,8 @@ export const DISH_TYPES: DishType[] = [
     emoji: "🥞",
     chip: "Dosa / idli",
     keywords: ["dosa", "uttapam", "idli", "appe", "paniyaram"],
-    slots: ["side"],
-    when: "on the side",
+    slots: ["soak", "side"],
+    when: "when you soak and grind the batter, or on the side",
   },
   {
     id: "pancake",
