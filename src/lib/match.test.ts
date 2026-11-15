@@ -222,3 +222,16 @@ test("Boost my dish: safe, ranked, one per exclusive group", () => {
   const toddler = boostsForDish(detectDish("halwa")!, [kid({ ageBand: "1-3" })]);
   assert.ok(!toddler.allowed.some((b) => b.minAge > 1));
 });
+
+import { dollarsToCents } from "./donate.ts";
+
+test("donation amounts: valid dollars become cents, junk is rejected", () => {
+  assert.equal(dollarsToCents("5"), 500);
+  assert.equal(dollarsToCents("$7.50"), 750);
+  assert.equal(dollarsToCents("1,000"), null);
+  assert.equal(dollarsToCents("0.50"), null);
+  assert.equal(dollarsToCents("-5"), null);
+  assert.equal(dollarsToCents("abc"), null);
+  assert.equal(dollarsToCents("500"), 50000);
+  assert.equal(dollarsToCents("500.01"), null);
+});

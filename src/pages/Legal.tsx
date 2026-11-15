@@ -37,6 +37,11 @@ export function Privacy() {
           When you scan a photo of your ingredients, the photo is shrunk on your device, sent to an AI service to spot
           the food, and not saved by us. Please avoid photos that show people, faces or personal documents.
         </p>
+        <h2 className="text-lg font-extrabold">Payments</h2>
+        <p>
+          If you choose to chip in, payment is taken on Stripe's own page. We never see or store your card number. We
+          keep a record of the amount and date against your account.
+        </p>
         <h2 className="text-lg font-extrabold">What we don't do</h2>
         <p>We don't sell your data, show ads, or share it with advertisers.</p>
         <h2 className="text-lg font-extrabold">Contact</h2>
@@ -72,6 +77,11 @@ export function Terms() {
         <p>
           Tips come from other parents and are not reviewed by a dietitian. We may remove tips that break the
           <Link to="/guidelines" className="font-bold text-beet"> community guidelines</Link>.
+        </p>
+        <h2 className="text-lg font-extrabold">Support payments</h2>
+        <p>
+          Tiny Thali is free to use. Any payment is voluntary, gives no extra features, and is not a tax-deductible
+          donation. Refund requests: [your contact email here].
         </p>
         <h2 className="text-lg font-extrabold">Your account</h2>
         <p>You are responsible for what you post and for keeping your sign-in secure. You can delete your account any time.</p>

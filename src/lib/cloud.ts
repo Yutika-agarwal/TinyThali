@@ -366,3 +366,23 @@ export async function identifyIngredients(imageBase64: string): Promise<string[]
   if (error) throw new Error(error.message);
   return validateDetected((data as { ids?: unknown })?.ids);
 }
+
+// ---------------------------------------------------------------------------
+// Support payments (pay what you want, via Stripe Checkout)
+// ---------------------------------------------------------------------------
+
+/** Starts a Stripe Checkout Session and returns its hosted page URL. Card details never touch this app. */
+export async function createCheckout(amountCents: number): Promise<string> {
+  const { data, error } = await db().functions.invoke("create-checkout", { body: { amount_cents: amountCents } });
+  if (error) throw new Error(error.message);
+  const url = (data as { url?: unknown })?.url;
+  if (typeof url !== "string" || !url.startsWith("https://")) throw new Error("Payment could not be started.");
+  return url;
+}
+
+/** Total the signed-in user has given so far, in cents. */
+export async function myDonationTotal(): Promise<number> {
+  const { data, error } = await db().from("donations").select("amount_cents");
+  check(error);
+  return ((data as { amount_cents: number }[] | null) ?? []).reduce((sum, d) => sum + d.amount_cents, 0);
+}

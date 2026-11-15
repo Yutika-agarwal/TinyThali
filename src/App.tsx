@@ -13,6 +13,7 @@ import RecipePage from "./pages/RecipePage.tsx";
 import Results from "./pages/Results.tsx";
 import Saved from "./pages/Saved.tsx";
 import ShareBoost from "./pages/ShareBoost.tsx";
+import Support from "./pages/Support.tsx";
 import Welcome from "./pages/Welcome.tsx";
 
 function NotFound() {
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="saved" element={<Saved />} />
         <Route path="profile" element={<Profile />} />
         <Route path="login" element={<Login />} />
+        <Route path="support" element={<Support />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="terms" element={<Terms />} />
         <Route path="guidelines" element={<Guidelines />} />

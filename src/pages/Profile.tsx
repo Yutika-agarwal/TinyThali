@@ -129,6 +129,7 @@ export default function Profile() {
             {!user.confirmed && (
               <Notice tone="warn">Please confirm your email (check your inbox) to share community tips.</Notice>
             )}
+            <Link to="/support" className={btn("secondary", "w-full")}>💛 Support Tiny Thali</Link>
             {isAdmin && (
               <Link to="/admin" className={btn("secondary", "w-full")}>Open moderation</Link>
             )}

@@ -22,6 +22,7 @@ The live demo is the original prototype built with [Lovable](https://lovable.dev
 - **Cook mode:** large, one-step-at-a-time view with boosts highlighted, then "Did your kid eat it?".
 - **Saved recipes and history:** keeps the boosts you used, with "Cook again".
 - **More from your fridge (optional, needs accounts):** AI-written recipe ideas from only your ingredients. Kid profiles never leave the device; only allergen-safe ingredient ids are sent, and every idea is re-checked against the allergy list before it is shown. Deploy with `supabase functions deploy suggest-recipes` and `supabase secrets set ANTHROPIC_API_KEY=...`.
+- **Support (optional, needs accounts):** pay-what-you-want via Stripe Checkout, including nothing. See `docs/PAYMENTS.md` for the step-by-step setup.
 - **Snap your fridge (optional, needs accounts):** take a photo, the AI suggests ingredients from our own list, you confirm, and they go to your fridge. Photos are downscaled on device and not stored. Deploy with `supabase functions deploy identify-ingredients`.
 - **Community:** parents share their own boosts. Tips carry allergen tags, age bands, "Helpful" and "Kid approved" reactions, and a report button.
 - **Accounts (optional):** email and password, or a magic link. Saved recipes and cooking history sync across devices. Kid profiles never leave the device.

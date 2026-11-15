@@ -45,6 +45,7 @@ export default function Layout() {
       </main>
       <p className="mt-8 text-xs leading-relaxed text-ink-soft">{SAFETY_NOTE}</p>
       <p className="mt-2 flex gap-3 text-xs font-bold text-beet">
+        <Link to="/support">Support</Link>
         <Link to="/privacy">Privacy</Link>
         <Link to="/terms">Terms and safety</Link>
         <Link to="/guidelines">Guidelines</Link>
