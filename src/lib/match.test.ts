@@ -203,9 +203,9 @@ test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () 
 import { boostsForDish, suggestDishes, detectDish, dishToLog, isMeatDish } from "./dish.ts";
 
 test("Boost my dish: detects the dish type from free text", () => {
-  assert.equal(detectDish("Paneer paratha")?.id, "stuffed");
+  assert.equal(detectDish("Paneer paratha")?.id, "stuffed-paratha");
   assert.equal(detectDish("moong dal tadka")?.id, "dal");
-  assert.equal(detectDish("palak paneer")?.id, "dal");
+  assert.equal(detectDish("palak paneer")?.id, "creamy-curry");
   assert.equal(detectDish("veg pasta")?.id, "pasta");
   assert.equal(detectDish("besan chilla")?.id, "batter");
   assert.equal(detectDish("rajma tikki burger")?.id, "wrap");
@@ -287,14 +287,14 @@ test("filling boosts only show when the dish is actually stuffed", () => {
   assert.ok(!ids("pasta").includes("cc-filling") && !ids("pasta").includes("soy-chunks"));
   assert.ok(!ids("roti").includes("cc-filling"));
   assert.equal(detectDish("ravioli")!.id, "stuffed");
-  assert.equal(detectDish("aloo paratha")!.id, "stuffed");
+  assert.equal(detectDish("aloo paratha")!.id, "stuffed-paratha");
   assert.ok(ids("ravioli").includes("cc-filling"));
   assert.ok(ids("pulao").includes("soy-chunks"));
 });
 
 test("dish detection: head of the name wins, whole words only, never guesses on meat or odd names", () => {
   const type = (q: string) => detectDish(q)?.id ?? null;
-  assert.equal(type("masala dosa"), "batter");
+  assert.equal(type("masala dosa"), "fermented");
   assert.equal(type("masala oats"), "upma");
   assert.equal(type("paneer bhurji"), "stirfry");
   assert.equal(type("sweet corn soup"), "soup");
@@ -302,7 +302,7 @@ test("dish detection: head of the name wins, whole words only, never guesses on 
   assert.equal(type("sourdough toast"), "toast"); // "dough" inside "sourdough" is not a roti
   assert.equal(type("dalia"), "upma"); // "dal" inside "dalia" is not a dal
   assert.equal(type("moong dal chilla"), "batter");
-  assert.equal(type("chole bhature"), "roti");
+  assert.equal(type("chole bhature"), "dal");
   assert.equal(type("paneer tikka"), null); // not sure beats a wrong guess
   assert.equal(type("chicken curry"), null);
   assert.ok(isMeatDish("Chicken curry") && !isMeatDish("chickpea curry"));
@@ -354,4 +354,17 @@ test("trust check: a recipe never mentions an allergen food its allergen list do
       if (re.test(text) && !declared.has(allergen)) assert.fail(`${r.name} mentions ${allergen} (${text.match(re)?.[0]}) but does not declare it`);
     }
   }
+});
+
+test("chole and other curries: no white sauce, no ajwain, no soy chunks", () => {
+  for (const q of ["chole", "rajma", "moong dal tadka"]) {
+    const ids = boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+    for (const bad of ["tofu-creamy", "tofu-creamy-curry", "cc-creamy", "ajwain", "soy-chunks", "cc-filling"]) {
+      assert.ok(!ids.includes(bad), `${q} should not offer ${bad}`);
+    }
+  }
+  assert.ok(boostsForDish(detectDish("palak paneer")!, []).allowed.some((b) => b.id === "tofu-creamy-curry"));
+  assert.ok(!boostsForDish(detectDish("tomato soup")!, []).allowed.some((b) => b.id === "tofu-creamy")); // "white sauce" is for pasta
+  assert.ok(!boostsForDish(detectDish("ravioli")!, []).allowed.some((b) => b.slots.includes("dough"))); // no atta in pasta dough
+  assert.ok(!boostsForDish(detectDish("curd rice")!, []).allowed.some((b) => b.id === "soy-chunks")); // pulao only
 });

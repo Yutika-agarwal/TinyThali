@@ -20,6 +20,7 @@ Generated from `src/data/boosts.ts`. Please mark each row Approve / Change / Rem
 | Carrot in the atta | 1 medium carrot per 2 cups atta | 1+ | none | none | |
 | Beetroot in the atta | 1 small beetroot per 2 cups atta | 1+ | none | none | |
 | Leftover dal in the atta | ½ cup per 2 cups atta, in place of most of the water | 1+ | none | none | |
+| Blended tofu for creaminess | 1/4 cup per serving, in place of cream | 1+ | soy | Protein | |
 | Cottage cheese and cilantro dip | 2 tbsp cottage cheese per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
 | Tofu and herb dip | 2 tbsp silken tofu per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | soy | Protein | |
 | Greek yogurt and cilantro dip | 2 tbsp Greek yogurt per serving, with finely chopped cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
