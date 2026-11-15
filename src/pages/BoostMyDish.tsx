@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import { NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { logDishRequest } from "../lib/cloud.ts";
-import { boostsForDish, detectDish, dishToLog, suggestDishes } from "../lib/dish.ts";
+import { boostsForDish, detectDish, dishToLog, isMeatDish, suggestDishes } from "../lib/dish.ts";
 import { useApp } from "../state/AppState.tsx";
 import Glyph from "../components/Glyph.tsx";
 
@@ -66,7 +66,10 @@ export default function BoostMyDish() {
         )}
       </div>
 
-      {!detected && suggestions.length === 0 && query.trim().length >= 2 && (
+      {isMeatDish(query) && (
+        <p className="text-sm text-ink-soft">We only suggest boosts for vegetarian dishes and eggs for now.</p>
+      )}
+      {!detected && !isMeatDish(query) && suggestions.length === 0 && query.trim().length >= 2 && (
         <p className="text-sm text-ink-soft">Not sure what that is. Try a simpler name, like roti or pasta.</p>
       )}
 
@@ -82,9 +85,6 @@ export default function BoostMyDish() {
               <summary className="min-h-9 cursor-pointer font-bold">
                 <Glyph kind="boost" id={b.id} emoji={b.emoji} /> {b.name}
               </summary>
-              <p className="mt-2 text-sm">
-                <strong>{b.add}</strong>: {b.amount}
-              </p>
               <p className="mt-2 rounded-xl bg-spinach-soft px-3 py-2 text-sm font-bold">✨ {b.stepText}</p>
               <p className="mt-2 text-sm text-ink-soft">{b.why}</p>
               {b.badges.length > 0 && (

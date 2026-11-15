@@ -1,3 +1,4 @@
+import { boostFitsDish, detectDish } from "./dish.ts";
 import type {
   AllergenSwap,
   Boost,
@@ -21,8 +22,12 @@ export function boostStepIndex(recipe: Recipe, boost: Boost): number | null {
 
 export function boostsForRecipe(recipe: Recipe): Boost[] {
   const have = new Set(recipe.ingredients.map((i) => i.id));
+  const dish = detectDish(recipe.name)?.id ?? null;
   return BOOSTS.filter(
-    (b) => boostStepIndex(recipe, b) !== null && !(b.hideIfRecipeHas ?? []).some((id) => have.has(id)),
+    (b) =>
+      boostStepIndex(recipe, b) !== null &&
+      boostFitsDish(b, dish) &&
+      !(b.hideIfRecipeHas ?? []).some((id) => have.has(id)),
   );
 }
 

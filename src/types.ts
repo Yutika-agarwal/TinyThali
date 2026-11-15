@@ -61,7 +61,7 @@ export interface AllergenSwap {
 }
 
 /** Where in a recipe a boost can be added. */
-export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain" | "sauce" | "blend";
+export type Slot = "dough" | "filling" | "simmer" | "batter" | "topping" | "sweet" | "grain" | "sauce" | "blend" | "side" | "dollop";
 
 export interface Recipe {
   id: string;
@@ -102,6 +102,8 @@ export interface Boost {
   exclusiveGroup?: "flour" | "flax" | "dough-add";
   /** Hidden on recipes that already contain any of these ingredient ids (nothing to add). */
   hideIfRecipeHas?: string[];
+  /** Only suggested for these dish types (ids from dishes.ts). Leave out for "any dish with the right step". */
+  onlyDishes?: string[];
   /** Root vegetable: hidden for Jain households. */
   jainUnsafe?: boolean;
 }

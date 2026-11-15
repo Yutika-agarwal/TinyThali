@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import type { KidProfile } from "../types.ts";
 import { RECIPE_BY_ID, RECIPES } from "../data/recipes.ts";
 import { matchRecipes } from "./match.ts";
-import { checkRecipe } from "./safety.ts";
+import { checkRecipe, recipeAllergens } from "./safety.ts";
 import { pageResults } from "./match.ts";
 import type { MatchResult } from "./match.ts";
 import {
@@ -200,7 +200,7 @@ test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () 
   assert.equal(checkRecipe(h, [kid({ allergies: ["sesame"] })]).status, "swap");
 });
 
-import { boostsForDish, suggestDishes, detectDish, dishToLog } from "./dish.ts";
+import { boostsForDish, suggestDishes, detectDish, dishToLog, isMeatDish } from "./dish.ts";
 
 test("Boost my dish: detects the dish type from free text", () => {
   assert.equal(detectDish("Paneer paratha")?.id, "stuffed");
@@ -290,4 +290,68 @@ test("filling boosts only show when the dish is actually stuffed", () => {
   assert.equal(detectDish("aloo paratha")!.id, "stuffed");
   assert.ok(ids("ravioli").includes("cc-filling"));
   assert.ok(ids("pulao").includes("soy-chunks"));
+});
+
+test("dish detection: head of the name wins, whole words only, never guesses on meat or odd names", () => {
+  const type = (q: string) => detectDish(q)?.id ?? null;
+  assert.equal(type("masala dosa"), "batter");
+  assert.equal(type("masala oats"), "upma");
+  assert.equal(type("paneer bhurji"), "stirfry");
+  assert.equal(type("sweet corn soup"), "soup");
+  assert.equal(type("sweet potato fries"), null); // never "sweet": no date sugar on fries
+  assert.equal(type("sourdough toast"), "toast"); // "dough" inside "sourdough" is not a roti
+  assert.equal(type("dalia"), "upma"); // "dal" inside "dalia" is not a dal
+  assert.equal(type("moong dal chilla"), "batter");
+  assert.equal(type("chole bhature"), "roti");
+  assert.equal(type("paneer tikka"), null); // not sure beats a wrong guess
+  assert.equal(type("chicken curry"), null);
+  assert.ok(isMeatDish("Chicken curry") && !isMeatDish("chickpea curry"));
+  assert.deepEqual(suggestDishes("chicken"), []);
+});
+
+test("every recipe name resolves to a dish type that shares a step with the recipe", () => {
+  for (const r of RECIPES) {
+    const d = detectDish(r.name);
+    if (!d) throw new Error(`${r.name} should be recognised`);
+    assert.ok(d.slots.some((s) => s in r.slots), `${r.name} was read as ${d.id}`);
+  }
+});
+
+test("boosts match the dish: dips with wraps, no whipped toppings on quesadilla, no peanut butter in dosa", () => {
+  const ids = (q: string) => boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+  const quesadilla = ids("quesadilla");
+  assert.equal(quesadilla[0], "cc-cilantro-dip"); // the dip leads
+  assert.ok(!quesadilla.includes("tofu-topping") && !quesadilla.includes("cc-topping") && !quesadilla.includes("hemp"));
+  assert.ok(ids("besan chilla").includes("cc-cilantro-dip"));
+  assert.ok(!ids("pancakes").includes("cc-cilantro-dip")); // no cilantro dip with sweet pancakes
+  assert.ok(ids("pancakes").includes("peanut-butter") && !ids("masala dosa").includes("peanut-butter"));
+  assert.ok(!ids("pancakes").includes("ajwain") && ids("roti").includes("ajwain"));
+  assert.ok(ids("tomato soup").includes("tofu-topping") && ids("avocado toast").includes("cc-topping"));
+  assert.ok(!ids("aloo gobi").includes("cc-filling")); // no "filling" in a sabzi
+});
+
+test("recipe pages follow the same dish rules", () => {
+  const on = (rid: string) => boostsForRecipe(RECIPE_BY_ID[rid]).map((b) => b.id);
+  assert.ok(!on("besan-chilla").includes("peanut-butter"));
+  assert.ok(!on("veg-quesadilla").includes("tofu-topping"));
+  assert.ok(on("veg-quesadilla").includes("cc-cilantro-dip") && on("veg-quesadilla").includes("tofu-herb-dip"));
+  assert.ok(on("creamy-veg-soup").includes("tofu-topping"));
+});
+
+test("trust check: a recipe never mentions an allergen food its allergen list doesn't declare", () => {
+  const words: Record<string, RegExp> = {
+    dairy: /\b(milk|paneer|cheese|yogh?urt|curd|raita|(?<!peanut )butter|whey|cottage|cream|dahi|khoya)\b/i,
+    soy: /\b(soy|soya|tofu|edamame|nutrela)\b/i,
+    tree_nuts: /\b(almond|cashew|walnut|pistachio|pine nut)\b/i,
+    sesame: /\b(sesame|tahini)\b/i,
+    peanuts: /\bpeanut/i,
+    egg: /\beggs?\b/i,
+  };
+  for (const r of RECIPES) {
+    const declared = new Set<string>(recipeAllergens(r));
+    const text = [r.name, r.blurb, ...r.steps].join(" | ");
+    for (const [allergen, re] of Object.entries(words)) {
+      if (re.test(text) && !declared.has(allergen)) assert.fail(`${r.name} mentions ${allergen} (${text.match(re)?.[0]}) but does not declare it`);
+    }
+  }
 });

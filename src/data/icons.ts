@@ -4,6 +4,7 @@
  * Anything not listed falls back to its emoji.
  */
 export const ICON_SVG: Record<string, string> = {
+  "dip": "<path d=\"M6 22 H42 Q41 40 24 42 Q7 40 6 22Z\" fill=\"#e8d9b5\" stroke=\"#8d7a50\" stroke-width=\"1.3\"/><path d=\"M9 22 Q24 12 39 22Z\" fill=\"#cfe3b0\" stroke=\"#7c9a4a\" stroke-width=\"1\"/><path d=\"M18 18 q3-5 6-1 q3-4 6 1\" fill=\"none\" stroke=\"#3f9142\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M14 8 l6 8 M34 6 l-6 9\" stroke=\"#e0a21c\" stroke-width=\"3\" stroke-linecap=\"round\"/>",
   "spinach": "<path d=\"M24 44 V26\" stroke=\"#2f6b2f\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><path d=\"M24 30 C10 28 8 14 22 6 C26 12 30 20 24 30Z\" fill=\"#3f9142\" stroke=\"#256227\" stroke-width=\"1.2\"/><path d=\"M24 30 C38 28 40 14 26 6 C22 12 18 20 24 30Z\" fill=\"#4fa653\" stroke=\"#256227\" stroke-width=\"1.2\"/><path d=\"M24 29 V12\" stroke=\"#256227\" stroke-width=\"1\"/>",
   "carrot": "<path d=\"M20 12 C18 6 21 3 23 8 C24 4 28 4 27 10\" fill=\"none\" stroke=\"#3f9142\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M14 14 C22 10 32 12 34 16 C36 24 28 38 12 44 C8 40 8 20 14 14Z\" fill=\"#f08a24\" stroke=\"#b45f0c\" stroke-width=\"1.3\" transform=\"rotate(25 24 28)\"/><path d=\"M20 22 l5 2 M18 30 l5 2 M24 16 l4 2\" stroke=\"#b45f0c\" stroke-width=\"1.2\" stroke-linecap=\"round\" transform=\"rotate(25 24 28)\"/>",
   "beet": "<path d=\"M21 14 C17 8 19 4 22 3 M27 14 C30 8 28 5 26 3\" fill=\"none\" stroke=\"#3f9142\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M24 12 C36 12 42 22 38 32 C35 40 29 42 24 46 C19 42 13 40 10 32 C6 22 12 12 24 12Z\" fill=\"#a3205a\" stroke=\"#6d1239\" stroke-width=\"1.3\"/><path d=\"M16 22 Q24 18 32 22 M14 30 Q24 25 34 30\" fill=\"none\" stroke=\"#d4528a\" stroke-width=\"1.2\" stroke-linecap=\"round\"/><path d=\"M24 46 V40\" stroke=\"#6d1239\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>",
@@ -33,6 +34,9 @@ export const ICON_SVG: Record<string, string> = {
 };
 
 export const BOOST_ICON: Record<string, string> = {
+  "cc-cilantro-dip": "dip",
+  "tofu-herb-dip": "dip",
+  "yogurt-cilantro-dip": "dip",
   "spinach-dough": "spinach",
   "carrot-dough": "carrot",
   "beet-dough": "beet",

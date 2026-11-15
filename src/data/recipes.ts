@@ -24,7 +24,7 @@ export const RECIPES: Recipe[] = [
       "Cook on a hot tawa with a little ghee or oil until golden spots appear on both sides.",
       "Serve warm with chutney.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 4 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -57,7 +57,7 @@ export const RECIPES: Recipe[] = [
       "Roll a ball of dough into a circle, add the potato filling, seal it and roll out gently.",
       "Cook on a hot tawa with a little oil until golden on both sides.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: [],
   },
   {
@@ -245,7 +245,7 @@ export const RECIPES: Recipe[] = [
       "Pour a ladle onto a hot, oiled tawa and spread thin. Cook both sides until golden.",
       "Serve hot.",
     ],
-    slots: { batter: 0, topping: 2 },
+    slots: { batter: 0, topping: 2, side: 3 },
     badges: ["Protein", "Fiber"],
   },
   {
@@ -354,9 +354,9 @@ export const RECIPES: Recipe[] = [
       "Rinse the sabudana until the water runs clear, then soak it in just enough water to cover for 4 to 6 hours, until each pearl squishes easily between your fingers.",
       "Mix the soaked sabudana with the mashed potato, grated carrot, peas, cilantro, salt and cumin into a thick, sticky batter.",
       "Heat and grease a waffle iron. Spoon in the batter, close and cook for 6 to 8 minutes until crisp and golden. No waffle iron? Pan-fry small patties instead.",
-      "Serve warm with curd or green chutney.",
+      "Serve warm with chutney.",
     ],
-    slots: { batter: 1, topping: 3 },
+    slots: { batter: 1, topping: 3, side: 3 },
     badges: [],
   },
   {
@@ -379,9 +379,9 @@ export const RECIPES: Recipe[] = [
       "Drain the soaked moong dal and blend it with a splash of water, salt, turmeric and cumin into a thick, pourable batter.",
       "Stir in the chopped spinach and grated carrot if you're using them.",
       "Heat and grease a waffle iron, pour in the batter, close and cook for 5 to 7 minutes until golden and set.",
-      "Serve with curd or chutney.",
+      "Serve with chutney.",
     ],
-    slots: { batter: 0, topping: 3 },
+    slots: { batter: 0, topping: 3, side: 3 },
     badges: ["Protein", "Fiber"],
   },
   {
@@ -409,7 +409,7 @@ export const RECIPES: Recipe[] = [
       "Pan-sear in a little oil over medium heat for 4 minutes per side until golden, or bake at 400°F for 20 minutes, flipping once.",
       "Serve in a bun or a roti wrap with cucumber, tomato and chutney.",
     ],
-    slots: { filling: 1 },
+    slots: { filling: 1, side: 4 },
     badges: ["Protein", "Fiber", "Iron"],
   },
   {
@@ -611,7 +611,7 @@ export const RECIPES: Recipe[] = [
       "Roll up tightly and slice into 1 inch pinwheels.",
       "Serve at room temperature. Good in lunchboxes.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: ["Calcium"],
     swaps: [
       {
@@ -642,9 +642,9 @@ export const RECIPES: Recipe[] = [
       "Drain the soaked whole moong and blend with a little water, salt, turmeric and cumin into a smooth, pourable batter.",
       "Stir in the spinach and carrot if using.",
       "Pour a ladle of batter onto a hot, lightly oiled tawa and spread thin. Cook until golden, flip and cook the other side.",
-      "Serve warm with curd or chutney.",
+      "Serve warm with chutney.",
     ],
-    slots: { batter: 1, topping: 3 },
+    slots: { batter: 1, topping: 3, side: 3 },
     badges: ["Protein", "Fiber"],
   },
   {
@@ -665,7 +665,7 @@ export const RECIPES: Recipe[] = [
       "Mash the avocado with salt until creamy.",
       "Spread on the toast and finish with a sprinkle of seeds. Cut into fingers for little ones.",
     ],
-    slots: { topping: 2 },
+    slots: { topping: 2, dollop: 2 },
     badges: ["Fiber"],
   },
   {
@@ -687,7 +687,7 @@ export const RECIPES: Recipe[] = [
       "Rinse the rice and drain it.",
       "Heat the oil, pop the cumin, add the carrot and peas and saute for 2 minutes.",
       "Add the rice, salt and 2 cups of water. Cook covered until the water is absorbed and the rice is fluffy.",
-      "Serve warm with curd or raita.",
+      "Serve warm with chutney.",
     ],
     slots: { grain: 0, simmer: 2, topping: 3, filling: 2 },
     badges: ["Fiber"],
@@ -783,7 +783,7 @@ export const RECIPES: Recipe[] = [
     id: "veggie-kathi-roll",
     name: "Veggie paneer kathi rolls",
     emoji: "🌯",
-    blurb: "Soft rotis rolled around spiced paneer and loads of veggies. Tofu works too.",
+    blurb: "Soft rotis rolled around spiced paneer and loads of veggies.",
     minutes: 30,
     diet: "vegetarian",
     ingredients: [
@@ -806,7 +806,7 @@ export const RECIPES: Recipe[] = [
       "Spread a spoonful of chutney or yogurt dip on each roti, add the filling and some raw cucumber and cilantro.",
       "Roll up tightly, wrap the bottom in foil or paper for little hands, and serve warm.",
     ],
-    slots: { dough: 0, filling: 1, topping: 2 },
+    slots: { dough: 0, filling: 1, topping: 2, side: 3 },
     badges: ["Protein", "Calcium", "Fiber"],
     swaps: [
       {
@@ -843,7 +843,7 @@ export const RECIPES: Recipe[] = [
       "Fill each tortilla, roll it up and place seam-side down in an oiled baking dish.",
       "Pour the rest of the sauce on top, cover with foil and bake at 375°F for 20 minutes. Let cool a few minutes before serving.",
     ],
-    slots: { filling: 1, topping: 3, sauce: 0 },
+    slots: { filling: 1, topping: 3, sauce: 0, side: 3 },
     badges: ["Protein", "Fiber", "Iron"],
     swaps: [
       {
@@ -872,9 +872,9 @@ export const RECIPES: Recipe[] = [
       "Squeeze the grated lauki well, keeping the juice. Mix it into the atta with salt and cumin and knead a soft dough, using the lauki juice instead of water.",
       "Rest the dough for 15 minutes, then divide into balls and roll out.",
       "Cook on a hot tawa with a little oil until golden on both sides.",
-      "Serve warm with curd or chutney.",
+      "Serve warm with chutney.",
     ],
-    slots: { dough: 0 },
+    slots: { dough: 0, side: 3 },
     badges: ["Fiber"],
   },
   {
@@ -922,7 +922,7 @@ export const RECIPES: Recipe[] = [
       "Stuff each dough ball with a spoon of filling, seal and roll out gently.",
       "Cook on a hot tawa with a little oil until golden.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -956,7 +956,7 @@ export const RECIPES: Recipe[] = [
       "Layer potato, beetroot, tomato and cucumber, and sprinkle with salt.",
       "Close the sandwiches, cut into fingers or triangles and serve.",
     ],
-    slots: { filling: 2, topping: 3 },
+    slots: { filling: 2, topping: 3, side: 3 },
     badges: ["Fiber"],
   },
   {
@@ -1006,7 +1006,7 @@ export const RECIPES: Recipe[] = [
       "Rinse the rice. Blanch the spinach for 1 minute and blend it smooth with a little water.",
       "Heat the oil, pop the cumin, add the spinach puree and salt and cook for 2 minutes.",
       "Add the rice and 1 3/4 cups of water, cover and cook until fluffy.",
-      "Serve with curd or raita.",
+      "Serve with chutney.",
     ],
     slots: { grain: 0, simmer: 2 },
     badges: ["Iron"],
@@ -1060,7 +1060,7 @@ export const RECIPES: Recipe[] = [
       "Cover and cook for 3 minutes, flip and cook for 2 more minutes until golden.",
       "Serve with chutney.",
     ],
-    slots: { batter: 0, topping: 3 },
+    slots: { batter: 0, topping: 3, side: 3 },
     badges: ["Fiber"],
   },
   {
@@ -1082,7 +1082,7 @@ export const RECIPES: Recipe[] = [
       "Rinse the rice.",
       "Heat the oil, pop the cumin and saute the corn and carrot for 2 minutes.",
       "Add the rice, salt and 2 cups of water, cover and cook until fluffy.",
-      "Serve warm with curd or raita.",
+      "Serve warm with chutney.",
     ],
     slots: { grain: 0, simmer: 2, topping: 3 },
     badges: ["Fiber"],
@@ -1109,7 +1109,7 @@ export const RECIPES: Recipe[] = [
       "Pour a ladle of batter onto a hot oiled tawa, spread a little thick and press the topping in.",
       "Cover and cook for 3 minutes, flip and cook until golden. Serve warm.",
     ],
-    slots: { batter: 0, topping: 3 },
+    slots: { batter: 0, topping: 3, side: 3 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -1141,7 +1141,7 @@ export const RECIPES: Recipe[] = [
       "Make small balls, stuff each with a spoon of filling and roll into small rounds.",
       "Cook on a tawa with a little oil until golden. Serve with carrot and cucumber sticks.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: ["Protein", "Calcium"],
     swaps: [
       {
@@ -1208,7 +1208,7 @@ export const RECIPES: Recipe[] = [
       "Stuff small dough balls with the filling and roll gently into small rounds.",
       "Cook on a tawa with a little oil until golden on both sides.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: ["Fiber"],
   },
   {
@@ -1230,7 +1230,7 @@ export const RECIPES: Recipe[] = [
       "Roll small balls into thin rounds, add a spoon of grated cheese to half of each, fold and seal into half moons.",
       "Cook on a tawa with a little oil until golden and the cheese melts. Serve warm.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 2 },
     badges: ["Iron", "Calcium"],
     swaps: [
       {
@@ -1264,7 +1264,7 @@ export const RECIPES: Recipe[] = [
       "Cook in a lightly oiled pan for 2 to 3 minutes per side until crisp and the cheese melts.",
       "Cut into wedges and let cool before serving.",
     ],
-    slots: { filling: 0, topping: 3 },
+    slots: { filling: 0, topping: 3, side: 3 },
     badges: ["Protein", "Fiber", "Calcium"],
     swaps: [
       {
@@ -1296,7 +1296,7 @@ export const RECIPES: Recipe[] = [
       "Stuff small dough balls with the filling and roll gently into small rounds.",
       "Cook on a tawa with a little oil until golden.",
     ],
-    slots: { dough: 0, filling: 1 },
+    slots: { dough: 0, filling: 1, side: 3 },
     badges: ["Protein", "Calcium", "Fiber"],
   },
   {
@@ -1324,7 +1324,7 @@ export const RECIPES: Recipe[] = [
       "Pan-sear the patties in a little oil for 3 minutes per side until golden.",
       "Fill the buns with the patty, cucumber and tomato, and serve with the sweet potato batons.",
     ],
-    slots: { filling: 1, topping: 3 },
+    slots: { filling: 1, topping: 3, side: 3 },
     badges: ["Fiber"],
   },
   {
@@ -1370,14 +1370,14 @@ export const RECIPES: Recipe[] = [
       "Pour a ladle onto a hot, lightly oiled tawa, spread thin and cook until golden. Flip and cook the other side.",
       "Serve with chutney or curd.",
     ],
-    slots: { batter: 1, topping: 3 },
+    slots: { batter: 1, topping: 3, side: 3 },
     badges: ["Protein", "Calcium", "Fiber"],
   },
   {
     id: "white-sauce-pasta",
     name: "White sauce pasta",
     emoji: "🍝",
-    blurb: "Classic creamy pasta with peas and carrot. Try the blended tofu boost for a dairy-free sauce.",
+    blurb: "Classic creamy pasta with peas and carrot.",
     minutes: 25,
     diet: "vegetarian",
     ingredients: [
@@ -1427,7 +1427,7 @@ export const RECIPES: Recipe[] = [
       "Add the milk and blend everything until completely smooth and creamy.",
       "Reheat gently and serve warm with toast or rotis.",
     ],
-    slots: { sauce: 1, topping: 2 },
+    slots: { sauce: 1, topping: 2, dollop: 2 },
     badges: ["Calcium", "Fiber"],
     swaps: [
       {
