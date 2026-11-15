@@ -214,8 +214,9 @@ test("Boost my dish: safe, ranked, one per exclusive group", () => {
   const dough = detectDish("roti")!;
   const all = boostsForDish(dough, [kid({ ageBands: ["4-8"] })]);
   assert.ok(all.allowed.length > 0);
-  const groups = all.allowed.map((b) => b.exclusiveGroup).filter(Boolean);
+  const groups = all.allowed.map((b) => b.exclusiveGroup).filter((g) => g && g !== "dough-add");
   assert.equal(new Set(groups).size, groups.length);
+  assert.equal(all.allowed.filter((b) => b.exclusiveGroup === "dough-add").length, 4);
   const soy = boostsForDish(dough, [kid({ allergies: ["soy", "dairy", "sesame"] })]);
   assert.ok(!soy.allowed.some((b) => b.allergens.some((a) => ["soy", "dairy", "sesame"].includes(a))));
   assert.ok(soy.hiddenCount > 0);

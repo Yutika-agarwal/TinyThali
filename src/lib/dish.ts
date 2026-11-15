@@ -36,7 +36,7 @@ export function boostsForDish(type: DishType, kids: KidProfile[]): DishBoosts {
   });
   const groups = new Set<string>();
   const allowed = ranked.filter((b) => {
-    if (!b.exclusiveGroup) return true;
+    if (!b.exclusiveGroup || b.exclusiveGroup === "dough-add") return true; // dough-add are just alternatives to list
     if (groups.has(b.exclusiveGroup)) return false;
     groups.add(b.exclusiveGroup);
     return true;
