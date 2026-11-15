@@ -6,6 +6,7 @@ import { DISH_TYPES } from "../data/dishes.ts";
 import type { DishType } from "../data/dishes.ts";
 import { boostsForDish, detectDish } from "../lib/dish.ts";
 import { useApp } from "../state/AppState.tsx";
+import Glyph from "../components/Glyph.tsx";
 
 /** "I'm cooking...": say what you're making, get quick boosts to add. No recipe needed. */
 export default function BoostMyDish() {
@@ -63,7 +64,7 @@ export default function BoostMyDish() {
             <Card className="bg-spinach-soft ring-2 ring-spinach">
               <p className="text-xs font-extrabold uppercase tracking-wide text-spinach">Easiest boost</p>
               <h3 className="text-lg font-extrabold">
-                {first.emoji} {first.name}
+                <Glyph kind="boost" id={first.id} emoji={first.emoji} size="1.5em" /> {first.name}
               </h3>
               <p className="mt-1">
                 Add <strong>{first.add}</strong>: {first.amount}
@@ -83,7 +84,7 @@ export default function BoostMyDish() {
           {rest.map((b) => (
             <details key={b.id} className={cx("rounded-2xl bg-white p-3 ring-1 ring-black/10")}>
               <summary className="cursor-pointer font-bold">
-                {b.emoji} {b.name} <span className="font-normal text-ink-soft">· {b.amount}</span>
+                <Glyph kind="boost" id={b.id} emoji={b.emoji} /> {b.name} <span className="font-normal text-ink-soft">· {b.amount}</span>
               </summary>
               <p className="mt-2 text-sm font-bold">✨ {b.stepText}</p>
               <p className="mt-1 text-sm text-ink-soft">{b.why}</p>

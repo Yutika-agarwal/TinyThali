@@ -52,3 +52,8 @@ Cook each recipe once. Note quantities, timings and textures that are off.
 | Veg bean quesadilla with corn | 20 | | | |
 | Edamame paneer mini parathas | 35 | | | |
 | Veggie sliders with sweet potato batons | 40 | | | |
+| Soft cottage cheese rotis | 25 | | | |
+| Cottage cheese besan chilla | 20 | | | |
+| White sauce pasta | 25 | | | |
+| Creamy veggie soup | 25 | | | |
+| Hummus | 10 | | | |

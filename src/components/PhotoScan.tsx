@@ -7,6 +7,7 @@ import { combinedAllergies } from "../lib/safety.ts";
 import { cloudEnabled } from "../lib/supabase.ts";
 import { useApp } from "../state/AppState.tsx";
 import { useAuth } from "../state/AuthState.tsx";
+import Glyph from "./Glyph.tsx";
 
 /** "Snap your fridge": take or pick a photo, confirm what we found, add it to the fridge. */
 export default function PhotoScan() {
@@ -83,7 +84,7 @@ export default function PhotoScan() {
                       active={picked.includes(id)}
                       onClick={() => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p, id]))}
                     >
-                      {i.emoji} {i.name}
+                      <Glyph kind="ing" id={i.id} emoji={i.emoji} /> {i.name}
                       {flagged && <span aria-label="on your allergy list"> ⚠️</span>}
                     </Chip>
                   );

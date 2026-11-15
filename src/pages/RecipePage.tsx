@@ -15,6 +15,7 @@ import { combinedAllergies, recipeAllergens, usesGhee } from "../lib/safety.ts";
 import { useRecipeSession } from "../lib/useRecipeSession.ts";
 import { useApp } from "../state/AppState.tsx";
 import type { Boost, CommunityPost } from "../types.ts";
+import Glyph from "../components/Glyph.tsx";
 
 function BoostToggle({
   boost,
@@ -38,7 +39,7 @@ function BoostToggle({
       )}
     >
       <div className="flex items-start gap-3">
-        <span className="text-2xl" aria-hidden>{boost.emoji}</span>
+        <span className="text-2xl"><Glyph kind="boost" id={boost.id} emoji={boost.emoji} size="1.6em" /></span>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <h3 className="font-extrabold">{boost.name}</h3>
@@ -262,7 +263,7 @@ export default function RecipePage() {
         <ul className="space-y-1.5">
           {lines.map((l) => (
             <li key={l.id} className="flex gap-2">
-              <span aria-hidden>{l.emoji}</span>
+              <Glyph kind="ing" id={l.id} emoji={l.emoji} />
               <span>
                 <strong>{l.name}</strong>, {l.qty}
                 {l.optional && <span className="text-ink-soft"> (optional)</span>}

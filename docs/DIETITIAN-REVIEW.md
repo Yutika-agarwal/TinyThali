@@ -17,9 +17,18 @@ Generated from `src/data/boosts.ts`. Please mark each row Approve / Change / Rem
 | Date sugar swap | the same amount as the sugar, or a little less | 2+ | none | none | |
 | Paneer whey in the dough | use in place of the water, as needed | 1+ | dairy | none | |
 | Peanut butter in the batter | 1 tbsp per cup of batter, thinned with a little water | 1+ | peanuts | Protein | |
-| Seed sprinkle | 1 tsp per serving | 2+ | none | Omega-3, Iron, Protein, Fiber | |
+| Seed sprinkle | 1 tsp per serving | 2+ | none | Omega-3, Fiber | |
 | Quinoa instead of rice | the same amount as the rice | 1+ | none | Protein, Fiber | |
 | Soy chunks (Nutrela), shredded | 1/4 cup dry chunks per 2 servings | 2+ | soy | Protein, Iron | |
+| Cottage cheese in the dough | 1/4 cup per cup of atta, in place of some of the water | 1+ | dairy | Protein | |
+| Cottage cheese in the batter | 1/4 cup per cup of batter | 1+ | dairy | Protein | |
+| Cottage cheese for creaminess | 2 tbsp per serving, in place of cream | 1+ | dairy | Protein | |
+| Cottage cheese in the filling | 2 tbsp per serving of filling | 1+ | dairy | Protein | |
+| Whipped cottage cheese on top | 2 tbsp per serving, as a creamy topping | 1+ | dairy | Protein | |
+| Blended tofu white sauce | 1/4 cup per serving, in place of cream or milk | 1+ | soy | Protein | |
+| Blended tofu in the batter | 1/4 cup per cup of batter | 1+ | soy | Protein | |
+| Whipped tofu topping | 2 tbsp per serving, as a creamy topping or dip | 1+ | soy | Protein | |
+| Extra sesame in the blend | 1 tbsp per cup of dip | 1+ | sesame | Calcium, Iron | |
 
 ## Recipe allergen tags
 
@@ -75,6 +84,11 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Veg bean quesadilla with corn | gluten, dairy | cheese to tofu | |
 | Edamame paneer mini parathas | gluten, soy, dairy | none | |
 | Veggie sliders with sweet potato batons | gluten | none | |
+| Soft cottage cheese rotis | gluten, dairy | none | |
+| Cottage cheese besan chilla | dairy | none | |
+| White sauce pasta | gluten, dairy | milk to tofu | |
+| Creamy veggie soup | dairy | milk to tofu | |
+| Hummus | sesame | tahini to pumpkin_seeds | |
 
 ## Ingredient allergen table
 
@@ -98,6 +112,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Sweet corn | none |
 | Sweet potato | none |
 | Capsicum (bell pepper) | none |
+| Cauliflower | none |
 | Cucumber | none |
 | Paneer | dairy |
 | Curd (yogurt) | dairy |
@@ -110,6 +125,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Edamame (shelled) | soy |
 | Cream cheese | dairy |
 | Pine nuts | tree_nuts |
+| Tahini (sesame paste) | sesame |
 | Pumpkin seeds (pepitas) | none |
 | Makhana (fox nuts) | none |
 | Atta (whole wheat flour) | gluten |

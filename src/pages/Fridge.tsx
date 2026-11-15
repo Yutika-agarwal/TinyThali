@@ -8,6 +8,7 @@ import { RECIPE_BY_ID } from "../data/recipes.ts";
 import { WEEKLY } from "../data/weekly.ts";
 import { checkRecipe, combinedAllergies, dietAllows } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
+import Glyph from "../components/Glyph.tsx";
 
 type Category = keyof typeof CATEGORY_LABELS;
 
@@ -72,7 +73,7 @@ export default function Fridge() {
             const flagged = i.allergens.some((a) => allergies.includes(a));
             return (
               <Chip key={id} active={fridge.includes(id)} onClick={() => toggleFridge(id)}>
-                {i.emoji} {i.name}
+                <Glyph kind="ing" id={i.id} emoji={i.emoji} /> {i.name}
                 {flagged && <span aria-label="on your allergy list"> ⚠️</span>}
               </Chip>
             );
@@ -115,7 +116,7 @@ export default function Fridge() {
           const flagged = i.allergens.some((a) => allergies.includes(a));
           return (
             <Chip key={i.id} active={fridge.includes(i.id)} onClick={() => toggleFridge(i.id)}>
-              {i.emoji} {i.name}
+              <Glyph kind="ing" id={i.id} emoji={i.emoji} /> {i.name}
               {flagged && <span title="On your allergy list" aria-label="on your allergy list"> ⚠️</span>}
             </Chip>
           );
@@ -137,7 +138,7 @@ export default function Fridge() {
           <div className="flex flex-wrap gap-2">
             {fridge.map((id) => (
               <Chip key={id} active onClick={() => toggleFridge(id)}>
-                {INGREDIENT_BY_ID[id]?.emoji} {INGREDIENT_BY_ID[id]?.name} ✕
+                <Glyph kind="ing" id={id} emoji={INGREDIENT_BY_ID[id]?.emoji ?? ""} /> {INGREDIENT_BY_ID[id]?.name} ✕
               </Chip>
             ))}
           </div>
