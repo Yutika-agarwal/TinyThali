@@ -7,11 +7,13 @@ import { btn, Card, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
 import { matchRecipes, pageResults } from "../lib/match.ts";
 import type { MatchResult } from "../lib/match.ts";
+import { byTaste, lastReactions } from "../lib/taste.ts";
 import { useApp } from "../state/AppState.tsx";
 
 function RecipeCard({ result }: { result: MatchResult }) {
-  const { activeKids } = useApp();
+  const { activeKids, history } = useApp();
   const { recipe, missing, safety } = result;
+  const reaction = lastReactions(history)[recipe.id];
   const boostCount = visibleBoosts(recipe, activeKids).allowed.length;
   const note =
     missing.length > 0
@@ -32,6 +34,8 @@ function RecipeCard({ result }: { result: MatchResult }) {
             <p className={missing.length > 0 ? "text-sm text-ink-soft" : "text-sm font-bold text-spinach"}>{note}</p>
             <p className="mt-0.5 text-xs text-ink-soft">
               {recipe.minutes} min{boostCount > 0 ? ` · ✨ ${boostCount} boosts` : ""}
+              {reaction === "loved" && " · 😍 Loved"}
+              {reaction === "not_this_time" && " · Not a hit last time"}
             </p>
           </div>
         </div>
@@ -41,8 +45,14 @@ function RecipeCard({ result }: { result: MatchResult }) {
 }
 
 export default function Results() {
-  const { fridge, activeKids } = useApp();
-  const results = matchRecipes(fridge, activeKids);
+  const { fridge, activeKids, history } = useApp();
+  const last = lastReactions(history);
+  const matched = matchRecipes(fridge, activeKids);
+  // Keep ready-before-almost, but let loved dishes lead and refused ones trail inside each group.
+  const results = [
+    ...byTaste(matched.filter((r) => r.kind === "ready"), (r) => r.recipe.id, last),
+    ...byTaste(matched.filter((r) => r.kind === "almost"), (r) => r.recipe.id, last),
+  ];
   const [pages, setPages] = useState(1);
   const { ready, almost, hasMore } = pageResults(results, pages);
 

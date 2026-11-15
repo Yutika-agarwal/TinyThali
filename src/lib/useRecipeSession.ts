@@ -33,8 +33,11 @@ export function useRecipeSession() {
   const postIds = split(params.get("p")).filter((pid) => allowedPosts.some((p) => p.id === pid));
   const selectedPosts = allowedPosts.filter((p) => postIds.includes(p.id));
 
-  function write(nextBoosts: string[], nextPosts: string[]) {
+  const batch = [1, 2, 3].includes(Number(params.get("x"))) ? Number(params.get("x")) : 1;
+
+  function write(nextBoosts: string[], nextPosts: string[], nextBatch = batch) {
     const next = new URLSearchParams();
+    if (nextBatch > 1) next.set("x", String(nextBatch));
     if (nextBoosts.length) next.set("b", nextBoosts.join(","));
     if (nextPosts.length) next.set("p", nextPosts.join(","));
     setParams(next, { replace: true });
@@ -50,8 +53,11 @@ export function useRecipeSession() {
     boostIds,
     postIds,
     selectedPosts,
+    batch,
+    setBatch: (n: number) => write(boostIds, postIds, n),
     query: (() => {
       const q = new URLSearchParams();
+      if (batch > 1) q.set("x", String(batch));
       if (boostIds.length) q.set("b", boostIds.join(","));
       if (postIds.length) q.set("p", postIds.join(","));
       const s = q.toString();

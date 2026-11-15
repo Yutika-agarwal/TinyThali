@@ -13,6 +13,7 @@ The live demo is the original prototype built with [Lovable](https://lovable.dev
 ## Features
 
 - **Fridge-first matching:** pick ingredients, get ranked recipes, plus "almost there" options missing one or two items.
+- **Daily-cooking touches:** ×1/×2/×3 batch sizes, a copyable shopping list for missing ingredients, quick 20-minute dinners on the first screen, dishes your kid loved rise (refused ones sink), and a toddler note when a dish has nuts or seeds.
 - **Tiny Boosts:** 35 vetted add-ins and swaps (dips and sides for wraps and stuffed dishes, colourful atta with spinach, carrot or beetroot, leftover dal in atta, flours, seeds, ajwain, whole green moong and spinach in chilla batter, date sugar, quinoa for rice, shredded soy chunks, five cottage cheese upgrades, blended tofu sauce and batter, extra sesame in dips, paneer whey in dough, peanut butter in batters). They attach to the right step of each recipe, and every boost shows what it adds and why.
 - **Recipes:** parathas, dals (moong, masoor, spinach, kale, methi), waffles (sabudana, moong), rajma-quinoa patties, spinach pesto pasta, makhana raita, cream cheese roti pinwheels and more.
 - **Allergen-safe by design:** one tested module decides what is safe (see below).

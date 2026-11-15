@@ -441,3 +441,46 @@ test("moong dal chilla: whole green moong swap and spinach batter lead; besan ch
     assert.ok(ids(q).includes("spinach-batter"));
   }
 });
+
+import { scaleQty } from "./scale.ts";
+import { textureNote } from "./texture.ts";
+import { byTaste, lastReactions } from "./taste.ts";
+
+test("scaling keeps times and plurals right, and leaves 'to taste' alone", () => {
+  assert.equal(scaleQty("1 cup, soaked 6 to 8 hours", 2), "2 cups, soaked 6 to 8 hours");
+  assert.equal(scaleQty("1 bunch (about 3 cups)", 2), "2 bunches (about 6 cups)");
+  assert.equal(scaleQty("1/2 tsp", 3), "1 1/2 tsp");
+  assert.equal(scaleQty("1 1/2 cups cooked (or 1 can)", 2), "3 cups cooked (or 2 cans)");
+  assert.equal(scaleQty("to taste", 3), "to taste");
+  assert.equal(scaleQty("1 cup", 1), "1 cup");
+});
+
+test("every recipe quantity scales without producing nonsense", () => {
+  for (const r of RECIPES) {
+    for (const i of r.ingredients) {
+      for (const f of [2, 3]) {
+        const out = scaleQty(i.qty, f);
+        assert.ok(!/NaN|undefined|Infinity/.test(out), `${r.id}: ${out}`);
+        assert.ok(!/\b1\.\d/.test(out), `${r.id}: decimals in ${out}`);
+      }
+    }
+  }
+});
+
+test("toddler texture note appears only for nuts, seeds or makhana", () => {
+  const toddler = [{ ...kid(), ageBands: ["1-3"] as KidProfile["ageBands"] }];
+  const older = [{ ...kid(), ageBands: ["9-12"] as KidProfile["ageBands"] }];
+  const withNuts = RECIPES.find((r) => r.ingredients.some((i) => ["makhana", "pumpkin_seeds", "pine_nuts"].includes(i.id)));
+  assert.ok(withNuts);
+  assert.ok(textureNote(withNuts!, [], toddler));
+  assert.equal(textureNote(withNuts!, [], older), null);
+  assert.equal(textureNote(RECIPE_BY_ID["besan-chilla"], [], toddler), null);
+});
+
+test("loved dishes lead and refused ones trail", () => {
+  const last = lastReactions([
+    { id: "1", recipeId: "b", boostIds: [], postIds: [], reaction: "not_this_time", cookedAt: "2" },
+    { id: "2", recipeId: "c", boostIds: [], postIds: [], reaction: "loved", cookedAt: "1" },
+  ]);
+  assert.deepEqual(byTaste(["a", "b", "c"], (x) => x, last), ["c", "a", "b"]);
+});

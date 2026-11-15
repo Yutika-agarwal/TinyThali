@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
-import { RECIPE_BY_ID } from "../data/recipes.ts";
+import { RECIPES, RECIPE_BY_ID } from "../data/recipes.ts";
+import { byTaste, lastReactions } from "../lib/taste.ts";
 import { WEEKLY } from "../data/weekly.ts";
 import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
@@ -11,7 +12,7 @@ import { checkRecipe, combinedAllergies, dietAllows, otherAllergyHit } from "../
 import { useApp } from "../state/AppState.tsx";
 
 export default function Fridge() {
-  const { fridge, toggleFridge, clearFridge, activeKids, quickPicks } = useApp();
+  const { fridge, toggleFridge, clearFridge, activeKids, quickPicks, history } = useApp();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
@@ -23,6 +24,16 @@ export default function Fridge() {
   const weekly = WEEKLY.recipeIds
     .map((id) => RECIPE_BY_ID[id])
     .filter((r) => r && checkRecipe(r, activeKids).status !== "blocked" && dietAllows(r, activeKids));
+
+  // Nothing picked yet: offer a few quick, safe dinners, so tonight needs one tap. Refused dishes are left out.
+  const last = lastReactions(history);
+  const tonight = byTaste(
+    RECIPES.filter(
+      (r) => r.minutes <= 20 && last[r.id] !== "not_this_time" && dietAllows(r, activeKids) && checkRecipe(r, activeKids).status !== "blocked",
+    ),
+    (r) => r.id,
+    last,
+  ).slice(0, 3);
 
   function ingredientChip(id: string) {
     const i = INGREDIENT_BY_ID[id];
@@ -67,7 +78,20 @@ export default function Fridge() {
         </>
       )}
 
-      {weekly.length > 0 && (
+      {fridge.length === 0 && tonight.length > 0 && (
+        <section className="space-y-2" aria-label="Quick tonight">
+          <h2 className="text-lg font-extrabold">Quick tonight · 20 min or less</h2>
+          {tonight.map((r) => (
+            <Link key={r.id} to={`/recipe/${r.id}`} className="flex min-h-12 items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-black/10">
+              <span className="text-2xl" aria-hidden>{r.emoji}</span>
+              <span className="flex-1 font-bold">{r.name}</span>
+              <span className="text-sm text-ink-soft">{r.minutes} min</span>
+            </Link>
+          ))}
+        </section>
+      )}
+
+      {fridge.length > 0 && weekly.length > 0 && (
         <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
           <summary className="cursor-pointer font-extrabold">This week's kid picks</summary>
           <div className="mt-3 flex flex-wrap gap-2">

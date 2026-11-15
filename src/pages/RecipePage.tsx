@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { scaleQty } from "../lib/scale.ts";
+import { textureNote } from "../lib/texture.ts";
+import { INGREDIENTS } from "../data/ingredients.ts";
 import { Link } from "react-router-dom";
 import { BOOST_BY_ID } from "../data/boosts.ts";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
@@ -97,9 +100,10 @@ function PostToggle({ post, on, onToggle }: { post: CommunityPost; on: boolean; 
 
 export default function RecipePage() {
   const session = useRecipeSession();
-  const { activeKids, saveRecipe } = useApp();
+  const { activeKids, saveRecipe, fridge, history } = useApp();
   const [justSaved, setJustSaved] = useState(false);
   const [showAllBoosts, setShowAllBoosts] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   if (!session) {
     return (
@@ -110,7 +114,7 @@ export default function RecipePage() {
     );
   }
 
-  const { recipe, safety, fits, options, allowedPosts, hiddenPostCount, boostIds, postIds, selectedPosts, query } =
+  const { recipe, safety, fits, options, allowedPosts, hiddenPostCount, boostIds, postIds, selectedPosts, query, batch, setBatch } =
     session;
 
   if (!fits) {
@@ -137,6 +141,20 @@ export default function RecipePage() {
   const selectedBoosts = boostIds.map((id) => BOOST_BY_ID[id]);
   const swappedNames = safety.swaps.map((s) => INGREDIENT_BY_ID[s.with]?.name ?? s.with);
 
+  const toneNote = textureNote(recipe, selectedBoosts, activeKids);
+  const last = history.find((h) => h.recipeId === recipe.id);
+  const need = lines.filter((l) => !l.optional && !fridge.includes(l.id) && INGREDIENTS.find((i) => i.id === l.id)?.category !== "pantry");
+
+  async function copyList() {
+    const text = "Shopping list\n" + need.map((l) => `- ${l.name}, ${scaleQty(l.qty, batch)}`).join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+    } catch {
+      window.prompt?.("Copy your list", text);
+    }
+  }
+
   function save() {
     saveRecipe(recipe.id, boostIds, postIds);
     setJustSaved(true);
@@ -151,7 +169,11 @@ export default function RecipePage() {
           <span aria-hidden>{recipe.emoji}</span> {recipe.name}
         </h1>
         <p className="text-ink-soft">{recipe.blurb}</p>
-        <p className="mt-1 text-sm font-bold">{recipe.minutes} minutes</p>
+        <p className="mt-1 text-sm font-bold">
+          {recipe.minutes} minutes
+          {last?.reaction === "loved" && <span className="text-spinach"> · Loved last time 😍</span>}
+          {last?.reaction === "not_this_time" && <span className="text-ink-soft"> · Not a hit last time</span>}
+        </p>
         {recipeAllergens(recipe).length > 0 && (
           <details className="mt-1 text-sm">
             <summary className="min-h-8 cursor-pointer text-xs font-extrabold text-ink-soft">Contains…</summary>
@@ -170,6 +192,7 @@ export default function RecipePage() {
           </ul>
         </Notice>
       )}
+      {toneNote && <Notice tone="warn">{toneNote}</Notice>}
       {allergies.includes("dairy") && usesGhee(recipe) && (
         <Notice tone="warn">
           <strong>No ghee:</strong> use oil wherever this recipe calls for ghee.
@@ -253,13 +276,29 @@ export default function RecipePage() {
       </Card>
 
       <section aria-labelledby="ing-heading">
-        <h2 id="ing-heading" className="mb-2 text-2xl font-extrabold">Ingredients</h2>
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <h2 id="ing-heading" className="text-2xl font-extrabold">Ingredients</h2>
+          <div className="flex gap-1" role="group" aria-label="Batch size">
+            {[1, 2, 3].map((n) => (
+              <button
+                key={n}
+                type="button"
+                onClick={() => setBatch(n)}
+                aria-pressed={batch === n}
+                className={cx("min-h-11 min-w-11 rounded-full px-3 font-extrabold ring-1", batch === n ? "bg-turmeric ring-turmeric" : "bg-white ring-black/10")}
+              >
+                ×{n}
+              </button>
+            ))}
+          </div>
+        </div>
         <ul className="space-y-1.5">
           {lines.map((l) => (
             <li key={l.id} className="flex gap-2">
               <Glyph kind="ing" id={l.id} emoji={l.emoji} />
               <span>
-                <strong>{l.name}</strong>, {l.qty}
+                <strong>{l.name}</strong>, {scaleQty(l.qty, batch)}
+                {!l.optional && !fridge.includes(l.id) && need.some((n) => n.id === l.id) && <span className="text-beet"> · need</span>}
                 {l.optional && <span className="text-ink-soft"> (optional)</span>}
               </span>
             </li>
@@ -281,6 +320,11 @@ export default function RecipePage() {
             </li>
           ))}
         </ul>
+        {need.length > 0 && (
+          <button type="button" onClick={copyList} className="mt-3 min-h-11 text-sm font-extrabold text-beet">
+            {copied ? "Copied ✓" : `Copy shopping list (${need.length})`}
+          </button>
+        )}
         <SponsoredNote ingredientIds={lines.map((l) => l.id)} />
       </section>
 

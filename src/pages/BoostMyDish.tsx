@@ -3,6 +3,7 @@ import KidSwitcher from "../components/KidSwitcher.tsx";
 import { NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { logDishRequest } from "../lib/cloud.ts";
 import { collapseGroups, groupBoosts } from "../lib/boosts.ts";
+import { Link } from "react-router-dom";
 import { otherAllergyHit } from "../lib/safety.ts";
 import { boostsForDish, detectDish, dishToLog, isMeatDish, suggestDishes } from "../lib/dish.ts";
 import { useApp } from "../state/AppState.tsx";
@@ -116,6 +117,7 @@ export default function BoostMyDish() {
         </section>
       )}
 
+      <Link to="/community" className="block min-h-11 text-center text-sm font-extrabold text-beet">Tips from other parents →</Link>
     </div>
   );
 }
