@@ -24,6 +24,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "broccoli", name: "Broccoli", emoji: "🥦", category: "veg", allergens: [] },
   { id: "corn", name: "Sweet corn", emoji: "🌽", category: "veg", allergens: [] },
   { id: "sweet_potato", name: "Sweet potato", emoji: "🍠", category: "veg", allergens: [] },
+  { id: "cabbage", name: "Cabbage", emoji: "🥬", category: "veg", allergens: [] },
   { id: "capsicum", name: "Capsicum (bell pepper)", emoji: "🫑", category: "veg", allergens: [] },
   { id: "cauliflower", name: "Cauliflower", emoji: "🥦", category: "veg", allergens: [] },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
@@ -54,6 +55,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "tortilla", name: "Tortillas (or soft rotis)", emoji: "🫓", category: "grains", allergens: ["gluten"] },
   { id: "bread", name: "Bread", emoji: "🍞", category: "grains", allergens: ["gluten"] },
   { id: "pav", name: "Pav (soft buns)", emoji: "🥖", category: "grains", allergens: ["gluten"] },
+  { id: "noodles", name: "Noodles", emoji: "🍜", category: "grains", allergens: ["gluten"] },
   { id: "pasta", name: "Pasta", emoji: "🍝", category: "grains", allergens: ["gluten"] },
   { id: "quinoa", name: "Quinoa", emoji: "🌾", category: "grains", allergens: [] },
 

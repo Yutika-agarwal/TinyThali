@@ -42,6 +42,7 @@ Cook each recipe once. Note quantities, timings and textures that are off.
 | Mild pav bhaji | 35 | | | |
 | Palak rice | 25 | | | |
 | Veggie masala pasta | 25 | | | |
+| Veggie chowmein | 20 | | | |
 | Veggie sooji uttapam | 30 | | | |
 | Sweet corn rice | 25 | | | |
 | Paneer sooji uttapam | 30 | | | |

@@ -380,3 +380,27 @@ test("boosts a child could notice (hemp or seed sprinkles, ragi, quinoa, ajwain)
   const r = RECIPE_BY_ID["moong-dal-tadka"];
   assert.ok(autoBoosts(r, [kid()]).every((id) => !noticeable.includes(id)));
 });
+
+test("saag and greens: kale joins the greens, and only there", () => {
+  const ids = (q: string) => boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+  assert.equal(detectDish("sarson ka saag")?.id, "greens");
+  assert.equal(detectDish("saag paneer")?.id, "greens");
+  assert.equal(detectDish("palak paneer")?.id, "creamy-curry");
+  assert.equal(detectDish("methi matar malai")?.id, "creamy-curry");
+  assert.equal(detectDish("methi thepla")?.id, "roti");
+  assert.equal(detectDish("palak dal")?.id, "dal");
+  assert.equal(ids("saag")[0], "kale-greens");
+  assert.ok(ids("palak paneer").includes("kale-greens"));
+  assert.ok(!ids("chole").includes("kale-greens") && !ids("tomato soup").includes("kale-greens"));
+  assert.ok(!boostsForRecipe(RECIPE_BY_ID["kale-dal"]).some((b) => b.id === "kale-greens"));
+});
+
+test("noodles and chowmein: no white sauce or creaminess, and chowmein is on the menu", () => {
+  for (const q of ["noodles", "chowmein", "hakka noodles", "maggi"]) {
+    assert.equal(detectDish(q)?.id, "noodles", q);
+    const ids = boostsForDish(detectDish(q)!, []).allowed.map((b) => b.id);
+    for (const bad of ["cc-creamy", "tofu-creamy", "tofu-creamy-curry", "cc-topping", "tofu-topping"]) assert.ok(!ids.includes(bad), `${q} offered ${bad}`);
+  }
+  assert.equal(detectDish("mac and cheese")?.id, "pasta");
+  assert.ok(RECIPES.some((r) => r.id === "veggie-chowmein"));
+});

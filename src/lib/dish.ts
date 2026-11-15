@@ -58,6 +58,8 @@ export function boostsForDish(type: DishType, kids: KidProfile[]): DishBoosts {
   const ranked = [...safe].sort((a, b) => {
     if (!!a.blendsIn !== !!b.blendsIn) return a.blendsIn ? -1 : 1; // the unnoticeable ones lead
     if (order(a) !== order(b)) return order(a) - order(b);
+    const spec = (b: Boost) => (b.onlyDishes?.includes(type.id) ? 0 : 1); // made for this dish beats general
+    if (spec(a) !== spec(b)) return spec(a) - spec(b);
     return b.badges.length - a.badges.length;
   });
   const groups = new Set<string>();

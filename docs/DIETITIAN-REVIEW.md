@@ -21,6 +21,7 @@ Generated from `src/data/boosts.ts`. Please mark each row Approve / Change / Rem
 | Beetroot in the atta | 1 small beetroot per 2 cups atta | 1+ | none | none | |
 | Leftover dal in the atta | ½ cup per 2 cups atta, in place of most of the water | 1+ | none | none | |
 | Blended tofu for creaminess | 1/4 cup per serving, in place of cream | 1+ | soy | Protein | |
+| Kale with the greens | about 1 cup per 3 cups of palak, methi or sarson greens | 1+ | none | none | |
 | Cottage cheese and cilantro dip | 2 tbsp cottage cheese per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
 | Tofu and herb dip | 2 tbsp silken tofu per serving, with a handful of cilantro, a squeeze of lemon and a pinch of salt | 1+ | soy | Protein | |
 | Greek yogurt and cilantro dip | 2 tbsp Greek yogurt per serving, with finely chopped cilantro, a squeeze of lemon and a pinch of salt | 1+ | dairy | Protein | |
@@ -82,6 +83,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Mild pav bhaji | gluten | none | |
 | Palak rice | none | none | |
 | Veggie masala pasta | gluten | none | |
+| Veggie chowmein | gluten | none | |
 | Veggie sooji uttapam | gluten | none | |
 | Sweet corn rice | none | none | |
 | Paneer sooji uttapam | gluten, dairy | paneer to tofu | |
@@ -119,6 +121,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Broccoli | none |
 | Sweet corn | none |
 | Sweet potato | none |
+| Cabbage | none |
 | Capsicum (bell pepper) | none |
 | Cauliflower | none |
 | Cucumber | none |
@@ -145,6 +148,7 @@ Allergens are computed from the ingredient table. Please spot-check.
 | Tortillas (or soft rotis) | gluten |
 | Bread | gluten |
 | Pav (soft buns) | gluten |
+| Noodles | gluten |
 | Pasta | gluten |
 | Quinoa | none |
 | Moong dal | none |
