@@ -4,7 +4,6 @@ import { NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { logDishRequest } from "../lib/cloud.ts";
 import { collapseGroups, groupBoosts } from "../lib/boosts.ts";
 import MicButton from "../components/MicButton.tsx";
-import { Link } from "react-router-dom";
 import { otherAllergyHit } from "../lib/safety.ts";
 import { boostsForDish, detectDish, dishToLog, isMeatDish, suggestDishes } from "../lib/dish.ts";
 import { useApp } from "../state/AppState.tsx";
@@ -90,9 +89,6 @@ export default function BoostMyDish() {
 
       {settled && result && (
         <section key={settled.id} className="fade-in space-y-3" aria-live="polite">
-          <h2 className="text-xl font-extrabold">
-            Boosts for {query.trim().replace(/\s+/g, " ")}
-          </h2>
 
           {list.length === 0 && <p className="text-sm text-ink-soft">No boosts fit this dish for these kids.</p>}
           {shownGroups.map((g) => (
@@ -123,7 +119,6 @@ export default function BoostMyDish() {
         </section>
       )}
 
-      <Link to="/community" className="block min-h-11 text-center text-sm font-extrabold text-beet">Tips from other parents →</Link>
     </div>
   );
 }

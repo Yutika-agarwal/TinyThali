@@ -65,21 +65,18 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
   return (
     <form onSubmit={submit} className="space-y-5">
       <div>
-        <label htmlFor="nickname" className="mb-1 block text-sm font-extrabold">
-          Nickname
-        </label>
         <input
           id="nickname"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          placeholder="e.g. Little chef"
+          placeholder="Name or nickname (optional)" aria-label="Nickname"
           maxLength={30}
           className="min-h-12 w-full rounded-2xl bg-white px-4 ring-1 ring-black/10"
         />
       </div>
 
       <fieldset>
-        <legend className="mb-2 text-sm font-extrabold">Ages <span className="font-normal text-ink-soft">(pick all that apply)</span></legend>
+        <legend className="mb-2 text-sm font-extrabold">Age</legend>
         <div className="flex gap-2">
           {AGE_BANDS.map((b) => (
             <Chip key={b} active={ageBands.includes(b)} onClick={() => toggleBand(b)}>
@@ -131,9 +128,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
                 ))}
               </div>
             )}
-            <p className="text-xs text-ink-soft">
-              We hide any recipe or boost that mentions it. Always check labels too.
-            </p>
+            <p className="text-xs text-ink-soft">We hide anything that mentions it. Still check labels.</p>
           </div>
         )}
       </fieldset>
@@ -146,18 +141,12 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
               {d.label}
             </Chip>
           ))}
+          <Chip active={picky} onClick={() => setPicky((v) => !v)}>
+            Picky eater
+          </Chip>
         </div>
       </fieldset>
 
-      <label className="flex min-h-12 items-center gap-3 text-sm font-bold">
-        <input
-          type="checkbox"
-          checked={picky}
-          onChange={(e) => setPicky(e.target.checked)}
-          className="size-5 accent-beet"
-        />
-        Picky eater
-      </label>
       {picky && (
         <div className="space-y-3">
           <div className="flex flex-wrap gap-2">
@@ -170,7 +159,7 @@ export default function KidForm({ initial, submitLabel, onSave, onCancel }: Prop
           <input
             value={pickyNote}
             onChange={(e) => setPickyNote(e.target.value)}
-            placeholder="Anything else? (just for you)"
+            placeholder="What is it? (optional)"
             aria-label="More about the picky eating"
             maxLength={120}
             className="min-h-12 w-full rounded-2xl bg-white px-4 ring-1 ring-black/10"

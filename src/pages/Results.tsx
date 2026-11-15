@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
-import KidSwitcher from "../components/KidSwitcher.tsx";
 import { btn, Card, Chip, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
 import { matchRecipes, pageResults } from "../lib/match.ts";
@@ -59,8 +58,7 @@ export default function Results() {
 
   return (
     <div className="space-y-5">
-      <PageTitle title="Recipes for you" subtitle={`Based on ${fridge.length} ingredient${fridge.length === 1 ? "" : "s"}.`} />
-      <KidSwitcher />
+      <PageTitle title="Recipes for you" />
       <div>
         <Chip active={quick} onClick={() => setQuick((q) => !q)}>⏱ 20 min or less</Chip>
       </div>

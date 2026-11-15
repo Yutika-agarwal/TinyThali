@@ -14,28 +14,10 @@ export default function Profile() {
 
   return (
     <div className="space-y-5">
-      <PageTitle title="Profile" subtitle="Your kids and your community name." />
+      <PageTitle title="Profile" />
 
-      <Card>
-        <label htmlFor="display" className="mb-1 block text-sm font-extrabold">
-          Display name <span className="font-normal text-ink-soft">(shown on your community tips)</span>
-        </label>
-        <input
-          id="display"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          onBlur={commitDisplayName}
-          maxLength={30}
-          placeholder="e.g. Meera"
-          className="min-h-12 w-full rounded-2xl bg-cream px-4 ring-1 ring-black/10"
-        />
-        <p className="mt-2 text-xs text-ink-soft">Never use your child's name.</p>
-      </Card>
-
-      <section className="space-y-3" aria-labelledby="kids-heading">
-        <h2 id="kids-heading" className="text-xl font-extrabold">Kid profiles</h2>
-
-        {kids.length === 0 && editing === null && (
+      <section className="space-y-3" aria-label="Kids">
+                {kids.length === 0 && editing === null && (
           <Notice tone="warn">No profiles yet, so allergen filtering is off. Add one to keep suggestions safe.</Notice>
         )}
 
@@ -105,61 +87,49 @@ export default function Profile() {
       </section>
 
       <Card className="space-y-2">
-        <h2 className="text-lg font-extrabold">Account</h2>
-        {!enabled && (
-          <p className="text-sm text-ink-soft">
-            Accounts aren't switched on in this copy of Tiny Thali, so everything is stored privately on this device.
-          </p>
-        )}
         {enabled && loading && <p className="text-sm text-ink-soft">Checking your sign-in…</p>}
         {enabled && !loading && !user && (
-          <>
-            <p className="text-sm text-ink-soft">
-              Sign in with your email to keep saved recipes and history on every device, and to share boosts with
-              the community.
-            </p>
-            <Link to="/login" className={btn("primary", "w-full")}>Sign in or create account</Link>
-          </>
+          <Link to="/login" className={btn("primary", "w-full")}>Sign in to save everywhere</Link>
         )}
         {enabled && user && (
           <>
-            <p className="text-sm">
-              Signed in as <strong>{user.email}</strong>
-            </p>
-            {!user.confirmed && (
-              <Notice tone="warn">Please confirm your email (check your inbox) to share community tips.</Notice>
-            )}
-            <Link to="/community" className={btn("secondary", "w-full")}>💬 Tips from other parents</Link>
-            <Link to="/support" className={btn("secondary", "w-full")}>💛 Support Tiny Thali</Link>
-            {isAdmin && (
-              <Link to="/admin" className={btn("secondary", "w-full")}>Open moderation</Link>
-            )}
-            <button type="button" onClick={() => void signOut()} className={btn("ghost", "w-full")}>
-              Sign out
-            </button>
+            <p className="text-sm">Signed in as <strong>{user.email}</strong></p>
+            {!user.confirmed && <Notice tone="warn">Please confirm your email to share community tips.</Notice>}
+            <label htmlFor="display" className="block pt-1 text-sm font-extrabold">Name on your tips</label>
+            <input
+              id="display"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              onBlur={commitDisplayName}
+              maxLength={30}
+              placeholder="e.g. Meera (never your child's name)"
+              className="min-h-12 w-full rounded-2xl bg-cream px-4 ring-1 ring-black/10"
+            />
+            {isAdmin && <Link to="/admin" className={btn("secondary", "w-full")}>Open moderation</Link>}
           </>
+        )}
+        <Link to="/community" className={btn("secondary", "w-full")}>💬 Tips from other parents</Link>
+        <Link to="/support" className={btn("secondary", "w-full")}>💛 Support Tiny Thali</Link>
+        {enabled && user && (
+          <button type="button" onClick={() => void signOut()} className={btn("ghost", "w-full")}>Sign out</button>
         )}
       </Card>
 
-      <Card className="space-y-2">
-        <h2 className="text-lg font-extrabold">Privacy</h2>
-        <p className="text-sm text-ink-soft">
-          Your kids' nickname, age range and allergies stay on this device and are never uploaded.
-          {enabled && " With an account, your saved recipes, cooking history and community tips are stored securely so they follow you across devices."}
-        </p>
+      <p className="px-1 text-center text-xs text-ink-soft">
+        Kid details stay on this device.{" "}
         <button
           type="button"
+          className="font-bold underline"
           onClick={() => {
             const message = user
               ? "Delete your account and all your data, here and in the cloud? This can't be undone."
               : "Delete all Tiny Thali data on this device? This can't be undone.";
             if (window.confirm(message)) void clearAll();
           }}
-          className={btn("danger", "w-full")}
         >
           Delete my data
         </button>
-      </Card>
+      </p>
     </div>
   );
 }

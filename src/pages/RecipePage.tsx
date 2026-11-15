@@ -199,82 +199,6 @@ export default function RecipePage() {
         </Notice>
       )}
 
-      <section aria-labelledby="boost-heading" className="space-y-3">
-        <h2 id="boost-heading" className="text-xl font-extrabold">Make it stronger ✨</h2>
-        {options.allowed.length > 0 && (
-          <button
-            type="button"
-            onClick={() => session.setBoostIds(boostIds.length > 0 ? [] : autoBoosts(recipe, activeKids))}
-            className={btn(boostIds.length > 0 ? "secondary" : "primary", "w-full")}
-          >
-            {boostIds.length > 0 ? "Clear boosts" : "✨ Boost it for me"}
-          </button>
-        )}
-        {options.allowed.length === 0 && (
-          <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>
-        )}
-        {shownGroups.map((g) => (
-          <div key={g.kind} className="space-y-2">
-            <h3 className="pt-1 text-xs font-extrabold uppercase tracking-wide text-ink-soft">{g.label}</h3>
-            {g.items.map((b) => (
-              <BoostToggle
-                key={b.id}
-                boost={b}
-                on={boostIds.includes(b.id)}
-                picky={picky}
-                onToggle={() => session.toggleBoostId(b.id)}
-              />
-            ))}
-          </div>
-        ))}
-        {options.allowed.length > shownCount && (
-          <button
-            type="button"
-            onClick={() => setShowAllBoosts(true)}
-            className="min-h-11 w-full text-sm font-extrabold text-beet"
-          >
-            Show {options.allowed.length - shownCount} more
-          </button>
-        )}
-
-        {allowedPosts.length > 0 && (
-          <>
-            <h3 className="pt-2 text-lg font-extrabold">Community boosts</h3>
-            {allowedPosts.map((p) => (
-              <PostToggle key={p.id} post={p} on={postIds.includes(p.id)} onToggle={() => session.togglePostId(p.id)} />
-            ))}
-          </>
-        )}
-
-        {(options.hidden.length > 0 || hiddenPostCount > 0) && (
-          <details className="rounded-2xl bg-white p-3 text-sm ring-1 ring-black/10">
-            <summary className="cursor-pointer font-bold">Why are some boosts hidden?</summary>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              {options.hidden.map(({ boost, reason }) => (
-                <li key={boost.id}>
-                  <strong>{boost.name}:</strong> {reason}
-                </li>
-              ))}
-              {hiddenPostCount > 0 && (
-                <li>
-                  {hiddenPostCount} community tip{hiddenPostCount === 1 ? "" : "s"} hidden for allergen or age reasons.
-                </li>
-              )}
-            </ul>
-          </details>
-        )}
-      </section>
-
-      <Card>
-        <h2 className="mb-2 text-base font-extrabold">With your boosts</h2>
-        {badges.after.length > 0 ? (
-          <NutrientBadges badges={badges.after} highlight={badges.added} />
-        ) : (
-          <p className="text-sm text-ink-soft">Turn on a boost to see what it adds.</p>
-        )}
-        <p className="mt-2 text-xs text-ink-soft">Estimates only. Not medical advice.</p>
-      </Card>
-
       <section aria-labelledby="ing-heading">
         <div className="mb-2 flex items-center justify-between gap-3">
           <h2 id="ing-heading" className="text-2xl font-extrabold">Ingredients</h2>
@@ -328,9 +252,89 @@ export default function RecipePage() {
         <SponsoredNote ingredientIds={lines.map((l) => l.id)} />
       </section>
 
-      <section aria-labelledby="steps-heading">
-        <h2 id="steps-heading" className="mb-2 text-2xl font-extrabold">Steps</h2>
-        <ol className="space-y-3">
+      <section aria-label="Boosts" className="space-y-3">
+        {options.allowed.length > 0 && (
+          <button
+            type="button"
+            onClick={() => session.setBoostIds(boostIds.length > 0 ? [] : autoBoosts(recipe, activeKids))}
+            className={btn(boostIds.length > 0 ? "secondary" : "primary", "w-full")}
+          >
+            {boostIds.length > 0 ? "Clear boosts" : "✨ Boost it for me"}
+          </button>
+        )}
+        {options.allowed.length === 0 && (
+          <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>
+        )}
+        {options.allowed.length > 0 && (
+          <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
+            <summary className="min-h-11 cursor-pointer font-extrabold">Choose boosts ({options.allowed.length})</summary>
+            <div className="mt-3 space-y-3">
+        {shownGroups.map((g) => (
+          <div key={g.kind} className="space-y-2">
+            <h3 className="pt-1 text-xs font-extrabold uppercase tracking-wide text-ink-soft">{g.label}</h3>
+            {g.items.map((b) => (
+              <BoostToggle
+                key={b.id}
+                boost={b}
+                on={boostIds.includes(b.id)}
+                picky={picky}
+                onToggle={() => session.toggleBoostId(b.id)}
+              />
+            ))}
+          </div>
+        ))}
+        {options.allowed.length > shownCount && (
+          <button
+            type="button"
+            onClick={() => setShowAllBoosts(true)}
+            className="min-h-11 w-full text-sm font-extrabold text-beet"
+          >
+            Show {options.allowed.length - shownCount} more
+          </button>
+        )}
+
+        {allowedPosts.length > 0 && (
+          <>
+            <h3 className="pt-2 text-lg font-extrabold">Community boosts</h3>
+            {allowedPosts.map((p) => (
+              <PostToggle key={p.id} post={p} on={postIds.includes(p.id)} onToggle={() => session.togglePostId(p.id)} />
+            ))}
+          </>
+        )}
+
+        {(options.hidden.length > 0 || hiddenPostCount > 0) && (
+          <details className="rounded-2xl bg-white p-3 text-sm ring-1 ring-black/10">
+            <summary className="cursor-pointer font-bold">Why are some boosts hidden?</summary>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {options.hidden.map(({ boost, reason }) => (
+                <li key={boost.id}>
+                  <strong>{boost.name}:</strong> {reason}
+                </li>
+              ))}
+              {hiddenPostCount > 0 && (
+                <li>
+                  {hiddenPostCount} community tip{hiddenPostCount === 1 ? "" : "s"} hidden for allergen or age reasons.
+                </li>
+              )}
+            </ul>
+          </details>
+        )}
+            </div>
+          </details>
+        )}
+      </section>
+
+      {boostIds.length > 0 && (
+      <Card>
+        <h2 className="mb-2 text-base font-extrabold">What it adds</h2>
+        <NutrientBadges badges={badges.after} highlight={badges.added} />
+        <p className="mt-2 text-xs text-ink-soft">Estimates only. Not medical advice.</p>
+      </Card>
+      )}
+
+      <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
+        <summary className="min-h-11 cursor-pointer text-lg font-extrabold">Steps ({recipe.steps.length})</summary>
+        <ol className="mt-3 space-y-3">
           {recipe.steps.map((s, i) => (
             <li key={i} className="flex gap-3">
               <span className="grid size-7 shrink-0 place-items-center rounded-full bg-turmeric font-extrabold">
@@ -352,7 +356,7 @@ export default function RecipePage() {
             Steps mention the original ingredient. Use {swappedNames.join(" and ")} instead, as noted above.
           </p>
         )}
-      </section>
+      </details>
 
       <div className="sticky bottom-20 z-[5] flex gap-2 rounded-full bg-cream/90 p-2 backdrop-blur">
         <Link to={`/cook/${recipe.id}${query}`} className={btn("primary", "flex-1")}>

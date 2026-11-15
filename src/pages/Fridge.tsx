@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
-import { RECIPES, RECIPE_BY_ID } from "../data/recipes.ts";
+import { RECIPES } from "../data/recipes.ts";
 import { byTaste, lastReactions } from "../lib/taste.ts";
-import { WEEKLY } from "../data/weekly.ts";
 import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import MicButton from "../components/MicButton.tsx";
@@ -34,9 +33,6 @@ export default function Fridge() {
   const hits = q
     ? INGREDIENTS.filter((i) => i.category !== "pantry" && i.name.toLowerCase().includes(q))
     : null;
-  const weekly = WEEKLY.recipeIds
-    .map((id) => RECIPE_BY_ID[id])
-    .filter((r) => r && checkRecipe(r, activeKids).status !== "blocked" && dietAllows(r, activeKids));
 
   // Nothing picked yet: offer a few quick, safe dinners, so tonight needs one tap. Refused dishes are left out.
   const last = lastReactions(history);
@@ -96,7 +92,7 @@ export default function Fridge() {
 
       {fridge.length === 0 && tonight.length > 0 && (
         <section className="space-y-2" aria-label="Quick tonight">
-          <h2 className="text-lg font-extrabold">Quick tonight · 20 min or less</h2>
+          <h2 className="text-lg font-extrabold">Quick tonight</h2>
           {tonight.map((r) => (
             <Link key={r.id} to={`/recipe/${r.id}`} className="flex min-h-12 items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-black/10">
               <span className="text-2xl" aria-hidden>{r.emoji}</span>
@@ -105,23 +101,6 @@ export default function Fridge() {
             </Link>
           ))}
         </section>
-      )}
-
-      {fridge.length > 0 && weekly.length > 0 && (
-        <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
-          <summary className="cursor-pointer font-extrabold">This week's kid picks</summary>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {weekly.map((r) => (
-              <Link
-                key={r.id}
-                to={`/recipe/${r.id}`}
-                className="min-h-11 rounded-full bg-white px-4 py-2.5 text-sm font-bold ring-1 ring-black/10"
-              >
-                {r.emoji} {r.name}
-              </Link>
-            ))}
-          </div>
-        </details>
       )}
 
       <div className="sticky bottom-20 z-[5] flex items-center gap-3 rounded-full bg-cream/90 p-2 backdrop-blur">
