@@ -197,3 +197,28 @@ test("hummus: extra sesame boost hidden for sesame allergy, tahini swapped", () 
   assert.ok(!visibleBoosts(h, [kid({ allergies: ["sesame"] })]).allowed.some((b) => b.id === "sesame-blend"));
   assert.equal(checkRecipe(h, [kid({ allergies: ["sesame"] })]).status, "swap");
 });
+
+import { boostsForDish, detectDish } from "./dish.ts";
+
+test("Boost my dish: detects the dish type from free text", () => {
+  assert.equal(detectDish("Paneer paratha")?.id, "roti");
+  assert.equal(detectDish("moong dal tadka")?.id, "dal");
+  assert.equal(detectDish("palak paneer")?.id, "dal");
+  assert.equal(detectDish("veg pasta")?.id, "pasta");
+  assert.equal(detectDish("besan chilla")?.id, "batter");
+  assert.equal(detectDish("rajma tikki burger")?.id, "wrap");
+  assert.equal(detectDish("zzz"), null);
+});
+
+test("Boost my dish: safe, ranked, one per exclusive group", () => {
+  const dough = detectDish("roti")!;
+  const all = boostsForDish(dough, [kid({ ageBand: "4-8" })]);
+  assert.ok(all.allowed.length > 0);
+  const groups = all.allowed.map((b) => b.exclusiveGroup).filter(Boolean);
+  assert.equal(new Set(groups).size, groups.length);
+  const soy = boostsForDish(dough, [kid({ allergies: ["soy", "dairy", "sesame"] })]);
+  assert.ok(!soy.allowed.some((b) => b.allergens.some((a) => ["soy", "dairy", "sesame"].includes(a))));
+  assert.ok(soy.hiddenCount > 0);
+  const toddler = boostsForDish(detectDish("halwa")!, [kid({ ageBand: "1-3" })]);
+  assert.ok(!toddler.allowed.some((b) => b.minAge > 1));
+});

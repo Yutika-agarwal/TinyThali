@@ -17,6 +17,7 @@ The live demo is the original prototype built with [Lovable](https://lovable.dev
 - **Recipes:** parathas, dals (moong, masoor, spinach, kale, methi), waffles (sabudana, moong), rajma-quinoa patties, spinach pesto pasta, makhana raita, cream cheese roti pinwheels and more.
 - **Allergen-safe by design:** one tested module decides what is safe (see below).
 - **Kid profiles:** age band, allergies, diet (vegetarian, eggetarian, non-veg, Jain) and a picky-eater flag. Select several kids and the app uses everyone's allergies and the youngest age.
+- **Boost my dish:** already cooking? Type or tap the dish (roti, dal, pasta, chilla, soup, dip, sweet...) and get an "easiest boost" plus more ideas, filtered for allergies and age. No recipe or ingredient list needed.
 - **One-tap helpers:** "Boost it for me" picks a small, safe set of boosts in one tap; "Quick picks" shows the ingredients you add most; cook mode keeps the screen awake.
 - **Cook mode:** large, one-step-at-a-time view with boosts highlighted, then "Did your kid eat it?".
 - **Saved recipes and history:** keeps the boosts you used, with "Cook again".

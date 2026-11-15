@@ -31,6 +31,17 @@ export default function Fridge() {
       <PageTitle title="What's in your fridge?" subtitle="Tap what you have. We'll find a recipe." />
       <KidSwitcher />
 
+      <Link
+        to="/boost"
+        className="flex min-h-14 items-center justify-between rounded-3xl bg-spinach-soft px-4 py-3 ring-2 ring-spinach"
+      >
+        <span>
+          <span className="block text-lg font-extrabold">✨ Already cooking?</span>
+          <span className="block text-sm text-ink-soft">Tell us the dish. Get a quick boost.</span>
+        </span>
+        <span aria-hidden className="text-2xl">→</span>
+      </Link>
+
       <PhotoScan />
 
       {weekly.length > 0 && (

@@ -8,6 +8,7 @@ export const SAFETY_NOTE =
 
 const TABS = [
   { to: "/", label: "Fridge", icon: "🥕", end: true },
+  { to: "/boost", label: "Boost", icon: "✨", end: false },
   { to: "/community", label: "Community", icon: "💬", end: false },
   { to: "/saved", label: "Saved", icon: "❤️", end: false },
   { to: "/profile", label: "Profile", icon: "🙂", end: false },

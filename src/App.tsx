@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout.tsx";
 import { btn, Card } from "./components/ui.tsx";
 import Admin from "./pages/Admin.tsx";
+import BoostMyDish from "./pages/BoostMyDish.tsx";
 import Community from "./pages/Community.tsx";
 import Cook from "./pages/Cook.tsx";
 import Fridge from "./pages/Fridge.tsx";
@@ -31,6 +32,7 @@ export default function App() {
       <Route path="/cook/:id" element={<Cook />} />
       <Route element={<Layout />}>
         <Route index element={<Fridge />} />
+        <Route path="boost" element={<BoostMyDish />} />
         <Route path="results" element={<Results />} />
         <Route path="recipe/:id" element={<RecipePage />} />
         <Route path="community" element={<Community />} />
