@@ -1,21 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CATEGORY_LABELS, INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
+import { INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import { RECIPE_BY_ID } from "../data/recipes.ts";
 import { WEEKLY } from "../data/weekly.ts";
 import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
 import PhotoScan from "../components/PhotoScan.tsx";
-import { btn, Chip, cx } from "../components/ui.tsx";
+import { btn, Chip } from "../components/ui.tsx";
 import { checkRecipe, combinedAllergies, dietAllows } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
-
-type Category = keyof typeof CATEGORY_LABELS;
 
 export default function Fridge() {
   const { fridge, toggleFridge, clearFridge, activeKids, quickPicks } = useApp();
   const navigate = useNavigate();
-  const [category, setCategory] = useState<Category>("veg");
   const [query, setQuery] = useState("");
 
   const allergies = combinedAllergies(activeKids);
@@ -64,30 +61,9 @@ export default function Fridge() {
         </div>
       ) : (
         <>
-          <div className="flex flex-wrap gap-2">{quickPicks.map(ingredientChip)}</div>
-          <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
-            <summary className="cursor-pointer font-extrabold">More ingredients</summary>
-            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1" role="tablist" aria-label="Ingredient categories">
-              {(Object.keys(CATEGORY_LABELS) as Category[]).map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  role="tab"
-                  aria-selected={category === c}
-                  onClick={() => setCategory(c)}
-                  className={cx(
-                    "min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-extrabold",
-                    category === c ? "bg-turmeric text-ink" : "bg-black/5 text-ink-soft",
-                  )}
-                >
-                  {CATEGORY_LABELS[c]}
-                </button>
-              ))}
-            </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {INGREDIENTS.filter((i) => i.category === category).map((i) => ingredientChip(i.id))}
-            </div>
-          </details>
+          <div className="flex flex-wrap gap-2">
+            {[...quickPicks, ...fridge.filter((id) => !quickPicks.includes(id))].map(ingredientChip)}
+          </div>
         </>
       )}
 
