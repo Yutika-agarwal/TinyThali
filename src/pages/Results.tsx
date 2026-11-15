@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
-import { btn, Card, PageTitle } from "../components/ui.tsx";
+import { btn, Card, Chip, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
 import { matchRecipes, pageResults } from "../lib/match.ts";
 import type { MatchResult } from "../lib/match.ts";
@@ -47,7 +47,8 @@ function RecipeCard({ result }: { result: MatchResult }) {
 export default function Results() {
   const { fridge, activeKids, history } = useApp();
   const last = lastReactions(history);
-  const matched = matchRecipes(fridge, activeKids);
+  const [quick, setQuick] = useState(false);
+  const matched = matchRecipes(fridge, activeKids).filter((r) => !quick || r.recipe.minutes <= 20);
   // Keep ready-before-almost, but let loved dishes lead and refused ones trail inside each group.
   const results = [
     ...byTaste(matched.filter((r) => r.kind === "ready"), (r) => r.recipe.id, last),
@@ -60,6 +61,9 @@ export default function Results() {
     <div className="space-y-5">
       <PageTitle title="Recipes for you" subtitle={`Based on ${fridge.length} ingredient${fridge.length === 1 ? "" : "s"}.`} />
       <KidSwitcher />
+      <div>
+        <Chip active={quick} onClick={() => setQuick((q) => !q)}>⏱ 20 min or less</Chip>
+      </div>
 
       {results.length === 0 && (
         <Card className="text-center">

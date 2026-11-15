@@ -484,3 +484,25 @@ test("loved dishes lead and refused ones trail", () => {
   ]);
   assert.deepEqual(byTaste(["a", "b", "c"], (x) => x, last), ["c", "a", "b"]);
 });
+
+import { parseIngredients, stepCommand } from "./voice.ts";
+
+test("spoken ingredients, English and Hindi, map to the right ids", () => {
+  const ids = (t: string) => parseIngredients(t).sort();
+  assert.deepEqual(ids("I have aloo, paneer and some palak"), ["paneer", "potato", "spinach"]);
+  assert.deepEqual(ids("cottage cheese and tomatoes"), ["cottage_cheese", "tomato"]);
+  assert.deepEqual(ids("whole moong"), ["moong_whole"]);
+  assert.deepEqual(ids("moong dal and rice"), ["moong", "rice"]);
+  assert.deepEqual(ids("dahi chawal"), ["curd", "rice"]);
+  assert.deepEqual(ids("nothing useful here"), []);
+  assert.ok(!ids("coconut milk").includes("cheese"));
+});
+
+test("hands-free cooking commands", () => {
+  assert.equal(stepCommand("next"), "next");
+  assert.equal(stepCommand("okay aage"), "next");
+  assert.equal(stepCommand("go back"), "back");
+  assert.equal(stepCommand("peeche"), "back");
+  assert.equal(stepCommand("I'm done"), "done");
+  assert.equal(stepCommand("add salt"), null);
+});

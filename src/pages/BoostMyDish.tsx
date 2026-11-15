@@ -3,6 +3,7 @@ import KidSwitcher from "../components/KidSwitcher.tsx";
 import { NutrientBadges, PageTitle } from "../components/ui.tsx";
 import { logDishRequest } from "../lib/cloud.ts";
 import { collapseGroups, groupBoosts } from "../lib/boosts.ts";
+import MicButton from "../components/MicButton.tsx";
 import { Link } from "react-router-dom";
 import { otherAllergyHit } from "../lib/safety.ts";
 import { boostsForDish, detectDish, dishToLog, isMeatDish, suggestDishes } from "../lib/dish.ts";
@@ -15,6 +16,7 @@ const loggedDishes = new Set<string>();
 export default function BoostMyDish() {
   const { activeKids } = useApp();
   const [query, setQuery] = useState("");
+  const [micProblem, setMicProblem] = useState<string | null>(null);
 
   const detected = detectDish(query);
   const suggestions = suggestDishes(query);
@@ -46,6 +48,7 @@ export default function BoostMyDish() {
       <KidSwitcher />
 
       <div>
+        <div className="flex gap-2">
         <input
           type="search"
           value={query}
@@ -53,8 +56,11 @@ export default function BoostMyDish() {
           placeholder="e.g. moong dal chilla"
           aria-label="What are you cooking?"
           autoComplete="off"
-          className="min-h-12 w-full rounded-2xl bg-white px-4 text-lg ring-1 ring-black/10"
+          className="min-h-12 min-w-0 flex-1 rounded-2xl bg-white px-4 text-lg ring-1 ring-black/10"
         />
+        <MicButton label="Say the dish" onText={(t) => setQuery(t.trim().toLowerCase().replace(/[.!?]+$/, ""))} onProblem={setMicProblem} />
+        </div>
+        {micProblem && <p role="status" className="mt-1 text-sm text-ink-soft">{micProblem}</p>}
         {suggestions.length > 0 && (
           <ul className="mt-1 overflow-hidden rounded-2xl bg-white ring-1 ring-black/10" aria-label="Suggestions">
             {suggestions.map((n) => (

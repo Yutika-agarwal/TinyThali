@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { listen, speechSupported, stepCommand } from "../lib/voice.ts";
 import { Link } from "react-router-dom";
 import { btn, Card, cx, Notice } from "../components/ui.tsx";
 import { boostTextsForStep, postsForStep } from "../lib/boosts.ts";
@@ -20,6 +21,42 @@ export default function Cook() {
   const [finished, setFinished] = useState(false);
   const [reaction, setReaction] = useState<Reaction | null>(null);
   const [saved, setSaved] = useState(false);
+  const [handsFree, setHandsFree] = useState(false);
+  const stepsLen = session?.recipe.steps.length ?? 0;
+  const stepRef = useRef(0);
+  stepRef.current = step;
+  const nav = useRef({ go: (_: "next" | "back" | "done") => {} });
+  nav.current.go = (c) => {
+    if (c === "back") setStep((n) => Math.max(0, n - 1));
+    else if (c === "next") setStep((n) => Math.min(stepsLen - 1, n + 1));
+    else if (c === "done" && stepRef.current === stepsLen - 1) setFinished(true); // only on the last step, so chatting to the kids can't end it
+  };
+
+  // Hands-free: say "next", "back" or "done" (English or Hindi) with messy hands. Restarts itself if the browser stops listening.
+  useEffect(() => {
+    if (!handsFree) return;
+    let stop = () => {};
+    let alive = true;
+    const start = () => {
+      stop = listen({
+        continuous: true,
+        onText: (t) => {
+          const c = stepCommand(t);
+          if (c) nav.current.go(c);
+        },
+        onEnd: (err) => {
+          if (!alive) return;
+          if (err === "not-allowed" || err === "service-not-allowed" || err === "unsupported") setHandsFree(false);
+          else setTimeout(() => alive && start(), 300);
+        },
+      });
+    };
+    start();
+    return () => {
+      alive = false;
+      stop();
+    };
+  }, [handsFree]);
 
   // Keep the screen awake while cooking, so there is no tapping with floury hands.
   useEffect(() => {
@@ -113,9 +150,21 @@ export default function Cook() {
     <div className="mx-auto flex min-h-dvh max-w-md flex-col p-4">
       <div className="flex items-center justify-between">
         <Link to={`/recipe/${recipe.id}${query}`} className="text-sm font-bold text-beet">✕ Exit</Link>
-        <p className="text-sm font-extrabold">
-          Step {step + 1} of {recipe.steps.length}
-        </p>
+        <div className="flex items-center gap-3">
+          {speechSupported() && (
+            <button
+              type="button"
+              onClick={() => setHandsFree((v) => !v)}
+              aria-pressed={handsFree}
+              className={cx("min-h-11 rounded-full px-3 text-sm font-extrabold ring-1", handsFree ? "animate-pulse bg-beet text-white ring-beet" : "bg-white ring-black/10")}
+            >
+              🎙 {handsFree ? 'Say "next"' : "Hands-free"}
+            </button>
+          )}
+          <p className="text-sm font-extrabold">
+            Step {step + 1} of {recipe.steps.length}
+          </p>
+        </div>
       </div>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-black/10" role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={recipe.steps.length} aria-label="Cooking progress">
         <div className="h-full rounded-full bg-spinach transition-all" style={{ width: `${((step + 1) / recipe.steps.length) * 100}%` }} />

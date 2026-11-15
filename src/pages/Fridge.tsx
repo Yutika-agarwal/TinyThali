@@ -6,6 +6,8 @@ import { byTaste, lastReactions } from "../lib/taste.ts";
 import { WEEKLY } from "../data/weekly.ts";
 import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
+import MicButton from "../components/MicButton.tsx";
+import { parseIngredients } from "../lib/voice.ts";
 import PhotoScan from "../components/PhotoScan.tsx";
 import { btn, Chip } from "../components/ui.tsx";
 import { checkRecipe, combinedAllergies, dietAllows, otherAllergyHit } from "../lib/safety.ts";
@@ -15,6 +17,17 @@ export default function Fridge() {
   const { fridge, toggleFridge, clearFridge, activeKids, quickPicks, history } = useApp();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [heard, setHeard] = useState<string | null>(null);
+
+  function onSpoken(text: string) {
+    const ids = parseIngredients(text);
+    ids.filter((id) => !fridge.includes(id)).forEach(toggleFridge);
+    setHeard(
+      ids.length > 0
+        ? `Added: ${ids.map((id) => INGREDIENT_BY_ID[id]?.name.replace(/\s*\(.*\)/, "")).join(", ")}`
+        : `Heard "${text}", but no ingredients matched. Try "potato, paneer, spinach".`,
+    );
+  }
 
   const allergies = combinedAllergies(activeKids);
   const q = query.trim().toLowerCase();
@@ -62,8 +75,11 @@ export default function Fridge() {
           aria-label="Search ingredients"
           className="min-h-12 min-w-0 flex-1 rounded-2xl bg-white px-4 ring-1 ring-black/10"
         />
+        <MicButton label="Say what you have" onText={onSpoken} onProblem={setHeard} />
         <PhotoScan />
       </div>
+
+      {heard && <p role="status" className="text-sm font-bold text-spinach">{heard}</p>}
 
       {hits ? (
         <div className="flex flex-wrap gap-2">
