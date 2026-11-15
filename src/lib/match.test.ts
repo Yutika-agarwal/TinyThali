@@ -435,4 +435,9 @@ test("moong dal chilla: whole green moong swap and spinach batter lead; besan ch
   const m = ids("moong dal chilla");
   assert.ok(m.includes("whole-moong-batter") && m.includes("spinach-batter"));
   assert.ok(!ids("besan chilla").includes("whole-moong-batter"));
+  for (const q of ["whole moong chilla", "green moong chilla", "sprouted moong chilla"]) {
+    assert.equal(detectDish(q)?.id, "whole-moong-chilla");
+    assert.ok(!ids(q).includes("whole-moong-batter"));
+    assert.ok(ids(q).includes("spinach-batter"));
+  }
 });

@@ -173,7 +173,7 @@ export const BOOSTS: Boost[] = [
     minAge: 2,
     allergens: [],
     note: "Strong flavor, so start small. Crush the seeds so they aren't whole.",
-    onlyDishes: ["roti", "stuffed-paratha", "batter", "moong-chilla"],
+    onlyDishes: ["roti", "stuffed-paratha", "batter", "moong-chilla", "whole-moong-chilla"],
     pickyTraits: ["strong"],
   },
   {
@@ -362,7 +362,7 @@ export const BOOSTS: Boost[] = [
     note: "Use fresh spinach and grind it fine. Cook the chilla a little longer on medium heat so it crisps.",
     blendsIn: true,
     hideIfRecipeHas: ["spinach"],
-    onlyDishes: ["moong-chilla", "batter"],
+    onlyDishes: ["moong-chilla", "whole-moong-chilla", "batter"],
     pickyTraits: ["green"],
   },
   {

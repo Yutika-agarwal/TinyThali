@@ -122,8 +122,17 @@ export const DISH_TYPES: DishType[] = [
     label: "Moong dal chilla",
     emoji: "🥞",
     chip: "Moong chilla",
-    keywords: ["moong chilla", "moong dal chilla", "moong cheela", "moong dal cheela", "mung chilla", "mung dal chilla", "green moong chilla"],
+    keywords: ["moong chilla", "moong dal chilla", "moong cheela", "moong dal cheela", "mung chilla", "mung dal chilla"],
     slots: ["soak", "batter", "side", "topping"],
+    when: "in the batter, or on top",
+  },
+  {
+    id: "whole-moong-chilla",
+    label: "Whole moong chilla",
+    emoji: "🥞",
+    chip: "Whole moong chilla",
+    keywords: ["whole moong chilla", "whole moong cheela", "sabut moong chilla", "green moong chilla", "green moong cheela", "sprouted moong chilla", "sprouts chilla"],
+    slots: ["batter", "side", "topping"],
     when: "in the batter, or on top",
   },
   {
