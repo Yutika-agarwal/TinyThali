@@ -7,7 +7,7 @@ export const SAFETY_NOTE =
   "Tiny Thali offers general ideas, not medical advice. Always check packaged ingredient labels, talk to your pediatrician about allergies or feeding concerns, and grind seeds for kids under 4.";
 
 const TABS = [
-  { to: "/", label: "Fridge", icon: "🥕", end: true },
+  { to: "/", label: "Ingredients", icon: "🥕", end: true },
   { to: "/boost", label: "Boost", icon: "✨", end: false },
   { to: "/community", label: "Community", icon: "💬", end: false },
   { to: "/saved", label: "Saved", icon: "❤️", end: false },

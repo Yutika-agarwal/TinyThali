@@ -26,7 +26,7 @@ export default function Login() {
         <p className="text-sm text-ink-soft">
           This copy of Tiny Thali runs in local-only mode, so everything stays on your device.
         </p>
-        <Link to="/" className={btn("secondary")}>Back to my fridge</Link>
+        <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
       </Card>
     );
   }
@@ -81,7 +81,7 @@ export default function Login() {
             ? `We sent a confirmation link to ${email.trim()}. Tap it, then come back and sign in. You need a confirmed email to share community tips.`
             : `We sent a sign-in link to ${email.trim()}. Tap it on this device to sign in.`}
         </p>
-        <Link to="/" className={btn("secondary")}>Back to my fridge</Link>
+        <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
       </Card>
     );
   }

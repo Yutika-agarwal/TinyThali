@@ -95,7 +95,7 @@ export const BOOSTS: Boost[] = [
     badges: ["Omega-3", "Fiber"],
     minAge: 1,
     allergens: [],
-    note: "Use ground flax, since whole seeds pass through undigested. Store it in the fridge.",
+    note: "Use ground flax, since whole seeds pass through undigested. Keep it in the fridge.",
     blendsIn: true,
     exclusiveGroup: "flax",
   },

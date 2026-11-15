@@ -7,7 +7,7 @@ import { cloudEnabled } from "../lib/supabase.ts";
 import { useAuth } from "../state/AuthState.tsx";
 import { useApp } from "../state/AppState.tsx";
 
-/** "More from your fridge": AI-written ideas, re-checked against the allergy list before they are shown. */
+/** "More ideas": AI-written ideas, re-checked against the allergy list before they are shown. */
 export default function AiIdeas() {
   const { fridge, activeKids } = useApp();
   const { user } = useAuth();
@@ -37,7 +37,7 @@ export default function AiIdeas() {
 
   return (
     <section className="space-y-3" aria-labelledby="ai-heading">
-      <h2 id="ai-heading" className="text-xl font-extrabold">✨ More from your fridge</h2>
+      <h2 id="ai-heading" className="text-xl font-extrabold">✨ More ideas</h2>
       {!user && <p className="text-sm text-ink-soft">Sign in to get fresh recipe ideas made from just your ingredients.</p>}
       {user && state === "loading" && <Card><p className="text-sm text-ink-soft">Creating recipes from your ingredients…</p></Card>}
       {user && state === "error" && <p className="text-sm text-ink-soft">Couldn't create ideas right now. The recipes above still work.</p>}

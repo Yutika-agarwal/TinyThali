@@ -38,7 +38,7 @@ export default function Fridge() {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-3xl font-extrabold leading-tight">What's in your fridge?</h1>
+      <h1 className="text-3xl font-extrabold leading-tight">What do you have?</h1>
 
       <KidSwitcher />
 

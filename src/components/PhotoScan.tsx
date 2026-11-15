@@ -9,7 +9,7 @@ import { useApp } from "../state/AppState.tsx";
 import { useAuth } from "../state/AuthState.tsx";
 import Glyph from "./Glyph.tsx";
 
-/** "Snap your fridge": take or pick a photo, confirm what we found, add it to the fridge. */
+/** "Snap your ingredients": take or pick a photo, confirm what we found, add it to the fridge. */
 export default function PhotoScan() {
   const { fridge, toggleFridge, activeKids } = useApp();
   const { user } = useAuth();
@@ -99,7 +99,7 @@ export default function PhotoScan() {
           <div className="flex gap-2">
             {found.length > 0 && (
               <button type="button" onClick={add} disabled={picked.length === 0} className={btn("primary", "flex-1")}>
-                Add {picked.length} to my fridge
+                Add {picked.length}
               </button>
             )}
             <button type="button" onClick={() => setState("idle")} className={btn("secondary")}>

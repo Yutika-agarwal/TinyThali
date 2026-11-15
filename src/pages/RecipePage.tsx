@@ -105,7 +105,7 @@ export default function RecipePage() {
     return (
       <Card className="text-center">
         <p className="font-bold">We couldn't find that recipe.</p>
-        <Link to="/" className={btn("secondary", "mt-4")}>Back to my fridge</Link>
+        <Link to="/" className={btn("secondary", "mt-4")}>Back to ingredients</Link>
       </Card>
     );
   }

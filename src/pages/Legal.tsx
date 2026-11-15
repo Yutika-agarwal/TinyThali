@@ -33,7 +33,7 @@ export function Privacy() {
         </p>
         <h2 className="text-lg font-extrabold">AI recipe ideas</h2>
         <p>
-          "More from your fridge" sends only a list of ingredient names to an AI service to write recipe ideas. No kid
+          "More ideas" sends only a list of ingredient names to an AI service to write recipe ideas. No kid
           details, no allergy information and no personal information are sent. Every idea is checked again on your
           device before it is shown.
         </p>

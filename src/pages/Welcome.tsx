@@ -20,7 +20,7 @@ export default function Welcome() {
         Same favorite food. <span className="text-beet">Stronger in every bite.</span>
       </h1>
       <p className="mt-3 text-ink-soft">
-        Tell us what's in your fridge and we'll suggest Indian home recipes your kids will eat, plus small,
+        Tell us what ingredients you have and we'll suggest Indian home recipes your kids will eat, plus small,
         kid-safe boosts that add nutrition.
       </p>
 

@@ -21,7 +21,7 @@ function NotFound() {
     <Card className="mt-8 space-y-3 text-center">
       <p className="text-4xl" aria-hidden>🍽️</p>
       <h1 className="text-xl font-extrabold">That page isn't on the menu</h1>
-      <Link to="/" className={btn("secondary")}>Back to my fridge</Link>
+      <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
     </Card>
   );
 }

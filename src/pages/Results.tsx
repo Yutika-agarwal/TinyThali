@@ -59,7 +59,7 @@ export default function Results() {
             Try adding a staple like atta, dal or paneer, or check your kid's allergies and diet in Profile.
           </p>
           <Link to="/" className={btn("secondary", "mt-4")}>
-            Back to my fridge
+            Back to ingredients
           </Link>
         </Card>
       )}

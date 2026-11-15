@@ -36,7 +36,7 @@ export default function Cook() {
       <div className="mx-auto min-h-dvh max-w-md p-4">
         <Card className="space-y-3 text-center">
           <p className="font-bold">This recipe isn't available for the selected kids.</p>
-          <Link to="/" className={btn("secondary")}>Back to my fridge</Link>
+          <Link to="/" className={btn("secondary")}>Back to ingredients</Link>
         </Card>
       </div>
     );
@@ -100,7 +100,7 @@ export default function Cook() {
             {saved ? "Saved ✓" : "Save to my recipes ❤️"}
           </button>
           <Link to="/saved" className={btn("ghost")}>See saved and history</Link>
-          <Link to="/" className={btn("primary")}>Back to my fridge</Link>
+          <Link to="/" className={btn("primary")}>Back to ingredients</Link>
         </div>
       </div>
     );
