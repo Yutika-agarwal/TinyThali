@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CATEGORY_LABELS, INGREDIENTS, INGREDIENT_BY_ID } from "../data/ingredients.ts";
-import PhotoScan from "../components/PhotoScan.tsx";
-import KidSwitcher from "../components/KidSwitcher.tsx";
-import { btn, Card, Chip, cx, PageTitle } from "../components/ui.tsx";
 import { RECIPE_BY_ID } from "../data/recipes.ts";
 import { WEEKLY } from "../data/weekly.ts";
+import Glyph from "../components/Glyph.tsx";
+import KidSwitcher from "../components/KidSwitcher.tsx";
+import PhotoScan from "../components/PhotoScan.tsx";
+import { btn, Chip, cx } from "../components/ui.tsx";
 import { checkRecipe, combinedAllergies, dietAllows } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
-import Glyph from "../components/Glyph.tsx";
 
 type Category = keyof typeof CATEGORY_LABELS;
 
@@ -19,143 +19,115 @@ export default function Fridge() {
   const [query, setQuery] = useState("");
 
   const allergies = combinedAllergies(activeKids);
+  const q = query.trim().toLowerCase();
+  const hits = q
+    ? INGREDIENTS.filter((i) => i.category !== "pantry" && i.name.toLowerCase().includes(q))
+    : null;
   const weekly = WEEKLY.recipeIds
     .map((id) => RECIPE_BY_ID[id])
     .filter((r) => r && checkRecipe(r, activeKids).status !== "blocked" && dietAllows(r, activeKids));
-  const q = query.trim().toLowerCase();
-  const visible = INGREDIENTS.filter((i) => i.category !== "pantry").filter((i) =>
-    q ? i.name.toLowerCase().includes(q) : i.category === category,
-  );
+
+  function ingredientChip(id: string) {
+    const i = INGREDIENT_BY_ID[id];
+    if (!i) return null;
+    const flagged = i.allergens.some((a) => allergies.includes(a));
+    return (
+      <Chip key={id} active={fridge.includes(id)} onClick={() => toggleFridge(id)}>
+        <Glyph kind="ing" id={id} emoji={i.emoji} /> {i.name}
+        {flagged && <span aria-label="on your allergy list"> ⚠️</span>}
+      </Chip>
+    );
+  }
 
   return (
     <div className="space-y-5">
-      <PageTitle title="What's in your fridge?" subtitle="Tap what you have. We'll find a recipe." />
+      <div>
+        <h1 className="text-3xl font-extrabold leading-tight">What's in your fridge?</h1>
+        <Link to="/boost" className="mt-1 inline-block min-h-8 text-sm font-extrabold text-beet">
+          Already cooking? Boost a dish →
+        </Link>
+      </div>
+
       <KidSwitcher />
 
-      <Link
-        to="/boost"
-        className="flex min-h-14 items-center justify-between rounded-3xl bg-spinach-soft px-4 py-3 ring-2 ring-spinach"
-      >
-        <span>
-          <span className="block text-lg font-extrabold">✨ Already cooking?</span>
-          <span className="block text-sm text-ink-soft">Tell us the dish. Get a quick boost.</span>
-        </span>
-        <span aria-hidden className="text-2xl">→</span>
-      </Link>
+      <div className="flex gap-2">
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search ingredients"
+          aria-label="Search ingredients"
+          className="min-h-12 min-w-0 flex-1 rounded-2xl bg-white px-4 ring-1 ring-black/10"
+        />
+        <PhotoScan />
+      </div>
 
-      <PhotoScan />
+      {hits ? (
+        <div className="flex flex-wrap gap-2">
+          {hits.length === 0 && <p className="text-sm text-ink-soft">Nothing matches "{query}".</p>}
+          {hits.map((i) => ingredientChip(i.id))}
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-2">{quickPicks.map(ingredientChip)}</div>
+          <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
+            <summary className="cursor-pointer font-extrabold">More ingredients</summary>
+            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1" role="tablist" aria-label="Ingredient categories">
+              {(Object.keys(CATEGORY_LABELS) as Category[]).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  role="tab"
+                  aria-selected={category === c}
+                  onClick={() => setCategory(c)}
+                  className={cx(
+                    "min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-extrabold",
+                    category === c ? "bg-turmeric text-ink" : "bg-black/5 text-ink-soft",
+                  )}
+                >
+                  {CATEGORY_LABELS[c]}
+                </button>
+              ))}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {INGREDIENTS.filter((i) => i.category === category).map((i) => ingredientChip(i.id))}
+            </div>
+          </details>
+        </>
+      )}
 
       {weekly.length > 0 && (
-        <section aria-label="This week's kid picks">
-          <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink-soft">
-            This week's kid picks · {WEEKLY.label}
-          </p>
-          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+        <details className="rounded-2xl bg-white p-3 ring-1 ring-black/10">
+          <summary className="cursor-pointer font-extrabold">This week's kid picks</summary>
+          <div className="mt-3 flex flex-wrap gap-2">
             {weekly.map((r) => (
               <Link
                 key={r.id}
                 to={`/recipe/${r.id}`}
-                className="min-h-11 shrink-0 rounded-2xl bg-white px-3 py-2 text-sm font-extrabold ring-1 ring-black/10"
+                className="min-h-11 rounded-full bg-white px-4 py-2.5 text-sm font-bold ring-1 ring-black/10"
               >
                 {r.emoji} {r.name}
               </Link>
             ))}
           </div>
-        </section>
+        </details>
       )}
 
-      <div>
-        <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-ink-soft">Quick picks</p>
-        <div className="flex flex-wrap gap-2">
-          {quickPicks.map((id) => {
-            const i = INGREDIENT_BY_ID[id];
-            if (!i) return null;
-            const flagged = i.allergens.some((a) => allergies.includes(a));
-            return (
-              <Chip key={id} active={fridge.includes(id)} onClick={() => toggleFridge(id)}>
-                <Glyph kind="ing" id={i.id} emoji={i.emoji} /> {i.name}
-                {flagged && <span aria-label="on your allergy list"> ⚠️</span>}
-              </Chip>
-            );
-          })}
-        </div>
-      </div>
-
-      <input
-        type="search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search ingredients"
-        aria-label="Search ingredients"
-        className="min-h-12 w-full rounded-2xl bg-white px-4 ring-1 ring-black/10"
-      />
-
-      {!q && (
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="tablist" aria-label="Ingredient categories">
-          {(Object.keys(CATEGORY_LABELS) as Category[]).map((c) => (
-            <button
-              key={c}
-              type="button"
-              role="tab"
-              aria-selected={category === c}
-              onClick={() => setCategory(c)}
-              className={cx(
-                "min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-extrabold",
-                category === c ? "bg-turmeric text-ink" : "bg-white text-ink-soft ring-1 ring-black/10",
-              )}
-            >
-              {CATEGORY_LABELS[c]}
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="flex flex-wrap gap-2">
-        {visible.length === 0 && <p className="text-sm text-ink-soft">Nothing matches "{query}".</p>}
-        {visible.map((i) => {
-          const flagged = i.allergens.some((a) => allergies.includes(a));
-          return (
-            <Chip key={i.id} active={fridge.includes(i.id)} onClick={() => toggleFridge(i.id)}>
-              <Glyph kind="ing" id={i.id} emoji={i.emoji} /> {i.name}
-              {flagged && <span title="On your allergy list" aria-label="on your allergy list"> ⚠️</span>}
-            </Chip>
-          );
-        })}
-      </div>
-
-      <Card>
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-lg font-extrabold">In my fridge ({fridge.length})</h2>
-          {fridge.length > 0 && (
-            <button type="button" onClick={clearFridge} className="text-sm font-bold text-beet underline">
-              Clear
-            </button>
-          )}
-        </div>
-        {fridge.length === 0 ? (
-          <p className="text-sm text-ink-soft">Tap ingredients above to add them.</p>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {fridge.map((id) => (
-              <Chip key={id} active onClick={() => toggleFridge(id)}>
-                <Glyph kind="ing" id={id} emoji={INGREDIENT_BY_ID[id]?.emoji ?? ""} /> {INGREDIENT_BY_ID[id]?.name} ✕
-              </Chip>
-            ))}
-          </div>
+      <div className="sticky bottom-20 z-[5] flex items-center gap-3 rounded-full bg-cream/90 p-2 backdrop-blur">
+        <button
+          type="button"
+          disabled={fridge.length === 0}
+          onClick={() => navigate("/results")}
+          className={btn("primary", "flex-1 text-lg")}
+        >
+          {fridge.length ? `Find recipes · ${fridge.length}` : "Pick what you have"}
+        </button>
+        {fridge.length > 0 && (
+          <button type="button" onClick={clearFridge} className="min-h-11 px-2 text-sm font-extrabold text-beet">
+            Clear
+          </button>
         )}
-        <p className="mt-3 text-xs text-ink-soft">
-          Salt, oil, spices, sugar and ghee are assumed. Dairy-free? Swap ghee for oil.
-        </p>
-      </Card>
-
-      <button
-        type="button"
-        disabled={fridge.length === 0}
-        onClick={() => navigate("/results")}
-        className={btn("primary", "w-full text-lg")}
-      >
-        Find recipes 🍛
-      </button>
+      </div>
     </div>
   );
 }

@@ -28,22 +28,28 @@ export default function KidSwitcher() {
     if (next.length > 0) setActiveKidIds(next);
   }
 
+  const names = activeKids.map((k) => k.nickname).join(", ");
+  const summary = `${names}${allergies.length > 0 ? ` · No ${allergies.map(allergenLabel).join(", ")}` : " · No allergies"}`;
+
   return (
-    <div className="space-y-2">
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm font-extrabold">Cooking for:</span>
-        {kids.map((k) => (
-          <Chip key={k.id} active={activeIds.includes(k.id)} onClick={() => toggle(k.id)}>
-            {k.nickname}
-          </Chip>
-        ))}
+    <details className="rounded-2xl bg-white px-3 py-2 ring-1 ring-black/10">
+      <summary className="flex min-h-9 cursor-pointer items-center justify-between gap-2 text-sm font-extrabold">
+        <span className="truncate">👶 {summary}</span>
+        <span className="text-beet">Change</span>
+      </summary>
+      <div className="mt-2 space-y-2 pb-1">
+        <div className="flex flex-wrap items-center gap-2">
+          {kids.map((k) => (
+            <Chip key={k.id} active={activeIds.includes(k.id)} onClick={() => toggle(k.id)}>
+              {k.nickname}
+            </Chip>
+          ))}
+        </div>
+        {activeKids.length > 1 && (
+          <p className="text-xs text-ink-soft">Using the youngest age and everyone's allergies.</p>
+        )}
+        <Link to="/profile" className="text-xs font-extrabold text-beet">Edit profiles</Link>
       </div>
-      <p className="text-xs text-ink-soft">
-        {allergies.length > 0
-          ? `Avoiding: ${allergies.map(allergenLabel).join(", ")}`
-          : "No allergies listed."}
-        {activeKids.length > 1 && " Using the youngest age and everyone's allergies."}
-      </p>
-    </div>
+    </details>
   );
 }

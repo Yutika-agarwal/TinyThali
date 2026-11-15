@@ -43,13 +43,16 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
-      <p className="mt-8 text-xs leading-relaxed text-ink-soft">{SAFETY_NOTE}</p>
-      <p className="mt-2 flex gap-3 text-xs font-bold text-beet">
-        <Link to="/support">Support</Link>
-        <Link to="/privacy">Privacy</Link>
-        <Link to="/terms">Terms and safety</Link>
-        <Link to="/guidelines">Guidelines</Link>
-      </p>
+      <details className="mt-8 text-xs text-ink-soft">
+        <summary className="cursor-pointer font-bold">Safety and info</summary>
+        <p className="mt-2 leading-relaxed">{SAFETY_NOTE}</p>
+        <p className="mt-2 flex flex-wrap gap-3 font-bold text-beet">
+          <Link to="/support">Support</Link>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms and safety</Link>
+          <Link to="/guidelines">Guidelines</Link>
+        </p>
+      </details>
 
       <nav
         aria-label="Main"

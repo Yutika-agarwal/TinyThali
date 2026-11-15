@@ -42,7 +42,7 @@ export default function PhotoScan() {
   }
 
   return (
-    <section aria-label="Scan ingredients from a photo" className="space-y-3">
+    <>
       <input
         ref={input}
         type="file"
@@ -56,18 +56,21 @@ export default function PhotoScan() {
         type="button"
         disabled={!user || state === "scanning"}
         onClick={() => input.current?.click()}
-        className={btn("secondary", "w-full text-lg")}
+        aria-label="Scan ingredients from a photo"
+        title={user ? "Scan a photo of your ingredients" : "Sign in to scan a photo. Your photo is not saved."}
+        className="grid min-h-12 w-14 shrink-0 place-items-center rounded-2xl bg-white text-2xl ring-1 ring-black/10 disabled:opacity-40"
       >
-        {state === "scanning" ? "Looking at your photo…" : "📸 Snap your fridge"}
+        {state === "scanning" ? "…" : "📸"}
       </button>
-      {!user && <p className="text-xs text-ink-soft">Sign in to scan a photo. Your photo is not saved.</p>}
 
       {state === "error" && (
-        <Notice tone="warn">Couldn't read that photo. Try better light, or tap ingredients below.</Notice>
+        <div className="fixed inset-x-0 bottom-24 z-20 mx-auto max-w-md px-4">
+          <Notice tone="warn">Couldn't read that photo. Try better light, or tap ingredients instead.</Notice>
+        </div>
       )}
 
       {state === "review" && (
-        <div className="space-y-3 rounded-3xl bg-white p-4 ring-1 ring-black/10">
+        <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-md space-y-3 rounded-t-3xl bg-white p-4 shadow-2xl ring-1 ring-black/10">
           {found.length === 0 ? (
             <p className="text-sm">We couldn't spot any ingredients. Try a closer photo, or tap them below.</p>
           ) : (
@@ -105,6 +108,6 @@ export default function PhotoScan() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }

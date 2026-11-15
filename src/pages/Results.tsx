@@ -2,18 +2,22 @@ import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
-import { AllergenChips, btn, Card, PageTitle } from "../components/ui.tsx";
+import { btn, Card, PageTitle } from "../components/ui.tsx";
 import { visibleBoosts } from "../lib/boosts.ts";
 import { matchRecipes } from "../lib/match.ts";
 import type { MatchResult } from "../lib/match.ts";
-import { recipeAllergens } from "../lib/safety.ts";
 import { useApp } from "../state/AppState.tsx";
 
 function RecipeCard({ result }: { result: MatchResult }) {
   const { activeKids } = useApp();
-  const { recipe, have, missing, ratio, safety } = result;
+  const { recipe, missing, safety } = result;
   const boostCount = visibleBoosts(recipe, activeKids).allowed.length;
-  const total = have.length + missing.length;
+  const note =
+    missing.length > 0
+      ? `Missing ${missing.map((id) => INGREDIENT_BY_ID[id]?.name).join(", ")}`
+      : safety.status === "swap"
+        ? "Ready · safe with a swap"
+        : "Ready to cook";
 
   return (
     <Link to={`/recipe/${recipe.id}`} className="block">
@@ -24,43 +28,11 @@ function RecipeCard({ result }: { result: MatchResult }) {
           </div>
           <div className="min-w-0 flex-1">
             <h3 className="text-lg font-extrabold leading-tight">{recipe.name}</h3>
-            <p className="text-sm text-ink-soft">{recipe.blurb}</p>
+            <p className={missing.length > 0 ? "text-sm text-ink-soft" : "text-sm font-bold text-spinach"}>{note}</p>
+            <p className="mt-0.5 text-xs text-ink-soft">
+              {recipe.minutes} min{boostCount > 0 ? ` · ✨ ${boostCount} boosts` : ""}
+            </p>
           </div>
-        </div>
-
-        <div className="mt-3">
-          <div className="mb-1 flex justify-between text-xs font-bold">
-            <span>
-              You have {have.length} of {total}
-            </span>
-            <span className="text-ink-soft">{recipe.minutes} min</span>
-          </div>
-          <div className="h-2 overflow-hidden rounded-full bg-black/10" role="progressbar" aria-valuenow={Math.round(ratio * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Ingredients you have">
-            <div className="h-full rounded-full bg-spinach" style={{ width: `${ratio * 100}%` }} />
-          </div>
-        </div>
-
-        {missing.length > 0 && (
-          <p className="mt-2 text-sm">
-            <span className="font-bold">Missing: </span>
-            {missing.map((id) => INGREDIENT_BY_ID[id]?.name).join(", ")}
-          </p>
-        )}
-
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          {boostCount > 0 && (
-            <span className="rounded-full bg-spinach-soft px-2.5 py-1 text-xs font-extrabold text-spinach">
-              ✨ {boostCount} boosts available
-            </span>
-          )}
-          {safety.status === "swap" && (
-            <span className="rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">
-              Safe with a swap
-            </span>
-          )}
-        </div>
-        <div className="mt-2">
-          <AllergenChips allergens={recipeAllergens(recipe)} />
         </div>
       </Card>
     </Link>

@@ -29,50 +29,46 @@ function BoostToggle({
   onToggle: () => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onToggle}
-      aria-pressed={on}
-      className={cx(
-        "w-full rounded-3xl p-4 text-left ring-2 transition active:scale-[0.99]",
-        on ? "bg-spinach-soft ring-spinach" : "bg-white ring-black/10",
-      )}
-    >
-      <div className="flex items-start gap-3">
-        <span className="text-2xl"><Glyph kind="boost" id={boost.id} emoji={boost.emoji} size="1.6em" /></span>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-2">
-            <h3 className="font-extrabold">{boost.name}</h3>
-            <span
-              className={cx(
-                "shrink-0 rounded-full px-3 py-1 text-xs font-extrabold",
-                on ? "bg-spinach text-white" : "bg-black/5 text-ink-soft",
-              )}
-            >
-              {on ? "On" : "Off"}
-            </span>
-          </div>
-          <p className="text-sm">
-            Add <strong>{boost.add}</strong>: {boost.amount}
-          </p>
-          <p className="mt-1 text-sm text-ink-soft">{boost.why}</p>
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-            {boost.badges.length > 0 && <NutrientBadges badges={boost.badges} />}
-            {picky && boost.blendsIn && (
-              <span className="rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">
-                Blends in easily
-              </span>
+    <div className={cx("rounded-2xl ring-2 transition", on ? "bg-spinach-soft ring-spinach" : "bg-white ring-black/10")}>
+      <div className="flex items-center gap-3 p-3">
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-pressed={on}
+          className="flex min-h-12 min-w-0 flex-1 items-center gap-3 text-left active:scale-[0.99]"
+        >
+          <span className="text-2xl"><Glyph kind="boost" id={boost.id} emoji={boost.emoji} size="1.6em" /></span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-extrabold leading-tight">{boost.name}</span>
+            <span className="block truncate text-sm text-ink-soft">{boost.amount}</span>
+          </span>
+          <span
+            className={cx(
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-extrabold",
+              on ? "bg-spinach text-white" : "bg-turmeric text-ink",
             )}
-          </div>
-          {boost.allergens.length > 0 && (
-            <div className="mt-2">
-              <AllergenChips allergens={boost.allergens} />
-            </div>
-          )}
-          <p className="mt-2 text-xs text-ink-soft">{boost.note}</p>
-        </div>
+          >
+            {on ? "On ✓" : "Add"}
+          </span>
+        </button>
       </div>
-    </button>
+      <details className="px-3 pb-2 text-sm">
+        <summary className="min-h-8 cursor-pointer text-xs font-extrabold text-ink-soft">ⓘ Why this helps</summary>
+        <p className="mt-1 text-ink-soft">{boost.why}</p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {boost.badges.length > 0 && <NutrientBadges badges={boost.badges} />}
+          {picky && boost.blendsIn && (
+            <span className="rounded-full bg-turmeric-soft px-2.5 py-1 text-xs font-extrabold">Blends in easily</span>
+          )}
+        </div>
+        {boost.allergens.length > 0 && (
+          <div className="mt-2">
+            <AllergenChips allergens={boost.allergens} />
+          </div>
+        )}
+        <p className="mt-2 text-xs text-ink-soft">{boost.note}</p>
+      </details>
+    </div>
   );
 }
 
@@ -113,6 +109,7 @@ export default function RecipePage() {
   const session = useRecipeSession();
   const { activeKids, saveRecipe } = useApp();
   const [justSaved, setJustSaved] = useState(false);
+  const [showAllBoosts, setShowAllBoosts] = useState(false);
 
   if (!session) {
     return (
@@ -140,6 +137,9 @@ export default function RecipePage() {
     );
   }
 
+  const shownBoosts = showAllBoosts
+    ? options.allowed
+    : options.allowed.filter((b, i) => i < 3 || boostIds.includes(b.id));
   const picky = activeKids.some((k) => k.picky);
   const allergies = combinedAllergies(activeKids);
   const lines = displayIngredients(recipe, safety.swaps);
@@ -157,13 +157,17 @@ export default function RecipePage() {
       <Link to="/results" className="text-sm font-bold text-beet">← Recipes</Link>
 
       <header>
-        <p className="text-5xl" aria-hidden>{recipe.emoji}</p>
-        <h1 className="mt-1 text-3xl font-extrabold leading-tight">{recipe.name}</h1>
+        <h1 className="text-3xl font-extrabold leading-tight">
+          <span aria-hidden>{recipe.emoji}</span> {recipe.name}
+        </h1>
         <p className="text-ink-soft">{recipe.blurb}</p>
         <p className="mt-1 text-sm font-bold">{recipe.minutes} minutes</p>
-        <div className="mt-2">
-          <AllergenChips allergens={recipeAllergens(recipe)} />
-        </div>
+        {recipeAllergens(recipe).length > 0 && (
+          <details className="mt-1 text-sm">
+            <summary className="min-h-8 cursor-pointer text-xs font-extrabold text-ink-soft">Contains…</summary>
+            <div className="mt-1"><AllergenChips allergens={recipeAllergens(recipe)} /></div>
+          </details>
+        )}
       </header>
 
       {safety.swaps.length > 0 && (
@@ -183,7 +187,7 @@ export default function RecipePage() {
       )}
 
       <section aria-labelledby="boost-heading" className="space-y-3">
-        <h2 id="boost-heading" className="text-2xl font-extrabold">Make it stronger ✨</h2>
+        <h2 id="boost-heading" className="text-xl font-extrabold">Make it stronger ✨</h2>
         {options.allowed.length > 0 && (
           <div className="flex gap-2">
             <button
@@ -203,7 +207,7 @@ export default function RecipePage() {
         {options.allowed.length === 0 && (
           <p className="text-sm text-ink-soft">No boosts are suggested for this recipe and these kids.</p>
         )}
-        {options.allowed.map((b) => (
+        {shownBoosts.map((b) => (
           <BoostToggle
             key={b.id}
             boost={b}
@@ -212,6 +216,16 @@ export default function RecipePage() {
             onToggle={() => session.toggleBoostId(b.id)}
           />
         ))}
+
+        {options.allowed.length > shownBoosts.length && (
+          <button
+            type="button"
+            onClick={() => setShowAllBoosts(true)}
+            className="min-h-11 w-full text-sm font-extrabold text-beet"
+          >
+            Show {options.allowed.length - shownBoosts.length} more boosts
+          </button>
+        )}
 
         {allowedPosts.length > 0 && (
           <>
@@ -242,20 +256,13 @@ export default function RecipePage() {
       </section>
 
       <Card>
-        <h2 className="mb-2 text-lg font-extrabold">Nutrition, before and after</h2>
-        <p className="mb-1 text-xs font-bold text-ink-soft">Before</p>
-        {badges.before.length > 0 ? (
-          <NutrientBadges badges={badges.before} />
-        ) : (
-          <p className="text-sm text-ink-soft">Mostly energy. Boosts add the extras.</p>
-        )}
-        <p className="mb-1 mt-3 text-xs font-bold text-ink-soft">After your boosts</p>
+        <h2 className="mb-2 text-base font-extrabold">With your boosts</h2>
         {badges.after.length > 0 ? (
           <NutrientBadges badges={badges.after} highlight={badges.added} />
         ) : (
-          <p className="text-sm text-ink-soft">Switch on a boost above to see it change.</p>
+          <p className="text-sm text-ink-soft">Turn on a boost to see what it adds.</p>
         )}
-        <p className="mt-3 text-xs text-ink-soft">Estimates only. Not medical advice.</p>
+        <p className="mt-2 text-xs text-ink-soft">Estimates only. Not medical advice.</p>
       </Card>
 
       <section aria-labelledby="ing-heading">
