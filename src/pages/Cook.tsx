@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { track } from "../lib/usage.ts";
 import { listen, speechSupported, stepCommand } from "../lib/voice.ts";
 import { Link } from "react-router-dom";
 import { btn, Card, cx, Notice } from "../components/ui.tsx";
@@ -87,6 +88,7 @@ export default function Cook() {
     if (reaction) return;
     setReaction(r);
     addHistory({ recipeId: recipe.id, boostIds, postIds, reaction: r });
+    track("recipe_cooked");
   }
 
   if (finished) {

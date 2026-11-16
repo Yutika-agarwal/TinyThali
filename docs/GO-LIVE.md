@@ -42,3 +42,5 @@ Never paste the key into chat or into the code.
 
 ## Growing the menu from what parents cook
 "Boost what you're cooking" saves each dish name a parent types (text only, no account or kid data) in the `dish_requests` table (`supabase/migrations/0004_dish_requests.sql`). Once a week, run the query at the bottom of that file in the Supabase SQL editor to see the most-requested dishes we don't cover yet, then add recipes or dish keywords for them. The privacy page already says this.
+
+**Anonymous counts.** `supabase/migrations/0005_usage_counts.sql` adds a daily counter (recipes cooked, boosts applied, saved, voice and photo use, sponsor taps). No id, text or kid data. Run it once in the SQL editor, then read it with the query at the bottom of that file.

@@ -1,3 +1,4 @@
+import { track } from "../lib/usage.ts";
 import { useRef, useState } from "react";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
 import { btn, Chip, Notice } from "./ui.tsx";
@@ -38,6 +39,7 @@ export default function PhotoScan() {
 
   function add() {
     picked.forEach((id) => !fridge.includes(id) && toggleFridge(id));
+    track("photo_used");
     setState("idle");
   }
 

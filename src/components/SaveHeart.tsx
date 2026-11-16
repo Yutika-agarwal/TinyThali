@@ -1,3 +1,4 @@
+import { track } from "../lib/usage.ts";
 import { useApp } from "../state/AppState.tsx";
 import { cx } from "./ui.tsx";
 
@@ -22,7 +23,10 @@ export default function SaveHeart({
         e.preventDefault();
         e.stopPropagation();
         if (entry) removeSaved(entry.id);
-        else saveRecipe(recipeId, boostIds, postIds);
+        else {
+          saveRecipe(recipeId, boostIds, postIds);
+          track("recipe_saved");
+        }
       }}
       aria-pressed={!!entry}
       aria-label={entry ? "Remove from saved" : "Save recipe"}

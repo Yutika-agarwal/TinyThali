@@ -22,6 +22,18 @@ if (!run()) {
 }
 console.log("ok: tests pass");
 
+// The app's counted events must match the database whitelist exactly.
+const sql = readFileSync("supabase/migrations/0005_usage_counts.sql", "utf8");
+const ts = readFileSync("src/lib/usage.ts", "utf8");
+const names = (text) => [...text.matchAll(/["']([a-z_]+)["']/g)].map((m) => m[1]).sort().join(",");
+const inSql = names(sql.match(/p_event in \(([^)]*)\)/)[1]);
+const inTs = names(ts.match(/USAGE_EVENTS = \[([^\]]*)\]/)[1]);
+if (inSql !== inTs) {
+  console.log(`FAIL: usage events differ.\n sql: ${inSql}\n app: ${inTs}`);
+  process.exit(1);
+}
+console.log("ok: usage events match the database");
+
 try {
   for (const [name, from, to] of MUTANTS) {
     if (!original.includes(from)) {

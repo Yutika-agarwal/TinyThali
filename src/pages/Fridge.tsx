@@ -5,6 +5,7 @@ import { RECIPES } from "../data/recipes.ts";
 import { byTaste, lastReactions } from "../lib/taste.ts";
 import Glyph from "../components/Glyph.tsx";
 import KidSwitcher from "../components/KidSwitcher.tsx";
+import { track } from "../lib/usage.ts";
 import MicButton from "../components/MicButton.tsx";
 import { parseIngredients } from "../lib/voice.ts";
 import PhotoScan from "../components/PhotoScan.tsx";
@@ -20,6 +21,7 @@ export default function Fridge() {
 
   function onSpoken(text: string) {
     const ids = parseIngredients(text);
+    track("voice_used");
     ids.filter((id) => !fridge.includes(id)).forEach(toggleFridge);
     setHeard(
       ids.length > 0

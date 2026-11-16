@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { track } from "../lib/usage.ts";
 import { scaleQty } from "../lib/scale.ts";
 import { textureNote } from "../lib/texture.ts";
 import { INGREDIENTS } from "../data/ingredients.ts";
@@ -254,7 +255,10 @@ export default function RecipePage() {
         {options.allowed.length > 0 && (
           <button
             type="button"
-            onClick={() => session.setBoostIds(boostIds.length > 0 ? [] : autoBoosts(recipe, activeKids))}
+            onClick={() => {
+              if (boostIds.length === 0) track("boost_applied");
+              session.setBoostIds(boostIds.length > 0 ? [] : autoBoosts(recipe, activeKids));
+            }}
             className={btn(boostIds.length > 0 ? "secondary" : "primary", "w-full")}
           >
             {boostIds.length > 0 ? "Clear boosts" : "✨ Boost it for me"}

@@ -1,3 +1,4 @@
+import { track } from "../lib/usage.ts";
 import { useEffect, useState } from "react";
 import { DEMO_OFFERS } from "../data/sponsors.ts";
 import { fetchOffers } from "../lib/cloud.ts";
@@ -36,6 +37,7 @@ export default function SponsoredNote({ ingredientIds }: { ingredientIds: string
   return (
     <a
       href={offer.url}
+      onClick={() => track("sponsor_tapped")}
       target="_blank"
       rel="sponsored noopener noreferrer"
       className="mt-2 flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-white px-3 py-2 text-sm ring-1 ring-black/10"

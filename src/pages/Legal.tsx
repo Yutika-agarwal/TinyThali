@@ -42,6 +42,11 @@ export function Privacy() {
           When you scan a photo of your ingredients, the photo is shrunk on your device, sent to an AI service to spot
           the food, and not saved by us. Please avoid photos that show people, faces or personal documents.
         </p>
+        <h2 className="text-lg font-semibold">Anonymous counts</h2>
+        <p>
+          We add one to a daily total when something is used, such as "a recipe was cooked" or "a boost was applied".
+          There is no account, device id, text or kid detail in it, so it can't be traced to you or your child.
+        </p>
         <h2 className="text-lg font-semibold">Voice</h2>
         <p>
           The mic uses your browser's built-in speech recognition. Depending on your browser (Chrome and Edge send
