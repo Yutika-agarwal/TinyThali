@@ -1,3 +1,4 @@
+import { FEATURES } from "../config/features.ts";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BOOST_BY_ID } from "../data/boosts.ts";
@@ -122,9 +123,9 @@ export default function Saved() {
         </div>
       )}
 
-      {!enabled && <Notice>Saved recipes and history are stored on this device only.</Notice>}
-      {enabled && user && <Notice tone="good">Synced to your account, so they follow you to any device.</Notice>}
-      {enabled && !user && (
+      {(!FEATURES.accounts || !enabled) && <Notice>Saved recipes and history are stored on this device only.</Notice>}
+      {FEATURES.accounts && enabled && user && <Notice tone="good">Synced to your account, so they follow you to any device.</Notice>}
+      {FEATURES.accounts && enabled && !user && (
         <Notice>
           Stored on this device only.{" "}
           <Link to="/login" className="font-semibold text-spinach underline">Sign in</Link> to keep them on every device.

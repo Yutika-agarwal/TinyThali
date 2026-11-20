@@ -21,6 +21,7 @@ import { useApp } from "../state/AppState.tsx";
 import type { Boost, CommunityPost } from "../types.ts";
 import SaveHeart from "../components/SaveHeart.tsx";
 import Glyph from "../components/Glyph.tsx";
+import { FEATURES } from "../config/features.ts";
 import SponsoredNote from "../components/SponsoredNote.tsx";
 
 function BoostToggle({
@@ -248,7 +249,7 @@ export default function RecipePage() {
             {copied ? "Copied ✓" : `Copy shopping list (${need.length})`}
           </button>
         )}
-        <SponsoredNote ingredientIds={lines.map((l) => l.id)} />
+        {FEATURES.sponsors && <SponsoredNote ingredientIds={lines.map((l) => l.id)} />}
       </section>
 
       <section aria-label="Boosts" className="space-y-3">

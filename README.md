@@ -1,3 +1,5 @@
+> **MVP branch:** this branch ships only the core loop with no backend. See `docs/MVP.md`. Full feature set is on `main`.
+
 # Tiny Thali 🍛
 
 **Same favorite food. Stronger in every bite.**

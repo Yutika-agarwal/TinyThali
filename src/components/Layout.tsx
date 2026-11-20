@@ -1,3 +1,4 @@
+import { FEATURES } from "../config/features.ts";
 import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
 import { useApp } from "../state/AppState.tsx";
 import { useAuth } from "../state/AuthState.tsx";
@@ -33,7 +34,7 @@ export default function Layout() {
     <div className="mx-auto min-h-dvh max-w-md px-4 pb-32 pt-4">
       <div className="mb-4 flex items-center justify-between">
         <Wordmark />
-        {enabled && !loading && !user && (
+        {FEATURES.accounts && enabled && !loading && !user && (
           <Link to="/login" className="min-h-11 rounded-full px-4 py-2.5 text-sm font-semibold text-spinach ring-1 ring-spinach">
             Sign in
           </Link>
@@ -46,10 +47,10 @@ export default function Layout() {
         <summary className="cursor-pointer font-semibold">Safety and info</summary>
         <p className="mt-2 leading-relaxed">{SAFETY_NOTE}</p>
         <p className="mt-2 flex flex-wrap gap-3 font-semibold text-spinach">
-          <Link to="/support">Support</Link>
+          {FEATURES.support && <Link to="/support">Support</Link>}
           <Link to="/privacy">Privacy</Link>
           <Link to="/terms">Terms and safety</Link>
-          <Link to="/guidelines">Guidelines</Link>
+          {FEATURES.community && <Link to="/guidelines">Guidelines</Link>}
         </p>
       </details>
 

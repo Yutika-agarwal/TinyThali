@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { INGREDIENT_BY_ID } from "../data/ingredients.ts";
+import { FEATURES } from "../config/features.ts";
 import AiIdeas from "../components/AiIdeas.tsx";
 import SaveHeart from "../components/SaveHeart.tsx";
 import { btn, Card, Chip, PageTitle } from "../components/ui.tsx";
@@ -102,7 +103,7 @@ export default function Results() {
         </button>
       )}
 
-      <AiIdeas />
+      {FEATURES.ai && <AiIdeas />}
     </div>
   );
 }

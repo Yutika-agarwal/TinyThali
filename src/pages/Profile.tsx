@@ -1,3 +1,4 @@
+import { FEATURES } from "../config/features.ts";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import KidForm from "../components/KidForm.tsx";
@@ -87,11 +88,11 @@ export default function Profile() {
       </section>
 
       <Card className="space-y-2">
-        {enabled && loading && <p className="text-sm text-ink-soft">Checking your sign-in…</p>}
-        {enabled && !loading && !user && (
+        {FEATURES.accounts && enabled && loading && <p className="text-sm text-ink-soft">Checking your sign-in…</p>}
+        {FEATURES.accounts && enabled && !loading && !user && (
           <Link to="/login" className={btn("primary", "w-full")}>Sign in to save everywhere</Link>
         )}
-        {enabled && user && (
+        {FEATURES.accounts && enabled && user && (
           <>
             <p className="text-sm">Signed in as <strong>{user.email}</strong></p>
             {!user.confirmed && <Notice tone="warn">Please confirm your email to share community tips.</Notice>}
@@ -108,9 +109,9 @@ export default function Profile() {
             {isAdmin && <Link to="/admin" className={btn("secondary", "w-full")}>Open moderation</Link>}
           </>
         )}
-        <Link to="/community" className={btn("secondary", "w-full")}>💬 Tips from other parents</Link>
-        <Link to="/support" className={btn("secondary", "w-full")}>💛 Support Tiny Thali</Link>
-        {enabled && user && (
+        {FEATURES.community && <Link to="/community" className={btn("secondary", "w-full")}>💬 Tips from other parents</Link>}
+        {FEATURES.support && <Link to="/support" className={btn("secondary", "w-full")}>💛 Support Tiny Thali</Link>}
+        {FEATURES.accounts && enabled && user && (
           <button type="button" onClick={() => void signOut()} className={btn("ghost", "w-full")}>Sign out</button>
         )}
       </Card>

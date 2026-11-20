@@ -8,6 +8,7 @@ import KidSwitcher from "../components/KidSwitcher.tsx";
 import { track } from "../lib/usage.ts";
 import MicButton from "../components/MicButton.tsx";
 import { parseIngredients } from "../lib/voice.ts";
+import { FEATURES } from "../config/features.ts";
 import PhotoScan from "../components/PhotoScan.tsx";
 import { btn, Chip } from "../components/ui.tsx";
 import { checkRecipe, combinedAllergies, dietAllows, otherAllergyHit } from "../lib/safety.ts";
@@ -74,7 +75,7 @@ export default function Fridge() {
           className="min-h-12 min-w-0 flex-1 rounded-2xl bg-white px-4 ring-1 ring-black/10"
         />
         <MicButton label="Say what you have" onText={onSpoken} onProblem={setHeard} />
-        <PhotoScan />
+        {FEATURES.ai && <PhotoScan />}
       </div>
 
       {heard && <p role="status" className="text-sm font-semibold text-spinach">{heard}</p>}

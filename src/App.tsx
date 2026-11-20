@@ -1,3 +1,4 @@
+import { FEATURES } from "./config/features.ts";
 import { Link, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout.tsx";
 import { btn, Card } from "./components/ui.tsx";
@@ -36,16 +37,16 @@ export default function App() {
         <Route path="boost" element={<BoostMyDish />} />
         <Route path="results" element={<Results />} />
         <Route path="recipe/:id" element={<RecipePage />} />
-        <Route path="community" element={<Community />} />
-        <Route path="community/share" element={<ShareBoost />} />
+        {FEATURES.community && <Route path="community" element={<Community />} />}
+        {FEATURES.community && <Route path="community/share" element={<ShareBoost />} />}
         <Route path="saved" element={<Saved />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="login" element={<Login />} />
-        <Route path="support" element={<Support />} />
+        {FEATURES.accounts && <Route path="login" element={<Login />} />}
+        {FEATURES.support && <Route path="support" element={<Support />} />}
         <Route path="privacy" element={<Privacy />} />
         <Route path="terms" element={<Terms />} />
-        <Route path="guidelines" element={<Guidelines />} />
-        <Route path="admin" element={<Admin />} />
+        {FEATURES.community && <Route path="guidelines" element={<Guidelines />} />}
+        {FEATURES.community && <Route path="admin" element={<Admin />} />}
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
