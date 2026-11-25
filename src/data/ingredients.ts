@@ -74,6 +74,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "chili", name: "Chili powder", emoji: "🌶️", category: "pantry", allergens: [] },
   { id: "ghee", name: "Ghee", emoji: "🧈", category: "pantry", allergens: ["dairy"] },
   { id: "sugar", name: "Sugar", emoji: "🍬", category: "pantry", allergens: [] },
+  { id: "soy_sauce", name: "Soy sauce", emoji: "🫙", category: "pantry", allergens: ["soy", "gluten"] },
   { id: "cardamom", name: "Cardamom", emoji: "🌰", category: "pantry", allergens: [] },
 ];
 

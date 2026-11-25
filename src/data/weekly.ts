@@ -1,16 +1,20 @@
 /**
- * "This week" kid-friendly picks, inspired by a weekly kids menu from a local Indian tiffin service.
+ * "This week" kid-friendly picks, inspired by a weekly kids menu (this month: a local school's November menu).
  * Only dish ideas are used; every recipe here is written in our own words. Update each week.
  */
 export const WEEKLY = {
-  label: "Week of Nov 16",
+  label: "Week of Nov 23",
   recipeIds: [
-    "paneer-uttapam",
-    "paneer-meatball-spaghetti",
-    "spinach-cheese-mini-paratha",
+    "teriyaki-tofu-rice",
+    "baked-tofu-quinoa-pulao",
+    "bean-chili-stew",
+    "grilled-cheese-tomato-soup",
+    "tofu-lasagna-soup",
+    "buttery-bean-pasta",
+    "mini-pizza-toast",
     "veg-quesadilla",
-    "veggie-slider",
-    "edamame-paneer-paratha",
-    "peas-aloo-mini-paratha",
+    "hummus",
+    "veggie-cream-cheese-pinwheel",
+    "white-sauce-pasta",
   ],
 };
