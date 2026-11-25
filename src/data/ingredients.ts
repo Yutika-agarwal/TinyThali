@@ -28,6 +28,11 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "capsicum", name: "Capsicum (bell pepper)", emoji: "🫑", category: "veg", allergens: [] },
   { id: "cauliflower", name: "Cauliflower", emoji: "🥦", category: "veg", allergens: [] },
   { id: "cucumber", name: "Cucumber", emoji: "🥒", category: "veg", allergens: [] },
+  { id: "mushroom", name: "Mushrooms", emoji: "🍄", category: "veg", allergens: [] },
+  { id: "pumpkin", name: "Pumpkin", emoji: "🎃", category: "veg", allergens: [] },
+  { id: "banana", name: "Banana", emoji: "🍌", category: "veg", allergens: [] },
+  { id: "apple", name: "Apple", emoji: "🍎", category: "veg", allergens: [] },
+  { id: "seaweed", name: "Seaweed (nori)", emoji: "🌊", category: "veg", allergens: [] },
 
   // Dairy and protein
   { id: "paneer", name: "Paneer", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
@@ -44,6 +49,7 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "tahini", name: "Tahini (sesame paste)", emoji: "🫙", category: "dairy_protein", allergens: ["sesame"] },
   { id: "pumpkin_seeds", name: "Pumpkin seeds (pepitas)", emoji: "🎃", category: "dairy_protein", allergens: [] },
   { id: "makhana", name: "Makhana (fox nuts)", emoji: "⚪", category: "dairy_protein", allergens: [] },
+  { id: "mascarpone", name: "Mascarpone", emoji: "🧀", category: "dairy_protein", allergens: ["dairy"] },
 
   // Grains and flours
   { id: "atta", name: "Atta (whole wheat flour)", emoji: "🌾", category: "grains", allergens: ["gluten"] },
@@ -58,6 +64,9 @@ export const INGREDIENTS: Ingredient[] = [
   { id: "noodles", name: "Noodles", emoji: "🍜", category: "grains", allergens: ["gluten"] },
   { id: "pasta", name: "Pasta", emoji: "🍝", category: "grains", allergens: ["gluten"] },
   { id: "quinoa", name: "Quinoa", emoji: "🌾", category: "grains", allergens: [] },
+  { id: "couscous", name: "Couscous", emoji: "🌾", category: "grains", allergens: ["gluten"] },
+  { id: "oats", name: "Oats", emoji: "🌾", category: "grains", allergens: ["gluten"] },
+  { id: "cornmeal", name: "Cornmeal", emoji: "🌽", category: "grains", allergens: [] },
 
   // Lentils
   { id: "moong", name: "Moong dal", emoji: "🟡", category: "lentils", allergens: [] },
