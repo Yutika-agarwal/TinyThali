@@ -418,3 +418,59 @@ export async function logDishRequest(dish: string, matched: boolean): Promise<vo
   if (!supabase) return;
   await supabase.from("dish_requests").insert({ dish, matched });
 }
+
+// ---------------------------------------------------------------------------
+// Recipe library: approved recipes join the menu; admins review drafts
+// ---------------------------------------------------------------------------
+
+export interface LibraryRow {
+  id: string;
+  name: string;
+  requestedDish: string | null;
+  source: string;
+  data: unknown;
+}
+
+export async function fetchApprovedLibrary(): Promise<unknown[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase.from("library_recipes").select("data").eq("status", "approved");
+  check(error);
+  return (data ?? []).map((r) => (r as { data: unknown }).data);
+}
+
+export async function fetchPendingLibrary(): Promise<LibraryRow[]> {
+  const { data, error } = await db()
+    .from("library_recipes")
+    .select("id,name,requested_dish,source,data")
+    .eq("status", "pending")
+    .order("created_at", { ascending: true });
+  check(error);
+  return (data ?? []).map((r) => {
+    const x = r as { id: string; name: string; requested_dish: string | null; source: string; data: unknown };
+    return { id: x.id, name: x.name, requestedDish: x.requested_dish, source: x.source, data: x.data };
+  });
+}
+
+export async function reviewLibraryRecipe(id: string, status: "approved" | "rejected", reason?: string): Promise<void> {
+  const { error } = await db()
+    .from("library_recipes")
+    .update({ status, reject_reason: status === "rejected" ? (reason ?? null) : null, reviewed_at: new Date().toISOString() })
+    .eq("id", id);
+  check(error);
+}
+
+export interface RequestedDish {
+  dish: string;
+  asked: number;
+}
+
+export async function fetchRequestedDishes(): Promise<RequestedDish[]> {
+  const { data, error } = await db()
+    .from("dish_request_counts")
+    .select("dish,asked,matched_count")
+    .eq("matched_count", 0)
+    .order("asked", { ascending: false })
+    .limit(15);
+  check(error);
+  return (data ?? []).map((r) => ({ dish: (r as { dish: string }).dish, asked: (r as { asked: number }).asked }));
+}
